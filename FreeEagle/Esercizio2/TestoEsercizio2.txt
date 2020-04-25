@@ -1,0 +1,6 @@
+ESERCIZIO 
+
+Scrivere una funzione contatore_parole_file() che prende un file name in input e ritorna un dizionario contenente i contatori per ciascuna parola. 
+PS: rimuovere tutte le punteggiature, tutto in minuscolo
+
+contatore_parole_file('sonetto.txt') => { 'la': 4, 'nebbia': 2, ... }
