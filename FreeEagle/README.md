@@ -1,1 +1,0 @@
-Esercizi di Pasquale
