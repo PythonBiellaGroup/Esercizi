@@ -22,9 +22,9 @@ Elenco degli esercizi proposti e svolti, all'interno di ogni cartella per ogni e
 
 ## Esercizio 2
 
-Scrivere una funzione contatore_parole_file() che prende un file name in input e ritorna un dizionario contenente i contatori per ciascuna parola. 
+Scrivere una funzione *contatore_parole_file()* che prende un file name in input e ritorna un dizionario contenente i contatori per ciascuna parola. 
 
-All'interno della cartella dell'esercizio sono presenti dei file di test che potete copiare e usare come test per il vostro programma.
+All'interno della cartella dell'esercizio sono presenti dei file di test (nella cartella _FileTest) che potete copiare e usare come test per il vostro programma.
 
 **Punti di attenzione**
 
