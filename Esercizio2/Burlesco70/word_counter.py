@@ -1,11 +1,27 @@
-import re
-import argparse
-import sys
+import re # To do text cleaning
+import sys # To check Python version
+import argparse # To manage args
+import chardet # To guess encoding
+# To create world cloud image
+from wordcloud import WordCloud
+import numpy as np
+from PIL import Image
 
 if not (sys.version_info.major == 3 and sys.version_info.minor >= 6):
     # WARNING: Python 3.6 or higher is required to have ordered dictionaries
     from operator import itemgetter
     from collections import OrderedDict
+
+def make_image(freq_dict, mask_file = 'famiglia.png', word_cloud_file = 'word_counter.png'):
+    """WorldCloud image creator"""
+    image_mask = np.array(Image.open(mask_file))
+    wc = WordCloud(background_color="white", max_words=1000, 
+                   mask=image_mask, contour_width=3, contour_color='firebrick')
+    # generate word cloud
+    wc.generate_from_frequencies(freq_dict)
+    # write image file
+    print("Wordcloud file: ", word_cloud_file)
+    wc.to_file(word_cloud_file)
 
 class WordFileCounter():
     """
@@ -29,11 +45,6 @@ class WordFileCounter():
             word = w.lower().strip()
             # Manage in a single line both cases (present / not present)
             dictionary[word] = dictionary.get(word, 0)+1
-            # v. 1.0 - Managed in more lines
-            #if word in dictionary.keys():
-            #    dictionary[word] += 1
-            #else:
-            #    dictionary[word] = 1
         # Remove not standard/unwanted keys
         if '' in dictionary.keys():
             del dictionary['']
@@ -52,14 +63,21 @@ class WordFileCounter():
             return dictionary
 
     def __file_reader(self):
-        with open(self.file_name) as f: 
+        # Guess file encoding with chardet
+        with open(self.file_name, "rb") as rawdata:
+            rawtext = rawdata.read()
+        enco = chardet.detect(rawtext)['encoding']
+        # Open with guessed encoding
+        with open(self.file_name, encoding = enco) as f: 
             data = f.read()
         return data
     
     def word_file_count(self):
         text = self.__file_reader()
         text = self.__clean(text)
-        return self.__word_count(text)
+        dict_result = self.__word_count(text)        
+        make_image(dict_result)
+        return dict_result
 
 def main():
     # Example of use of argparse 
@@ -72,7 +90,7 @@ def main():
         wfc = WordFileCounter(args.file_name)
     else:
         wfc = WordFileCounter(args.file_name, True)
-    print(wfc.word_file_count())
+    print("Dictionary with word frequencies: ", wfc.word_file_count())
 
 if __name__ == "__main__":
     main()
