@@ -1,0 +1,3 @@
+# Ignora i seguenti files o cartelle:
+
+.ipynb_checkpoints/
