@@ -31,9 +31,8 @@ def read_yaml(file_path, filename=''):
 
     try:
         with open(file_path) as file:
-
             data = yaml.load(file, Loader=yaml.FullLoader)
-            file.close()
+
         print(f"File succesfully readed")
         return data
 
@@ -55,7 +54,7 @@ def write_dataset_yaml(to_path='', filename='', dataset=None):
     try:
         with open(file_path, 'w') as file:
             documents = yaml.dump(dataset, file)
-        file.close()
+
         print(f"File successfully write to: {file_path}")
         return True
 
@@ -77,7 +76,7 @@ def write_yaml(to_path, filename, obj_save):
     try:
         with open(file_path, 'w') as file:
             documents = yaml.dump(obj_save, file)
-        file.close()
+
         print(f"File successfully write to: {file_path}")
         return True
 
