@@ -19,15 +19,8 @@ def replace_special_chars(st ):
         st = st.replace(c, replace_char)
     return st   
 
-def remove_duplicate(duplicate): 
-    final_list = [] 
-    for w in duplicate: 
-        if w not in final_list: 
-            final_list.append(w) 
-    return final_list
 
 def countword(filename):
-
 
     try:
        with open(filename, "rb") as f:
