@@ -64,4 +64,4 @@ for cpl in affini:
             mproduct.update({w : v+1})
 
 for i in mproduct:
-    print("a ", i.split()[0], " manca ", i.split()[1])
+    print("a", i.split()[0], "manca", i.split()[1])
