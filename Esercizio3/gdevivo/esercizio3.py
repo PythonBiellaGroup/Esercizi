@@ -3,6 +3,8 @@ import sys
 import math
 import string
 
+SexDistance=2.0
+
 lbldict = {}
 dbdict = {}
 affini =[]
@@ -38,7 +40,7 @@ for i in dbdict:
     t0=(" ", 0.0)
     for k, t in enumerate(sorted(liDV, key=lambda t: t[1])):
         if k == 0:
-            if t[1] >= 2.0:
+            if t[1] >= SexDistance:
                 break
             affini.append(t[0].split())
             t0=t
