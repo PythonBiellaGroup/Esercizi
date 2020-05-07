@@ -3,7 +3,8 @@ import sys
 import math
 import string
 
-SexDistance=math.sqrt(2.0**2+(-2)**2)
+#SexDistance=math.sqrt(2.0**2+(-2)**2)
+SexDistance=2.8
 
 lbldict = {}
 dbdict = {}
