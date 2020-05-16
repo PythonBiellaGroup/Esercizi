@@ -1,5 +1,6 @@
-# To run test suite install pytest 
+# To run test suite install pytest and pytest-cov
 # >pip install pytest
+# >pip install pytest-cov
 # and run 
 # >py.test
 # to check test coverage
