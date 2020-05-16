@@ -2,6 +2,9 @@
 # >pip install pytest
 # and run 
 # >py.test
+# to check test coverage
+# >py.test --cov
+
 from esercizio6 import Country, Continent
 
 def test_country():
