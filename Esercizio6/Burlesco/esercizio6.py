@@ -28,6 +28,12 @@ class Continent():
         self.name = name
         self.countries = countries
 
+    def total_population(self):
+        population = 0
+        for c in self.countries:
+            population += c.population
+        return population
+
     def __str__(self):
         ret_str = self.name
         for c in self.countries:
