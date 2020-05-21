@@ -1,0 +1,18 @@
+============================= test session starts =============================
+platform win32 -- Python 3.7.5, pytest-5.4.2, py-1.8.1, pluggy-0.13.1
+rootdir: F:\bbuck_prj\PythonGroupBiella\Esercizi\Esercizio6\Burlesco
+plugins: cov-2.8.1
+collected 8 items
+
+test_esercizio6.py ........                                              [100%]
+
+----------- coverage: platform win32, python 3.7.5-final-0 -----------
+Name                 Stmts   Miss  Cover
+----------------------------------------
+esercizio6.py           27      0   100%
+test_esercizio6.py      36      0   100%
+----------------------------------------
+TOTAL                   63      0   100%
+
+
+============================== 8 passed in 0.04s ==============================
