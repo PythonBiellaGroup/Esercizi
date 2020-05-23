@@ -1,8 +1,6 @@
-#import sys
-#sys.setExecutionLimit(60000)
 from random import randrange
 
-class Pet(object):
+class Pet():
     boredom_decrement = 4
     hunger_decrement = 6
     boredom_threshold = 5
@@ -12,8 +10,7 @@ class Pet(object):
         self.name = name
         self.hunger = randrange(self.hunger_threshold)
         self.boredom = randrange(self.boredom_threshold)
-        self.sounds = self.sounds[:]  #It creates a shallow copy of the whole list and is a good shorthand when you need a copy of the original list.
-        #copy the class attribute, so that when we make changes to it, we won't affect the other Pets in the class
+        self.sounds = self.sounds[:]  # copy the class attribute, so that when we make changes to it, we won't affect the other Pets in the class
 
     def clock_tick(self):
         self.boredom += 1
@@ -35,48 +32,64 @@ class Pet(object):
 
     def hi(self):
         print(self.sounds[randrange(len(self.sounds))])
-        self.update_boredom()
+        self.reduce_boredom()
 
     def teach(self, word):
         self.sounds.append(word)
-        self.update_boredom()
+        self.reduce_boredom()
 
     def feed(self):
-        self.update_hunger()
+        self.reduce_hunger()
 
-    def update_hunger(self):
+    def reduce_hunger(self):
         self.hunger = max(0, self.hunger - self.hunger_decrement)
 
-    def update_boredom(self):
+    def reduce_boredom(self):
         self.boredom = max(0, self.boredom - self.boredom_decrement)
 
-class Cat(Pet):
-    sounds = ['Meow']
-
-    def mood(self):
-        if self.hunger > self.hunger_threshold:
-            return "hungry"
-        if self.boredom <2:
-            return "grumpy; leave me alone"
-        elif self.boredom > self.boredom_threshold:
-            return "bored"
-        elif randrange(2) == 0:
-            return "randomly annoyed"
-        else:
-            return "happy"
-
 class Dog(Pet):
-    sounds = ['Woof', 'Ruff']
+    # in the Dog class, Dog pets should express their hunger and boredom differently than generic Pets
+    def mood(self):
+        if self.hunger <= self.hunger_threshold and self.boredom <= self.boredom_threshold:
+            return "happy, arf! Happy"
+        elif self.hunger > self.hunger_threshold:
+            return "hungry already, arrrf"
+        else:
+            return "bored, so you should play with me"
+
+class Cat(Pet):
+    # in the Cat class, cats express their hunger and boredom a little differently, too. They also have an extra instance, variable meow_count.
+    def __init__(self, name="Fluffy", meow_count=3):
+        Pet.__init__(self, name)
+        self.meow_count = meow_count
+
+    def hi(self):
+        for i in range(self.meow_count):
+            print(self.sounds[randrange(len(self.sounds))])
+        self.reduce_boredom()
 
     def mood(self):
-        if (self.hunger > self.hunger_threshold) and (self.boredom > self.boredom_threshold):
-            return "bored and hungry"
+        if self.hunger <= self.hunger_threshold and self.boredom <= self.boredom_threshold:
+            return "happy, I suppose"
+        elif self.hunger > self.hunger_threshold:
+            return "mmmm...hungry"
         else:
-            return "happy"
+            return "a bit bored"
 
-    def feed(self):
-        Pet.feed(self)
-        print("Arf! Thanks!")
+class Lab(Dog):
+    def fetch(self):
+        return "I found the tennis ball!"
+
+    def hi(self):
+        print(self.sounds[randrange(len(self.sounds))] + self.fetch())
+
+class Poodle(Dog):
+    def dance(self):
+        return "Dancin' in circles like poodles do."
+
+    def hi(self):
+        print(self.dance())
+        Dog.hi(self)
 
 class Bird(Pet):
     sounds = ["chirp"]
@@ -88,23 +101,8 @@ class Bird(Pet):
     def hi(self):
         for i in range(self.chirp_number):
             print(self.sounds[randrange(len(self.sounds))])
-        self.update_boredom()
+        self.reduce_boredom()
 
-class Lab(Dog):
-    def fetch(self):
-        return "I found the tennis ball!"
-
-    def hi(self):
-        print(self.fetch())
-        print(self.sounds[randrange(len(self.sounds))])
-
-class Poodle(Dog):
-    def dance(self):
-        return "Dancin' in circles like poodles do."
-
-    def hi(self):
-        print(self.dance())
-        Dog.hi(self)
 
 def whichone(petlist, name):
     for pet in petlist:
@@ -122,7 +120,7 @@ def play():
     option = ""
     base_prompt = """
         Quit
-        Adopt <petname_with_no_spaces> <pet_type - choose dog, cat, lab, poodle, bird, or another unknown pet type>
+        Adopt <petname_with_no_spaces> <adopt_type - choose dog, cat, lab, poodle, or another unknown pet type>
         Greet <petname>
         Teach <petname> <word>
         Feed <petname>
@@ -177,4 +175,6 @@ def play():
             pet.clock_tick()
             feedback += "\n" + pet.__str__()
 
+import sys
+sys.setExecutionLimit(60000)
 play()
