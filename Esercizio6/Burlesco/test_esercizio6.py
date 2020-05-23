@@ -4,7 +4,7 @@
 # and run 
 # >py.test
 # to check test coverage
-# >
+# >pytest --cov
 
 from esercizio6 import Country, Continent
 
