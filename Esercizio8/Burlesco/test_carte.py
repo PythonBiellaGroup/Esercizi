@@ -11,6 +11,7 @@ class TestCarte(unittest.TestCase):
         self.altro_fante_di_quadri = Carta(1, 11)
         self.asso_di_cuori = Carta(2, 1)
         self.asso_di_fiori = Carta(0, 1)
+        self.altro_asso_di_fiori = Carta(0, 1)
         self.re_di_cuori = Carta(2, 13)
         self.sette_di_cuori = Carta(2, 7)
 
@@ -27,6 +28,7 @@ class TestCarte(unittest.TestCase):
         self.assertTrue(self.fante_di_quadri == self.altro_fante_di_quadri)
         # Equivalente
         self.assertEqual(self.fante_di_quadri, self.altro_fante_di_quadri)
+        self.assertEqual(self.asso_di_fiori, self.altro_asso_di_fiori)
         self.assertNotEqual(self.fante_di_quadri, self.tre_di_fiori)
 
     def test_esercizio_8(self):
