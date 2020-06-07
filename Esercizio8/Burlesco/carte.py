@@ -101,3 +101,29 @@ class Mazzo:
 
     def mazzo_vuoto(self):
         return self.carte == []
+
+    def distribuisci_carte(self, mani, num_carte=999):
+        '''
+        Metodo abbastanza generico perchè dipende dal tipo di gioco
+        num_carte opzionale, se non è passato si distribuiscono tutte
+        mani è una lista o tupla di oggetti Mano
+        '''
+        num_mani = len(mani)
+        for i in range(num_carte):
+            if self.mazzo_vuoto():
+                break  # Break if out of cards
+            carta = self.pesca()  # Take the top card
+            mano = mani[i % num_mani]  # Whose turn is next?
+            mano.aggiungi(carta)  # Add the card to the hand
+
+
+class Mano(Mazzo):
+    '''
+    Mano di partita di carte
+    '''
+    def __init__(self, nome=""):
+        self.carte = []
+        self.nome = nome
+
+    def aggiungi(self, carta):
+        self.carte.append(carta)
