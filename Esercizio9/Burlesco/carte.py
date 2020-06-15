@@ -168,18 +168,43 @@ class ManoAsino(Mano):
         # Copia delle carte per "percorrerla"; self.carte viene modificata
         carte_originali = self.carte[:]
         for carta in carte_originali:
-            # SEMI = ["Fiori", "Quadri", "Cuori", "Picche"]
-            # 3 - seme trasforma: Fiori (0) in Picche (3)
-            # e Quadri (1) in Cuori (2)
-            carta_gemella = Carta(3 - carta.seme, carta.valore)
-            if carta_gemella in self.carte:
+            # print("Analizzando {0}".format(carta))
+            if (carta.seme == 0):
+                carta_gemella_1 = Carta(1, carta.valore)
+                carta_gemella_2 = Carta(2, carta.valore)
+                carta_gemella_3 = Carta(3, carta.valore)
+            if (carta.seme == 1):
+                carta_gemella_1 = Carta(0, carta.valore)
+                carta_gemella_2 = Carta(2, carta.valore)
+                carta_gemella_3 = Carta(3, carta.valore)
+            if (carta.seme == 2):
+                carta_gemella_1 = Carta(0, carta.valore)
+                carta_gemella_2 = Carta(1, carta.valore)
+                carta_gemella_3 = Carta(3, carta.valore)
+            if (carta.seme == 3):
+                carta_gemella_1 = Carta(0, carta.valore)
+                carta_gemella_2 = Carta(1, carta.valore)
+                carta_gemella_3 = Carta(2, carta.valore)
+            # print("Gemelle {0}, {1}, {2}".format(carta_gemella_1, carta_gemella_2, carta_gemella_3))
+            if (carta_gemella_1 in self.carte) and (carta in self.carte):
                 self.carte.remove(carta)
-                self.carte.remove(carta_gemella)
+                self.carte.remove(carta_gemella_1)
                 print("Mano {0}: {1} si accoppia con {2}".format(
-                      self.nome, carta, carta_gemella))
+                    self.nome, carta, carta_gemella_1))
+                contatore_accoppiamenti += 1
+            if (carta_gemella_2 in self.carte) and (carta in self.carte):
+                self.carte.remove(carta)
+                self.carte.remove(carta_gemella_2)
+                print("Mano {0}: {1} si accoppia con {2}".format(
+                    self.nome, carta, carta_gemella_2))
+                contatore_accoppiamenti += 1
+            if (carta_gemella_3 in self.carte) and (carta in self.carte):
+                self.carte.remove(carta)
+                self.carte.remove(carta_gemella_3)
+                print("Mano {0}: {1} si accoppia con {2}".format(
+                    self.nome, carta, carta_gemella_3))
                 contatore_accoppiamenti += 1
         return contatore_accoppiamenti
-
 
 class GiocoDiCarte:
     def __init__(self):
@@ -187,14 +212,18 @@ class GiocoDiCarte:
         self.mazzo.mischia()
 
 
-class VecchiaZitella(GiocoDiCarte):
-    def gioca(self, nomi):
+class GiocoAccoppiamentiPreviaRimozione(GiocoDiCarte):
+    '''
+    Classe per tutti i giochi di carte con accoppiamenti e rimozioni
+    TO DO: farla diventare classe astratta
+    '''
+    def gioca(self, nomi, carta_da_rimuovere, classe_tipo_mano):
         # Rimuove la Regina di Fiori
-        self.mazzo.rimuovi(Carta(0, 12))
+        self.mazzo.rimuovi(carta_da_rimuovere)
         # Una mano per ciascun giocatore
         self.mani = []
         for n in nomi:
-            self.mani.append(ManoVecchiaZitella(n))
+            self.mani.append(classe_tipo_mano(n))
         # Distribuisce tutte le carte tra i giocatori
         self.mazzo.distribuisci_carte(self.mani)
         print("---------- Carte distribuite")
@@ -224,7 +253,7 @@ class VecchiaZitella(GiocoDiCarte):
         vicino = self.trova_vicino(i)
         carta_pescata = self.mani[vicino].pesca()
         self.mani[i].aggiungi(carta_pescata)
-        print("Mano di", self.mani[i].nome, "pesca", carta_pescata)
+        print("Gioca", self.mani[i].nome, " e pesca", carta_pescata)
         count = self.mani[i].rimuovi_accoppiamenti()
         self.mani[i].mischia()
         return count
@@ -241,7 +270,19 @@ class VecchiaZitella(GiocoDiCarte):
         for m in self.mani:
             print(m)
 
+class VecchiaZitella(GiocoAccoppiamentiPreviaRimozione):
+    def gioca(self, nomi):
+        super().gioca(nomi, Carta(0, 12), ManoVecchiaZitella)
+
+class Asino(GiocoAccoppiamentiPreviaRimozione):
+    def gioca(self, nomi):
+        # La carta da togliere è causale
+        from random import randrange
+        carta_da_togliere = Carta(randrange(4), randrange(13))
+        print("Dal mazzo è stata tolta la carta:", carta_da_togliere)
+        super().gioca(nomi, carta_da_togliere, ManoAsino)
 
 if __name__ == '__main__':
-    game = VecchiaZitella()
+    #game = VecchiaZitella()
+    game = Asino()
     game.gioca(["Barbara", "Asbjorn", "Davide"])
