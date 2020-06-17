@@ -212,14 +212,16 @@ class GiocoDiCarte:
         self.mazzo.mischia()
 
 
-class GiocoAccoppiamentiPreviaRimozione(GiocoDiCarte):
+class GiocoAccoppiamentiConRimozione(GiocoDiCarte):
     '''
     Classe per tutti i giochi di carte con accoppiamenti e rimozioni
     TO DO: farla diventare classe astratta
     '''
     def gioca(self, nomi, carta_da_rimuovere, classe_tipo_mano):
+        numero_coppie_totali = len(self.mazzo.carte)/2
         # Rimuove la Regina di Fiori
         self.mazzo.rimuovi(carta_da_rimuovere)
+        print("Dal mazzo è stata tolta la carta:", carta_da_rimuovere)
         # Una mano per ciascun giocatore
         self.mani = []
         for n in nomi:
@@ -227,19 +229,24 @@ class GiocoAccoppiamentiPreviaRimozione(GiocoDiCarte):
         # Distribuisce tutte le carte tra i giocatori
         self.mazzo.distribuisci_carte(self.mani)
         print("---------- Carte distribuite")
-        self.print_mani()
+        self.visualizza_mani()
         # Gestisce accoppiamenti iniziali
         accoppiamenti = self.rimuovi_tutti_accoppiamenti()
         print("---------- Accoppiamenti effettuati, il gioco inizia...")
-        self.print_mani()
-        # Si gioca finchè tutte le 50 sono accoppiate
+        self.visualizza_mani()
+        # Si gioca finchè tutte le carte sono accoppiate
         turno = 0
         num_mani = len(self.mani)
-        while accoppiamenti < 25:
+        while accoppiamenti < (numero_coppie_totali-1):
             accoppiamenti += self.gioca_un_turno(turno)
             turno = (turno + 1) % num_mani
         print("---------- Game Over")
-        self.print_mani()
+        self.visualizza_mani()
+        # Visualizzazione del perdente
+        for m in self.mani:
+            if len(m.carte)>0:
+                print("{0} ha perso!".format(m.nome))
+
 
     def rimuovi_tutti_accoppiamenti(self):
         contatore_accoppiamenti = 0
@@ -265,24 +272,42 @@ class GiocoAccoppiamentiPreviaRimozione(GiocoDiCarte):
             if not self.mani[vicino].mazzo_vuoto():
                 return vicino
 
-    def print_mani(self):
+    def visualizza_mani(self):
         # Esercizio 9.1
         for m in self.mani:
             print(m)
 
-class VecchiaZitella(GiocoAccoppiamentiPreviaRimozione):
-    def gioca(self, nomi):
-        super().gioca(nomi, Carta(0, 12), ManoVecchiaZitella)
 
-class Asino(GiocoAccoppiamentiPreviaRimozione):
+class VecchiaZitella(GiocoAccoppiamentiConRimozione):
+    def gioca(self, nomi):
+        carta_da_togliere = Carta(0, 12)
+        super().gioca(nomi, carta_da_togliere, ManoVecchiaZitella)
+
+
+class Asino(GiocoAccoppiamentiConRimozione):
     def gioca(self, nomi):
         # La carta da togliere è causale
         from random import randrange
-        carta_da_togliere = Carta(randrange(4), randrange(13))
-        print("Dal mazzo è stata tolta la carta:", carta_da_togliere)
+        carta_da_togliere = Carta(randrange(4), randrange(13))        
         super().gioca(nomi, carta_da_togliere, ManoAsino)
+
+
+class Ciuccio(GiocoAccoppiamentiConRimozione):
+    def gioca(self, nomi):
+        # La carta da togliere è uno dei quattro cavalli (fante)
+        from random import randrange
+        carta_da_togliere = Carta(randrange(4), 11)
+        super().gioca(nomi, carta_da_togliere, ManoAsino)
+
+
+class GattoMammone(GiocoAccoppiamentiConRimozione):
+    def gioca(self, nomi):
+        # La carta da togliere è 3 di bastoni (coppe-cuori/spade-picche/bastoni-fiori/denari-quadri)
+        carta_da_togliere = Carta(0, 3)
+        super().gioca(nomi, carta_da_togliere, ManoAsino)
+
 
 if __name__ == '__main__':
     #game = VecchiaZitella()
-    game = Asino()
+    game = GattoMammone()
     game.gioca(["Barbara", "Asbjorn", "Davide"])
