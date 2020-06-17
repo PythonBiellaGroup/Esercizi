@@ -185,7 +185,8 @@ class ManoAsino(Mano):
                 carta_gemella_1 = Carta(0, carta.valore)
                 carta_gemella_2 = Carta(1, carta.valore)
                 carta_gemella_3 = Carta(2, carta.valore)
-            # print("Gemelle {0}, {1}, {2}".format(carta_gemella_1, carta_gemella_2, carta_gemella_3))
+            # print("Gemelle {0}, {1}, {2}".format(carta_gemella_1,
+            # carta_gemella_2, carta_gemella_3))
             if (carta_gemella_1 in self.carte) and (carta in self.carte):
                 self.carte.remove(carta)
                 self.carte.remove(carta_gemella_1)
@@ -205,6 +206,7 @@ class ManoAsino(Mano):
                     self.nome, carta, carta_gemella_3))
                 contatore_accoppiamenti += 1
         return contatore_accoppiamenti
+
 
 class GiocoDiCarte:
     def __init__(self):
@@ -244,9 +246,8 @@ class GiocoAccoppiamentiConRimozione(GiocoDiCarte):
         self.visualizza_mani()
         # Visualizzazione del perdente
         for m in self.mani:
-            if len(m.carte)>0:
+            if len(m.carte) > 0:
                 print("{0} ha perso!".format(m.nome))
-
 
     def rimuovi_tutti_accoppiamenti(self):
         contatore_accoppiamenti = 0
@@ -288,7 +289,7 @@ class Asino(GiocoAccoppiamentiConRimozione):
     def gioca(self, nomi):
         # La carta da togliere è causale
         from random import randrange
-        carta_da_togliere = Carta(randrange(4), randrange(13))        
+        carta_da_togliere = Carta(randrange(4), randrange(13))
         super().gioca(nomi, carta_da_togliere, ManoAsino)
 
 
@@ -302,12 +303,23 @@ class Ciuccio(GiocoAccoppiamentiConRimozione):
 
 class GattoMammone(GiocoAccoppiamentiConRimozione):
     def gioca(self, nomi):
-        # La carta da togliere è 3 di bastoni (coppe-cuori/spade-picche/bastoni-fiori/denari-quadri)
-        carta_da_togliere = Carta(0, 3)
+        # La carta da togliere è 3 di bastoni
+        # (coppe-cuori/spade-picche/bastoni-fiori/denari-quadri)
+        from random import randrange
+        carta_da_togliere = Carta(randrange(1, 4), 3)
+        super().gioca(nomi, carta_da_togliere, ManoAsino)
+
+
+class Vecia(GiocoAccoppiamentiConRimozione):
+    def gioca(self, nomi):
+        # La carta da isolare è il fante di spade (picche)
+        # (coppe-cuori/spade-picche/bastoni-fiori/denari-quadri)
+        from random import randrange
+        carta_da_togliere = Carta(randrange(3), 11)
         super().gioca(nomi, carta_da_togliere, ManoAsino)
 
 
 if __name__ == '__main__':
-    #game = VecchiaZitella()
-    game = GattoMammone()
+    game = VecchiaZitella()
+    # game = Vecia()
     game.gioca(["Barbara", "Asbjorn", "Davide"])
