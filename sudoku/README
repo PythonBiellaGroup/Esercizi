@@ -1,5 +1,5 @@
-Ciao, questo è il progrmma che mi inventai per risolvere il sudoku.
-le versioni 1 e 2 sono le più ingenue, anche se prive di commenti.
+Ciao, questo è il programma che mi inventai per risolvere il sudoku.
+Le versioni 1 e 2 sono le più ingenue, anche se prive di commenti.
 Ma le terza è l'apoteosi di tutto quello che non dovrebbe essere fatto in un programma.
 Assenza di commenti, nomi delle variabili poco significativi, operazioni aritmetiche sui puntatori.
 Io stesso dovrei perdere uno/due giorni per capire quello che ho scritto.
