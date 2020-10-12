@@ -96,13 +96,13 @@ while True:
         if game_over:
             winner = ttt.winner(board)
             if winner is None:
-                title = f"Game Over: Tie."
+                title = "Game Over: Tie."
             else:
                 title = f"Game Over: {winner} wins."
         elif user == player:
             title = f"Play as {user}"
         else:
-            title = f"Computer thinking..."
+            title = "Computer thinking..."
         title = largeFont.render(title, True, white)
         titleRect = title.get_rect()
         titleRect.center = ((width / 2), 30)

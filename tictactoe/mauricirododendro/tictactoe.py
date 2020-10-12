@@ -1,6 +1,5 @@
 import math
 import copy
-import time
 X = "X"
 O = "O"
 EMPTY = None
@@ -10,11 +9,6 @@ def initial_state():
     """
     Returns starting state of the board.
     """
-    
-
-    #start = time.time()
-    #print("hello")
-
     return [[EMPTY, EMPTY, EMPTY],
             [EMPTY, EMPTY, EMPTY],
             [EMPTY, EMPTY, EMPTY]]
@@ -26,7 +20,6 @@ def player(board):
     """
     if board == initial_state():
         return X
-
     xcounter = 0
     ocounter = 0
     for row in board:
@@ -116,7 +109,6 @@ def terminal(board):
     for row in board:
         empty_counter += row.count(EMPTY)
     if empty_counter == 0:
-        
         return True
     elif winner(board) is not None:
         return True
@@ -142,41 +134,33 @@ def minimax(board):
     if current_player == X:
         v = -math.inf
         for action in actions(board):
-            k = min_value(result(board, action))    #FIXED
+            k = min_value(result(board, action))
             if k > v:
-                
-                best_move = action
-                #if k==0:
-                #    break
                 v = k
+                best_move = action
     else:
         v = math.inf
         for action in actions(board):
-            k = max_value(result(board, action))    #FIXED
+            k = max_value(result(board, action))
             if k < v:
-                
                 v = k
                 best_move = action
-                #if k==0:
-                #    break
     return best_move
+
 
 def max_value(board):
     if terminal(board):
-        #end = time.time()
-        #print(end - start)
         return utility(board)
     v = -math.inf
     for action in actions(board):
         v = max(v, min_value(result(board, action)))
-    return v    #FIXED
+    return v
+
 
 def min_value(board):
     if terminal(board):
-        #end = time.time()
-        #print(end - start)
         return utility(board)
     v = math.inf
     for action in actions(board):
         v = min(v, max_value(result(board, action)))
-    return v    #FIXED
+    return v
