@@ -1,3 +1,9 @@
 Esempio di cartella
 
 Prime prove con Jinja
+
+Difficoltà:
+- HTML e Bootstrap, versioni ?
+
+Domande: 
+- Quando è utile extends. Esempi?

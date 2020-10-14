@@ -12,11 +12,6 @@ def login():
 def index():
     return render_template('index.html')
 
-@corso.route("/home")
-def home():
-    return f"<h2>Welcome to home page<h2>"
-
-
 @corso.route("/corsi")
 def corsi():
     lista_corsi = { 'Flask':'Corso in 5 lezioni di Andrea', 
@@ -24,9 +19,9 @@ def corsi():
                     'Numpy':'Cenni di Data Science da Maria Teresa' }
     return render_template('lista.html', lista_corsi=lista_corsi)
 
-@corso.route("/corsi/<name>")
-def nome_ok(name):
-    return f"<h2>Il mio nome {name}"
+@corso.route("/corsi/<corso>")
+def dettaglio_corso(corso):
+    return f"<h2>To do dettaglio per il corso {corso}</h2>"
 
 @corso.errorhandler(404)
 def page_not_found(error):
