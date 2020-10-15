@@ -21,7 +21,19 @@ def corsi():
 
 @corso.route("/corsi/<corso>")
 def dettaglio_corso(corso):
-    return f"<h2>To do dettaglio per il corso {corso}</h2>"
+    lista_sessioni = { 'Flask':['1 - Introduzione a Flask e ai web server con Jinja Base',
+                                '2 - Jinja avanzato e Forms',
+                                '3 - Flask con Database',
+                                '4 - Large Flask Applications',
+                                '5 - REST Backend e concetti avanzati'],
+                       'PyGame':['1 - Introduction and simple graphics',
+                                 '2 - Graphics, Sprites, Sounds',
+                                 '3 - Games and show cases']}
+    sessioni = lista_sessioni.get(corso,[])
+    if sessioni:
+        return render_template('dettaglio_corso.html', corso=corso, sessioni=sessioni)
+    else:
+        return render_template('corso_non_pianficato.html', corso=corso)
 
 @corso.errorhandler(404)
 def page_not_found(error):
