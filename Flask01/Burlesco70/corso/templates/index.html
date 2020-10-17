@@ -37,8 +37,10 @@
 
 <body>
 <img src="../static/pgb_logo.jpg" alt="Python Biella Group" class="rounded mx-auto d-block">
+
+<!-- Login form -->
 <div class="login-form">
-    <form action="/examples/actions/confirmation.php" method="post">
+    <form action="#" method="post">
         <h2 class="text-center">Log in</h2>       
         <div class="form-group">
             <input type="text" class="form-control" placeholder="Username" required="required">
@@ -56,7 +58,12 @@
     </form>
     <p class="text-center"><a href="#">Create an Account</a></p>
     <p class="text-center"><a href="corsi">Go to course list</a></p>
+
 </div>
+
+<!-- User agent -->
+<p class="text-center">Your browser is {{ user_agent }}</p>
+
 </body>
 
 {% include 'footer.html' %}

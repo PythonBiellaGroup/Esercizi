@@ -1,17 +1,16 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 # Nome progetto
 corso = Flask(__name__)
 
-# Decoratore rotta: indirizzo pagina web
-@corso.route("/")
-def login():
-    return render_template('index.html')
-
-@corso.route("/index")
 def index():
-    return render_template('index.html')
+    user_agent = request.headers.get('User-Agent')
+    return render_template('index.html', user_agent=user_agent)
+# Altro modo per fare routing
+# add_url_rule: the URL, the endpoint name, and the view function
+corso.add_url_rule('/', 'index', index)
 
+# Decoratore rotta: indirizzo pagina web
 @corso.route("/corsi")
 def corsi():
     lista_corsi = { 'Flask':'Corso in 5 lezioni di Andrea', 
@@ -19,6 +18,7 @@ def corsi():
                     'Numpy':'Cenni di Data Science da Maria Teresa' }
     return render_template('lista.html', lista_corsi=lista_corsi, title="Corsi Python Group Biella")
 
+# Esempio di dynamic route
 @corso.route("/corsi/<corso>")
 def dettaglio_corso(corso):
     lista_sessioni = { 'Flask':['1 - Introduzione a Flask e ai web server con Jinja Base',
