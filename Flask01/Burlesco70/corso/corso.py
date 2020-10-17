@@ -17,7 +17,7 @@ def corsi():
     lista_corsi = { 'Flask':'Corso in 5 lezioni di Andrea', 
                     'PyGame':'Piccoli approfondimenti da Mario', 
                     'Numpy':'Cenni di Data Science da Maria Teresa' }
-    return render_template('lista.html', lista_corsi=lista_corsi)
+    return render_template('lista.html', lista_corsi=lista_corsi, title="Corsi Python Group Biella")
 
 @corso.route("/corsi/<corso>")
 def dettaglio_corso(corso):
@@ -31,7 +31,7 @@ def dettaglio_corso(corso):
                                  '3 - Games and show cases']}
     sessioni = lista_sessioni.get(corso,[])
     if sessioni:
-        return render_template('dettaglio_corso.html', corso=corso, sessioni=sessioni)
+        return render_template('dettaglio_corso.html', corso=corso, sessioni=sessioni, title=corso)
     else:
         return render_template('corso_non_pianficato.html', corso=corso)
 
