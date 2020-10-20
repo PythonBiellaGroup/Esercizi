@@ -1,0 +1,18 @@
+{% include 'header.html' %}
+  <body>
+
+    <h1 class="display-2">Programma di {{ corso }}</h1>
+
+   <!-- Lista sessioni -->    
+    <ul class="list-group">    
+    {% block content %}
+        {% for sessione in sessioni %}
+          <li class="list-group-item">{{ sessione }}</li>
+    {% endfor %}
+    </ul>      
+    {% endblock content %}
+
+    <a href="/corsi" class="btn btn-primary">Torna alla lista</a>
+
+  </body>
+{% include 'footer.html' %}

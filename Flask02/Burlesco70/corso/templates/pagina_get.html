@@ -1,0 +1,29 @@
+{% include 'header.html' %}
+  <body>
+    <!-- Form con get -->
+    <form action="{{url_for('prova_get')}}">
+        <div class="form-group row">
+          <label for="first" class="col-sm-2 col-form-label">Campo uno</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="Campo uno" name="campo-uno">
+          </div>
+        </div>
+        <div class="form-group row">
+            <label for="first" class="col-sm-2 col-form-label">Campo due</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="Campo due" name="campo-due">
+            </div>
+          </div>  
+          <button type="submit" class="btn btn-primary mb-2">Conferma</button>
+      </form>
+
+      <!-- Prende i dati dal backend -->
+      <div class="jumbotron">
+        <h1 class="display-4">Valori inseriti</h1>
+        <p class="lead">Campo uno: {{campo_uno}}</p>
+        <hr class="my-4">
+        <p>Campo due: {{campo_due}}</p>
+      </div>
+
+  </body>
+{% include 'footer.html' %}

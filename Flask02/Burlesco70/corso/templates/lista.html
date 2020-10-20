@@ -1,0 +1,34 @@
+{% include 'header.html' %}
+  <body>
+    
+    <h1 class="display-2">Lista corsi Python Group Biella</h1>
+
+    <div class="container-fluid py-2">        
+      <h2 class="font-weight-light">Corsi attivi</h2>
+      <div class="d-flex flex-row flex-nowrap">
+
+      {% block hor_cards %}
+          {% for key, value in lista_corsi.items() %}
+
+
+
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="../static/pgb_logo.jpg" alt="">
+          <div class="card-body">
+            <h5 class="card-title">{{ key }}</h5>
+            <p class="card-text">{{ value }}</p>
+            <a href="/corsi/{{ key }}" class="btn btn-primary">Dettaglio</a>
+          </div>
+        </div>
+      
+
+
+          {% endfor %}
+      {% endblock hor_cards %}
+      
+        </div>
+      </div>  
+
+  </body>
+
+{% include 'footer.html' %}

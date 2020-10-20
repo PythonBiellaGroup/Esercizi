@@ -1,0 +1,16 @@
+{% include 'header.html' %}
+  <body>
+
+    {% block content %}
+
+        <br>
+        <h2>Nome: {{session["name"]}}</h2>>
+        <h2>Insegnante: {{session["teacher"]}}</h2>>
+        <h2>feedback: {{session["feedback"]}}</h2>>
+        <p></p>
+    
+    {% endblock content %}
+
+
+  </body>
+{% include 'footer.html' %}
