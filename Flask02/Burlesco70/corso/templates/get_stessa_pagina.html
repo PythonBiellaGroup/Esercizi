@@ -1,17 +1,17 @@
 {% include 'header.html' %}
   <body>
     <!-- Form con get -->
-    <form action="{{url_for('prova_get')}}">
+    <form action="{{url_for('prova_get_stessa')}}">
         <div class="form-group row">
           <label for="first" class="col-sm-2 col-form-label">Campo uno</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="Campo uno" name="campo-uno">
+            <input type="text" class="form-control" placeholder="Inserisci campo uno" name="campo-uno">
           </div>
         </div>
         <div class="form-group row">
             <label for="first" class="col-sm-2 col-form-label">Campo due</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" placeholder="Campo due" name="campo-due">
+              <input type="text" class="form-control" placeholder="Inserisci campo due" name="campo-due">
             </div>
           </div>  
           <button type="submit" class="btn btn-primary mb-2">Conferma</button>
@@ -24,6 +24,9 @@
         <hr class="my-4">
         <p>Campo due: {{campo_due}}</p>
       </div>
+      
+      <!-- Go home -->
+      <p class="text-center"><a href="/">Return to home page</a></p>
 
   </body>
 {% include 'footer.html' %}

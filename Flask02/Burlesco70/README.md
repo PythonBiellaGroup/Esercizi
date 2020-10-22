@@ -7,7 +7,8 @@ https://youtu.be/C-iEkd-BpE4
 ## Obiettivi
 
 - Prime prove con Forms e Jinja Avanzato
--- Form con get, DONE
+-- Form con get stessa pagina, DONE
+-- Form con get altra pagina, DONE
 -- Form con post
 - Altre prove con Bootstrap
 - Messaggi flash

@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired
 
 # Nome progetto
 corso = Flask(__name__)
-
+# Necessaria per gestire i forms
 corso.secret_key="supersecret"
 
 def index():
@@ -17,19 +17,112 @@ def index():
 corso.add_url_rule('/', 'index', index)
 
 
-'''
-A scopo didattico
-Routing ad una form di prova usando get
+''' 
+LEZIONE 2
+
+SIMPLE FORM WITH GET - A scopo didattico
+Routing ad una form di prova usando GET con output sulla stessa pagina
 Metodo sconsigliato
 '''
-@corso.route("/prova_get")
-def prova_get():
+@corso.route("/prova_get_stessa")
+def prova_get_stessa():
     # Richiama i campi con get
     campo_uno=request.args.get("campo-uno")
     campo_due=request.args.get("campo-due")
     # Richiamo template
-    return render_template("pagina_get.html",campo_uno=campo_uno, campo_due=campo_due)
+    return render_template("get_stessa_pagina.html",campo_uno=campo_uno, campo_due=campo_due)
 
+'''
+A scopo didattico
+Routing ad una form di prova usando GET con output sulla pagina differente
+Metodo sconsigliato
+'''
+@corso.route("/prova_get_altra")
+def prova_get_altra():
+    # Richiamo template
+    return render_template("get_altra_pagina.html")
+
+@corso.route("/prova_get_altra_output")
+def prova_get_altra_output():
+    # Richiama i campi con get
+    campo_uno=request.args.get("campo-uno")
+    campo_due=request.args.get("campo-due")
+    # Richiamo template
+    return render_template("get_altra_pagina_output.html",campo_uno=campo_uno, campo_due=campo_due)
+
+'''
+SIMPLE FORM WITH POST - A scopo didattico
+Routing ad una form di prova usando POST con output sulla stessa pagina
+'''
+# Definizione form ereditando da FlaskForm
+class PostBase(FlaskForm):
+    campo_uno = StringField("Campo uno (*)",validators=[DataRequired()])
+    campo_due = StringField("Campo due")
+    submit = SubmitField("Conferma")
+
+@corso.route("/prova_post_stessa", methods=["GET","POST"])
+def prova_post_stessa():
+    post_form = PostBase()
+    # Servono????
+    # campo_uno=False
+    # campo_due=False
+    # Al submit recupero le info
+    if post_form.validate_on_submit():
+        campo_uno = post_form.campo_uno.data
+        campo_due = post_form.campo_due.data
+        # Reset
+        post_form.campo_uno.data = ""
+        post_form.campo_due.data = ""
+
+        return render_template(
+            "post_stessa_pagina.html",
+            post_form=post_form, 
+            campo_uno=campo_uno, 
+            campo_due=campo_due)
+    # Richiamo template
+    return render_template(
+        "post_stessa_pagina.html",
+        post_form=post_form
+        )
+
+'''
+A scopo didattico
+Routing ad una form di prova usando POST con output su ALTRA pagina
+'''
+@corso.route("/prova_post_altra", methods=["GET","POST"])
+def prova_post_altra():
+    post_form = PostBase()
+    # Servono????
+    # campo_uno=False
+    # campo_due=False
+    # Richiamo template
+    if post_form.validate_on_submit():
+        campo_uno = post_form.campo_uno.data
+        campo_due = post_form.campo_due.data
+        # Reset
+        post_form.campo_uno.data = ""
+        post_form.campo_due.data = ""
+        #return render_template("post_altra_pagina_output.html",post_form=post_form, campo_uno=campo_uno, campo_due=campo_due)
+        return redirect(url_for("prova_post_altra_output"))
+
+    return render_template(
+        "post_altra_pagina.html",
+        post_form=post_form
+    )
+
+@corso.route("/prova_post_altra_output", methods=["GET","POST"])
+def prova_post_altra_output():
+    # Get values from form
+    campo_uno = request.form.get('campo_uno')
+    campo_due = request.form.get('campo_due')
+    # Richiamo template
+    return render_template(
+        "post_altra_pagina_output.html",
+        campo_uno=campo_uno,
+        campo_due=campo_due
+    )
+
+# LEZIONE 1
 # Decoratore rotta: indirizzo pagina web
 @corso.route("/corsi")
 def corsi():
@@ -38,6 +131,31 @@ def corsi():
                     'Numpy':'Cenni di Data Science da Maria Teresa' }
     return render_template('lista.html', lista_corsi=lista_corsi, title="Corsi Python Group Biella")
 
+# Esempio di dynamic route
+@corso.route("/corsi/<corso>")
+def dettaglio_corso(corso):
+    lista_sessioni = { 'Flask':['1 - Introduzione a Flask e ai web server con Jinja Base',
+                                '2 - Jinja avanzato e Forms',
+                                '3 - Flask con Database',
+                                '4 - Large Flask Applications',
+                                '5 - REST Backend e concetti avanzati'],
+                       'PyGame':['1 - Introduction and simple graphics',
+                                 '2 - Graphics, Sprites, Sounds',
+                                 '3 - Games and show cases']}
+    sessioni = lista_sessioni.get(corso,[])
+    if sessioni:
+        return render_template('dettaglio_corso.html', corso=corso, sessioni=sessioni, title=corso)
+    else:
+        return render_template('corso_non_pianficato.html', corso=corso)
+
+
+
+
+
+
+'''
+Tentativi lezione 2
+'''
 # Definizione form con elenco campi
 class CorsoBase(FlaskForm):
     name = StringField("Nome del corso",validators=[DataRequired()])
@@ -103,29 +221,12 @@ def create_corso():
     return render_template("nuovo_corso.html", course_form=form, name=name, teacher=teacher,
         corso_attivo=corso_attivo, difficolta=difficolta, piattaforma=piattaforma, feedback=feedback)
 
-
-
 @corso.route("/corsi/risultato_corso")
 def risultato_corso():
     return render_template("risultato_corso.html")
 
-# Esempio di dynamic route
-@corso.route("/corsi/<corso>")
-def dettaglio_corso(corso):
-    lista_sessioni = { 'Flask':['1 - Introduzione a Flask e ai web server con Jinja Base',
-                                '2 - Jinja avanzato e Forms',
-                                '3 - Flask con Database',
-                                '4 - Large Flask Applications',
-                                '5 - REST Backend e concetti avanzati'],
-                       'PyGame':['1 - Introduction and simple graphics',
-                                 '2 - Graphics, Sprites, Sounds',
-                                 '3 - Games and show cases']}
-    sessioni = lista_sessioni.get(corso,[])
-    if sessioni:
-        return render_template('dettaglio_corso.html', corso=corso, sessioni=sessioni, title=corso)
-    else:
-        return render_template('corso_non_pianficato.html', corso=corso)
-
+# Lezione 1
+# Gestore errori
 @corso.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'),404

@@ -1,0 +1,18 @@
+{% include 'header.html' %}
+  <body>
+    
+    {% block content %}
+      <!-- Prende i dati dal backend -->
+      <div class="jumbotron">
+        <h1 class="display-4">Valori inseriti</h1>
+        <p class="lead">Campo uno: {{campo_uno}}</p>
+        <hr class="my-4">
+        <p>Campo due: {{campo_due}}</p>
+      </div>
+      
+      <!-- Go home -->
+      <p class="text-center"><a href="/">Return to home page</a></p>
+    {% endblock %}
+
+  </body>
+{% include 'footer.html' %}
