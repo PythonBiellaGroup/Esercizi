@@ -4,10 +4,37 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, BooleanField, RadioField, SelectField, TextAreaField
 from wtforms.validators import DataRequired
 
+from flask_sqlalchemy import SQLAlchemy 
+from config import DevConfig
+
+
 # Nome progetto
 corso = Flask(__name__)
 # Necessaria per gestire i forms
 corso.secret_key="supersecret"
+#SQL Alchemy
+corso.config.from_object(DevConfig)
+db = SQLAlchemy(corso)
+
+class Corso(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    titolo = db.Column(db.String(100), unique=True, nullable=False)
+    descrizione = db.Column(db.String(255))
+    insegnante = db.Column(db.String(100))
+    livello = db.Column(db.String(50))
+
+    def __init__(self,titolo,descrizione,insegnante,livello):
+        self.titolo=titolo
+        self.descrizione=descrizione
+        self.insegnante=insegnante
+        self.livello=livello
+
+    def __repr__(self):
+        return "{}:{} è tenuto da {}".format(
+            self.titolo,
+            self.descrizione,
+            self.insegnante
+        )
 
 def index():
     user_agent = request.headers.get('User-Agent')

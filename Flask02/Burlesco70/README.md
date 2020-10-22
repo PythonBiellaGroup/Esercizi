@@ -4,19 +4,21 @@
 
 https://youtu.be/C-iEkd-BpE4
 
-## Obiettivi
+## Obiettivi: Prime prove con Forms e Jinja Avanzato
 
-- Prime prove con Forms e Jinja Avanzato
--- Form con get stessa pagina, DONE
--- Form con get altra pagina, DONE
--- Form con post
-- Altre prove con Bootstrap
+- Form con get stessa pagina, DONE
+- Form con get altra pagina, DONE
+- Form con post, DONE
+
+- Altre prove con Bootstrap, DONE
+
 - Messaggi flash
-- Session (info sul browser)
+
+- Session (variabili di sessione)
 
 ## Difficoltà avute
 
-- HTML e Bootstrap (tante versioni!)
+- Inserire Bootstrap nelle form wtf
 
 ## Domande:
 
@@ -30,9 +32,9 @@ Per esempio: https://startbootstrap.com/themes/stylish-portfolio/
 
 Risorse free (template) Bootstrap:
 
-https://startbootstrap.com/
+- https://startbootstrap.com/
 
-  
+- https://bootswatch.com/
 
 Tutorial:
 
