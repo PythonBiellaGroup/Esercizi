@@ -1,0 +1,17 @@
+{% include 'header.html' %}
+  <body>
+    <h2 class="display-2">Programma di {{ corso.titolo }}</h2>
+    <!-- Lista tags -->    
+    <h4 class="display-4">
+      {% for t in corso.tags %}
+    <span class="badge badge-secondary">{{t.titolo}}</span>
+      {% endfor %} 
+    </h4>
+
+    <h4 class="display-4">Insegnante <span class="badge badge-success">{{corso.insegnante}}</span></h4>
+
+    <h1 class="display-4">{{ corso.titolo }} non ancora pianificato</h1>
+    <a href="/corsi" class="btn btn-primary">Torna alla lista</a>
+
+  </body>
+{% include 'footer.html' %}

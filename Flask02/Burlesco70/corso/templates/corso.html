@@ -1,0 +1,37 @@
+{% include 'header.html' %}
+  <body>
+
+    {% block content %}
+    <form action="{{url_for('corsi', corso_id=corso.id)}}" method="POST"></form>
+    {{course_form.hidden_tag()}}
+    <br>
+
+    {{course_form.titolo.label}}
+    {% if course_form.titolo.errors %}                        
+    {% for e in course_form.titolo.errors %}                            
+    <p class="help-block">{{ e }}</p>                        
+    {% endfor %}                    
+    {% endif %}
+        {{course_form.titolo}}
+    <br>
+    {{course_form.descrizione.label}}{{course_form.descrizione}}
+    <br>
+    {{course_form.insegnante.label}}{{course_form.insegnante}}
+    <br>
+    {{course_form.livello.label}}{{course_form.livello}}
+    <br>
+    {{course_form.submit()}}
+    <form>
+
+        
+    <br/>
+    <h2>Nome: {{name}}</h2>>
+    <h2>Insegnante: {{teacher}}</h2>>
+    <h2>feedback: {{feedback}}</h2>>
+    <br/>
+
+    {% endblock content %}
+
+
+  </body>
+{% include 'footer.html' %}

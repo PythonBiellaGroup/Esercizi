@@ -2,9 +2,11 @@ from flask import Flask, render_template, request, session, url_for, redirect
 # Forms
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, BooleanField, RadioField, SelectField, TextAreaField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Length
 
-from flask_sqlalchemy import SQLAlchemy 
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
 from config import DevConfig
 
 
@@ -14,7 +16,9 @@ corso = Flask(__name__)
 corso.secret_key="supersecret"
 #SQL Alchemy
 corso.config.from_object(DevConfig)
+
 db = SQLAlchemy(corso)
+migrate = Migrate(corso, db)
 
 class Corso(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
@@ -22,6 +26,7 @@ class Corso(db.Model):
     descrizione = db.Column(db.String(255))
     insegnante = db.Column(db.String(100))
     livello = db.Column(db.String(50))
+    serate = db.relationship('Serata', backref='corso', lazy='subquery')
 
     def __init__(self,titolo,descrizione,insegnante,livello):
         self.titolo=titolo
@@ -35,6 +40,20 @@ class Corso(db.Model):
             self.descrizione,
             self.insegnante
         )
+
+class Serata(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    descrizione = db.Column(db.String(255), nullable=False)
+    data = db.Column(db.DateTime())
+    corso_id = db.Column(db.Integer(), db.ForeignKey('corso.id'))
+    
+    def __init__(self, descrizione, data):
+        self.descrizione = descrizione
+        self.data = data
+
+    def __repr__(self):
+        return "<Descrizione '{}'>".format(self.descrizione)
+
 
 def index():
     user_agent = request.headers.get('User-Agent')
@@ -184,39 +203,43 @@ def dettaglio_corso(corso):
 Tentativi lezione 2
 '''
 # Definizione form con elenco campi
-class CorsoBase(FlaskForm):
-    name = StringField("Nome del corso",validators=[DataRequired()])
-    teacher = StringField("Docente del corso")
-    corso_attivo = BooleanField("Corso attivo")
-    difficolta = RadioField("Livello", choices=[('easy','Easy'),('intermediate','Intermediate'),('pro','Pro')])
-    piattaforma = SelectField(u"Piattaforma online",choices=[('zoom','Zoom'),('teams','Teams'),('meet','Meet')])
-    feedback = TextAreaField()
+class CorsoForm(FlaskForm):
+    titolo = StringField("Nome del corso",validators=[DataRequired(),Length(max=100)])
+    descrizione = StringField("Descrizione del corso",validators=[DataRequired(),Length(max=255)])
+    insegnante = StringField("Docente del corso",validators=[DataRequired(),Length(max=100)])
+    # corso_attivo = BooleanField("Corso attivo")
+    livello = RadioField("Livello", choices=[('easy','Facile'),('intermediate','Intermedio'),('pro','Pro')])
+    # piattaforma = SelectField(u"Piattaforma online",choices=[('zoom','Zoom'),('teams','Teams'),('meet','Meet')])
+    # feedback = TextAreaField()
     submit = SubmitField("Conferma")
 
-# Esempio di creazione form con session
-@corso.route("/corsi/crea", methods=["GET","POST"])
-def crea_corso():
-    # Non è necessario inizializzare la sessione
-    form = CorsoBase()
+@corso.route("/corsi/<int:corso_id>", methods=["GET","POST"])
+def crea_corso(corso_id):
+    form = CorsoForm()
 
     # Al submit recupero le info
     if form.validate_on_submit():
-        session["name"] = form.name.data
-        session["teacher"] = form.teacher.data
-        session["corso_attivo"] = form.corso_attivo.data
-        session["difficolta"] = form.difficolta.data
-        session["piattaforma"] = form.piattaforma.data
-        session["feedback"] = form.feedback.data
-        # Reset dei campi
-        form.name.data = ""
-        form.teacher.data = ""
-        form.corso_attivo.data = ""
-        form.difficolta.data = ""
-        form.feedback.data = ""
+        nuovo_corso = Corso()
+        nuovo_corso.titolo = form.titolo.data
+        nuovo_corso.descrizione = form.descrizione.data
+        nuovo_corso.insegnante = form.insegnante.data
+        nuovo_corso.livello = form.livello.data
+        nuovo_corso.id = corso_id
+        try:
+            db.session.add(nuovo_corso)
+            db.session.commit()
+        except Exception as e:
+            flash('Errore durante l''inserimento del corso:  %s' % str(e), 'error')
+            db.session.rollback()
+        else:
+            flash('Corso aggiunto', 'info')
 
-        return redirect(url_for("risultato_corso"))
+        return redirect(url_for("corsi",corso_id=corso_id))
+    
+    corso = Corso.query.get_or_404(corso_id)
+    serate = corso.serate
 
-    return render_template("nuovo_corso.html",course_form=form)
+    return render_template("corso.html",course_form=form, corso=corso, serate=serate)
 
 # Esempio di creazione form dato per dato
 @corso.route("/corsi/create", methods=["GET","POST"])
