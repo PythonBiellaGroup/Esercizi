@@ -1,0 +1,35 @@
+{% from '_forms.html' import generate_fields with context %}
+{% include 'header.html' %}
+    <body>
+        <h2 class="display-2">Modifica</h2>
+        <div class="container">
+            {# Flashed messages #}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+            {# End Flashed messages #}
+        </div>        
+
+    {% block body %}
+    <form action="{{ url_for('edit_corso', id=corso.id) }}" method="post">
+	    {{ generate_fields(form) }}
+	    <input type="submit" class="btn btn-success" value="Salva le modifiche sul corso">
+    </form>
+
+
+<!--
+    <form method="post">
+        {{ generate_fields(form) }}
+        <input type="submit" class="btn btn-success" value="Salva le modifiche">
+    </form>
+-->
+  
+    {% endblock %}
+    <a href="/corsi" class="btn btn-primary">Torna alla lista</a>
+  </body>
+
+{% include 'footer.html' %}

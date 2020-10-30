@@ -1,0 +1,32 @@
+{% from '_forms.html' import generate_fields with context %}
+{% include 'header.html' %}
+
+    <body>
+        <div class="container">
+            {# Flashed messages #}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+            {# End Flashed messages #}
+        </div>        
+
+    {% block body %}
+    <h2 class="display-2">Nuovo corso</h2>
+
+    <form action="{{ url_for('nuovo_corso') }}" method="post">
+	    {{ generate_fields(form) }}
+	    <input type="submit" class="btn btn-success" value="Crea corso">
+    </form>
+    {% endblock %}
+    <br><br>
+    <a href="/corsi" class="btn btn-primary">Torna alla lista corsi</a>
+    <br><br>
+    <a href="/" class="btn btn-primary">Torna alla home page</a>
+
+  </body>
+
+{% include 'footer.html' %}

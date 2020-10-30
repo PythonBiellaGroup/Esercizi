@@ -11,6 +11,8 @@
     <h4 class="display-4">Insegnante <span class="badge badge-success">{{corso.insegnante}}</span></h4>
 
     <h1 class="display-4">{{ corso.titolo }} non ancora pianificato</h1>
+    
+    <a href="{{ url_for('edit_corso', id=corso.id) }}" class="btn btn-primary">Modifica</a>
     <a href="/corsi" class="btn btn-primary">Torna alla lista</a>
 
   </body>

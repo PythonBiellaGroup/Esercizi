@@ -1,15 +1,34 @@
+
 {% include 'header.html' %}
   <body>
 
+    <!-- Messaggi flash -->
+    <div class="alert alert-primary" role="alert">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
+
+    <!-- CORSO -->    
     <h2 class="display-2">Programma di {{ corso.titolo }}</h2>
+    <h4 class="display-4">{{ corso.descrizione }}</h4>
     <!-- Lista tags -->    
     <h4 class="display-4">
       {% for t in corso.tags %}
     <span class="badge badge-secondary">{{t.titolo}}</span>
       {% endfor %} 
+
+      <!-- TO DO: aggiungere il modo di creare nuovi tag per un corso esistente
+        <a href="{{ url_for('tags') }}" class="btn btn-primary">Nuovo tag</a>
+      -->
     </h4>
 
     <h4 class="display-4">Insegnante <span class="badge badge-success">{{corso.insegnante}}</span></h4>
+    <h4 class="display-4">Livello <span class="badge badge-warning">{{corso.livello}}</span></h4>
 
     <h4 class="display-4"><span class="badge badge-info">Programma del corso</span></h4>
 
@@ -27,9 +46,43 @@
          </a>
     {% endfor %}
     </div>
-    {% endblock content %}
 
+    <!-- Gestione Nuova serata-->
+    <!-- Form -->
+    <h4 class="display-4">Aggiungi una serata</h4>
+      <div class="row">
+          <div class="col">
+              <form method="POST" action="{{ url_for('dettaglio_corso', corso_id=corso.id) }}">
+                  {{ form.hidden_tag() }}
+                  <div class="form-group">
+                      {{ form.data.label }}
+                      {% if form.data.errors %}
+                          {% for e in form.data.errors %}
+                              <p class="help-block">{{ e }}</p>
+                          {% endfor %}
+                      {% endif %}
+                      {{ form.data(class_='form-control') }}
+                  </div>
+                  <div class="form-group">
+                      {{ form.descrizione.label }}
+                      {% if form.descrizione.errors %}
+                          {% for e in form.descrizione.errors %}
+                              <p class="help-block">{{ e }}</p>
+                          {% endfor %}
+                      {% endif %}
+                     {{ form.descrizione(class_='form-control') }}  
+                  </div>
+                  <input class="btn btn-primary" type="submit" value="Aggiungi una serata">
+              </form>
+          </div>
+      </div>
+
+    <br>
+    <a href="{{ url_for('edit_corso', corso_id=corso.id) }}" class="btn btn-primary">Modifica corso</a>
+    {% endblock content %}
+    
     <a href="/corsi" class="btn btn-primary">Torna alla lista</a>
+    
 
   </body>
 {% include 'footer.html' %}

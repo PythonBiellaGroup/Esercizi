@@ -1,0 +1,41 @@
+{% from '_forms.html' import generate_fields with context %}
+{% include 'header.html' %}
+
+    <body>
+
+    <!-- Messaggi flash -->        
+        <div class="container">
+            {# Flashed messages #}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+            {# End Flashed messages #}
+        </div>        
+
+    <!-- Lista tags -->    
+    <h4 class="display-4">
+        {% for t in lista_tags %}
+      <span class="badge badge-secondary">{{t.titolo}}</span>
+        {% endfor %} 
+    </h4>
+  
+    <!-- Form per la creazione di nuovi tag -->        
+    {% block body %}
+    <h1>Nuovo tag</h1>
+        <form action="{{ url_for('tags') }}" method="post">
+	    {{ generate_fields(form) }}
+	    <input type="submit" class="btn btn-success" value="Crea tag">
+        </form>
+    {% endblock %}
+
+    <!-- Altre navigazioni -->
+    <br>
+    <a href="/" class="btn btn-primary">Torna alla home page</a>   
+
+    </body>
+
+{% include 'footer.html' %}

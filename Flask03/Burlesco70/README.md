@@ -13,9 +13,12 @@ https://www.youtube.com/watch?v=rCXhuSiOcZU
 
 - Altre prove con Bootstrap
 
-## Difficoltà avute
+## Problemi aperti
 
-- 
+- Serate: controllo adatto per l'inserimento di una data
+- Cancellazione tags
+- Edit corso esistente (non funziona proprio) e Nuovo corso (non riesco a gestire le serate e i tags)
+- Tags e Sertate: da dettaglio conto
 
 ## Domande:
 
