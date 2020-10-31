@@ -6,7 +6,7 @@ https://www.youtube.com/watch?v=rCXhuSiOcZU
 
 ## EER del modello DB dell'esempio
 
-(ModelloDB.png)
+![Modello del DB](ModelloDB.png)
 
 ## Obiettivi: Prove con SQL Alchemy, WTForms e Jinja Avanzato
 
