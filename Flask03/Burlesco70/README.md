@@ -10,15 +10,16 @@ https://www.youtube.com/watch?v=rCXhuSiOcZU
 - Tabella semplice
 - Tabelle in relazione 1:N
 - Tabelle in relazione N:N
+- Gestione Tags (Inserimento / Cancellazione)
 
 - Altre prove con Bootstrap
 
 ## Problemi aperti
 
 - Serate: controllo adatto per l'inserimento di una data
-- Cancellazione tags
-- Edit corso esistente (non funziona proprio) e Nuovo corso (non riesco a gestire le serate e i tags)
-- Tags e Sertate: da dettaglio conto
+- Edit corso esistente (non funziona la modifica sui tag) 
+- Nuovo corso (non riesco a gestire le serate e i tags)
+- Tags e Serate: da dettaglio corso
 
 ## Domande:
 

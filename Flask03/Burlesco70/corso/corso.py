@@ -135,6 +135,44 @@ def tags():
 
     return render_template('nuovo_tag.html', form=form, lista_tags=lista_tags)
 
+@corso.route("/tags/delete", methods=('POST',))
+def tag_delete():
+    '''
+    Delete tag
+    '''
+    try:
+        my_tag = Tag.query.filter_by(id=request.form['id']).first()
+        db.session.delete(my_tag)
+        db.session.commit()
+        flash('Cencellazione avvenuta con successo.', 'success')
+    except Exception as e:
+        db.session.rollback()
+        flash("Errore durante la cancellazione del tag: %s" % str(e), 'danger')
+    return redirect(url_for('tags'))
+
+@corso.route("/edit_tag/<id>", methods=('GET', 'POST'))
+def edit_tag(id):
+    '''
+    Edit tag
+    :param id: Id from tag
+    '''
+    my_tag = Tag.query.filter_by(id=id).first()
+    form = TagForm(obj=my_tag)
+    if form.validate_on_submit():
+        try:
+            # Update tag
+            form.populate_obj(my_tag)
+            db.session.add(my_tag)
+            db.session.commit()
+            # User info
+            flash('Aggiornamento avventuo con successo', 'success')
+        except Exception as e:
+            db.session.rollback()
+            flash("Errore durante l'aggiornamento del tag: %s" % str(e), 'danger')
+    return render_template(
+        '/edit_tag.html',
+        form=form)      
+
 # Lista corsi
 # Decoratore rotta: indirizzo pagina web
 @corso.route("/corsi")
@@ -213,25 +251,37 @@ def nuovo_corso():
     return render_template('nuovo_corso.html', form=form)
 
 # Edit non funziona
-@corso.route("/edit_corso/<int:corso_id>", methods=('GET', 'POST'))
-def edit_corso(corso_id):
-    corso = Corso.query.get_or_404(corso_id)
-    tags = corso.tags
-    form = CorsoForm(obj=corso)
+@corso.route("/edit_corso/<id>", methods=('GET', 'POST'))
+def edit_corso(id):
+    # Lista dei tag disponibili
+    available_tags = Tag.query.all()
+    tag_list = [(t.id, t.titolo) for t in available_tags]
+
+    my_corso = Corso.query.filter_by(id=id).first()
+    form = CorsoForm(obj=my_corso)
+    # Tutti i tag come tupla (id, titolo)
+    form.tag.choices = tag_list
+
     if form.validate_on_submit():
         try:
-            # Update contact
-            form.populate_obj(corso)
-            db.session.add(corso)
+            # Update corso
+            form.populate_obj(my_corso)
+            ###########################
+            # Non capisco come riportare qui le selezioni dei tag
+            ###########################
+            tag_choices = form.tag.choices
+            print(tag_choices)
+            # my_corso.tags = [id for (i,_) in tag_choices]
+            db.session.add(my_corso)
             db.session.commit()
-            # User info
+            # info
             flash('Aggiornamento avvenuto con successo', 'success')
-        except:
-            db.session.rollback()
-            flash("Errore durante l'aggiornamento", 'danger')
+        except Exception as e:
+            db.session.rollback()            
+            flash("Errore durante l'inserimento della serata: %s" % str(e), 'error')
     return render_template(
         'edit_corso.html',
-        form=form, corso=corso)          
+        form=form)          
 
 # Gestore errori
 @corso.errorhandler(404)
