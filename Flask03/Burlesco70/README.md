@@ -4,7 +4,11 @@
 
 https://www.youtube.com/watch?v=rCXhuSiOcZU
 
-## Obiettivi: Prime prove con Forms e Jinja Avanzato
+## EER del modello DB dell'esempio
+
+(ModelloDB.png)
+
+## Obiettivi: Prove con SQL Alchemy, WTForms e Jinja Avanzato
 
 - ORM SQLAlchemy
 - Tabella semplice
