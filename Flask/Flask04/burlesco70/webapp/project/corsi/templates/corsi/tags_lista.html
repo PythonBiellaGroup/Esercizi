@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block content %}
+
+    <!-- Messaggi flash -->        
+    <div class="container">
+      {# Flashed messages #}
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      {# End Flashed messages #}
+  </div>        
+
+
+<div class="container text-center">
+    <br>
+    <h1>Lista tags</h1>
+    <br>
+</div>
+
+    <!-- Lista tags -->    
+    <h1 class="display-1">
+      {% for t in lista_tags %}
+      <div>
+      <span class="badge badge-secondary">{{t.name}}</span>   
+      <a class="btn btn-primary pull-right" href="{{ url_for('corsi.edit_tag', id=t.id) }}">Edit</a>
+      <a class="btn btn-primary pull-right" href="{{ url_for('corsi.tag_delete', id=t.id) }}">Cancella</a>
+      </div>
+      {% endfor %} 
+    </h1>
+
+
+    {% endblock %}
+

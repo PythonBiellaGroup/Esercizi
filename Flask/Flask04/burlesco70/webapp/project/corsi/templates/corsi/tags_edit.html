@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% block content %}
+
+    <!-- Messaggi flash -->        
+    <div class="container">
+        {# Flashed messages #}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        {# End Flashed messages #}
+    </div>        
+
+    <!-- Gestione Edit -->
+    <h1 class="display-2">Edit Tag</h1>
+
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-4">
+                <form class="form" method="POST" role="form">
+                    {# This hidden_tag is a CSRF security feature. #}
+                    {{ form.hidden_tag() }}
+                    {#String forms#}
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="name" name="name"
+                               placeholder="Nome del tag">
+                    </div>
+                    {#Submit button#}
+                    <div class="row align-items-center justify-content-center">
+                        <button type="submit" class="btn btn-success">Aggiorna</button>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    {% endblock %}

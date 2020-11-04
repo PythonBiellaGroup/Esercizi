@@ -1,0 +1,48 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container text-center">
+    <br>
+    <h1>Lista tags</h1>
+    <br>
+</div>
+
+    <!-- Messaggi flash -->        
+        <div class="container">
+            {# Flashed messages #}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+            {# End Flashed messages #}
+        </div>        
+
+    <!-- Lista tags -->    
+    <h4 class="display-4">
+        {% for t in lista_tags %}
+        <div>
+        <span class="badge badge-secondary">{{t.name}}</span>
+        <!--
+
+					<form action="{{ url_for('tag_delete') }}" method="post" class="pull-right">
+						<input type="hidden" name="id" value="{{ t.id }}">
+						<input type="submit" class="btn btn-danger" data-toggle="confirmation" {# data-title="Sicuro?" #} value="Cancella">
+          </form>
+          <a class="btn btn-primary pull-right" href="{{ url_for('edit_tag', id=t.id) }}">Edit</a>
+        -->
+        
+        </div>
+        {% endfor %} 
+    </h4>
+  
+    <!-- Form per la creazione di nuovi tag -->        
+    <div class="container text-center">
+        <br>
+        <h1>Nuovo tag</h1>
+        <br>
+    </div>  
+
+    {% endblock %}
+{% include 'footer.html' %}

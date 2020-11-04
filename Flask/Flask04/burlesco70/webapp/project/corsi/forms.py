@@ -12,7 +12,7 @@ from wtforms import (
     SelectField,
     TextAreaField,
 )
-
+from wtforms.validators import DataRequired, Length
 
 class CorsiForm(FlaskForm):
 
@@ -115,3 +115,6 @@ def write_db(name, teacher, lessons, level, description):
     #     print(f"Impossibile to write on db the new course: {name}, because: {message}")
     #     db.session.rollback()
     #     return 0
+
+class TagForm(FlaskForm):
+    name = StringField(u'Titolo tag', validators=[Length(min=-1, max=255, message='Massimo 255 caratteri')])
