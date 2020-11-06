@@ -27,7 +27,7 @@
             <h5 class="card-title big-heading">{{ c.nome }}</h5>
             <p class="card-text">{{ c.descrizione }}</p>
             <span class="card-signature">di {{c.insegnante}}</span>
-            <a class="read-more" href="#">
+            <a class="read-more" href="/corsi/corsi/{{ c.id }}">
               <span class="text">Più dettagli...</span>
               <svg class="icon">
                 <!-- Link a dettaglio corso -->
@@ -43,5 +43,4 @@
 
 </div>
 
-
-  {% endblock %}
+{% endblock %}

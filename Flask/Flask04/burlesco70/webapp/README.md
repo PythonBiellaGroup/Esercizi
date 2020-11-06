@@ -3,17 +3,22 @@
 - Spostato oggetto Serate in corsi.py (tutti gli oggetti del modulo insieme)
 - Aggiunto menu corsi (lista/nuovo)
 - Aggiunta pagina lista
+
 04/11/2020
 - Aggiunto menu corsi (gestione tags)
 - Lista, cancellazione dei tags
 - (Modello) SERATA: aggiunto link incontro (Zoom o altro)/ aggiunto link registrazione (Youtube o altro)
 
+06/11/2020
+- Aggiunta pagina dettaglio corso (da lista)
+
 # TO DO
+- Pagina dettaglio corso: aggiungere serate
 - Tag: aggiunta e edit
+
 ## Modello
 CORSO: aggiungere immagine logo
-SERATA: 
-- renderla entità forte (esiste anche se non legata ad uun corso
+SERATA: renderla entità forte (esiste anche se non legata ad uun corso
 
 # Corso Flask
 ## Progetto di esempio

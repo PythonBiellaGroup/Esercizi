@@ -76,6 +76,32 @@ def create():
     return render_template("corsi_create.html", form=form)
 
 
+@corsi_blueprint.route("/corsi/<int:corso_id>", methods=["GET"])
+def dettaglio_corso(corso_id):
+    # Gestione aggiunga serate
+    '''
+    form = SerataForm()
+    if form.validate_on_submit():
+        nuova_serata=Serata()
+        nuova_serata.data = form.data.data 
+        nuova_serata.descrizione = form.descrizione.data
+        nuova_serata.corso_id = corso_id
+        # Reset
+        form.data.data = ""
+        form.descrizione.data = ""
+        try:
+            db.session.add(nuova_serata)
+            db.session.commit()
+        except Exception as e:
+            flash("Errore durante l'inserimento della serata: %s" % str(e), 'error')
+            db.session.rollback()
+    '''
+    corso = Corso.query.get_or_404(corso_id)
+    serate = corso.serate
+    #tags = corso.tags
+    #return render_template('corsi_dettaglio.html', form=form, corso=corso, sessioni=serate, title=corso.titolo)
+    return render_template('corsi_dettaglio.html', corso=corso, serate=serate)
+
 ##Result route
 @corsi_blueprint.route("/results/<int:course_id>", methods=["GET"])
 def results(course_id):
