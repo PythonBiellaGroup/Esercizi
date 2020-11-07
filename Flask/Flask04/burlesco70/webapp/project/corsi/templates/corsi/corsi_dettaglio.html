@@ -51,8 +51,11 @@
     </div>          
   </div>
 
+  
+
     <br>
     <div class="container text-center">
+    <a class="btn btn-danger pull-right" href="{{ url_for('corsi.corso_delete', id=corso.id) }}">Cancella il corso</a>
     <div class="link-list-wrapper">
         <ul class="link-list">
            <li><a class="list-item" href="{{ url_for('corsi.lista') }}"><span>Torna alla lista</span></a></li>

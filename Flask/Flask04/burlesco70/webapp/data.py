@@ -4,7 +4,7 @@ from project import db
 import datetime
 import os
 
-CREATE_ALL = False
+CREATE_ALL = True
 
 
 if CREATE_ALL:
@@ -41,7 +41,6 @@ if CREATE_ALL:
     corsoFlask = Corso(
         "Flask",
         "Andrea Guzzo",
-        5,
         "Intermedio",
         "Corso in cinque serate del microframework Flask",
     )
@@ -49,14 +48,13 @@ if CREATE_ALL:
 
     # Relazione n:n TAG - CORSO
     corsoPygame = Corso(
-        "Pygame", "Mario Nardi", 3, "Principiante", "Introduzione a Pygame"
+        "Pygame", "Mario Nardi", "Principiante", "Introduzione a Pygame"
     )
     corsoPygame.tags = [t1, t3, t6]
 
     corso_pandas = Corso(
         "Pandas",
         "Maria Teresa",
-        2,
         "Intermedio",
         "Corso base per manipolare i dataframes",
     )

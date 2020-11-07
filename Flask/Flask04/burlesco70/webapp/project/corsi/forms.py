@@ -16,11 +16,6 @@ from wtforms.validators import DataRequired, Length
 
 class CorsiForm(FlaskForm):
 
-    # def __init__(self, input_list):
-    # Generate choices for selections in the form
-    # super().__init__()
-    # self.course_serate.choices = input_list
-
     course_level_list = [
         ("principiante", "Principiante"),
         ("facile", "Facile"),
@@ -30,37 +25,24 @@ class CorsiForm(FlaskForm):
     ]
 
     # String field: Name of the course
-    course_name = StringField(
+    name = StringField(
         "Name of the course",
         validators=[
             validators.Length(min=1, max=120),
-            validators.required("Please insert name of the course"),
+            validators.required("Inserisci il nome del corso"),
         ],
     )
     # String field: Course Teacher
-    course_teacher = StringField(
+    teacher = StringField(
         "Teacher",
         validators=[
             validators.Length(min=1, max=120),
-            validators.required("Please insert name of the teacher"),
+            validators.required("Inserisci il nome dell'insegnante"),
         ],
     )
-    # Integer Field: Number of lessons
-    course_lessons = IntegerField(
-        "Number of lessons",
-        validators=[validators.required("Please define a number of lessons")],
-    )
-
-    # # Multiple select field
-    # # Numero di serate
-    # course_serate = SelectField(
-    #     "Prima serata",
-    #     choices=test_list,
-    #     validators=[validators.required("Seleziona la prima serata del corso")],
-    # )
 
     # Livello di difficoltà del corso
-    course_level = SelectField(
+    level = SelectField(
         "Livello del corso",
         choices=course_level_list,
         validators=[
@@ -68,14 +50,11 @@ class CorsiForm(FlaskForm):
         ],
     )
 
-    # Boolean Field
-    course_multiple = BooleanField("Corso con molte serate?")
-
     # Free Text: Descrizione del corso
-    course_description = TextAreaField("Descrizione del corso")
+    description = TextAreaField("Descrizione del corso")
 
     # Submit button
-    submit = SubmitField("Create New Course")
+    submit = SubmitField("Crea nuovo corso")
 
 
 # Utilities functions
@@ -95,11 +74,11 @@ def write_to_disk(name, surname, email):
     data.close()
 
 
-def write_db(name, teacher, lessons, level, description):
+def write_db(name, teacher, level, description):
 
     print(f"Writing new data to db: {name}")
 
-    new_course = Corso(name, teacher, lessons, level, description)
+    new_course = Corso(name, teacher, level, description)
 
     # try:
     db.session.add(new_course)

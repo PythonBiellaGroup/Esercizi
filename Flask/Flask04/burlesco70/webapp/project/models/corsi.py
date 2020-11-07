@@ -5,14 +5,14 @@ Oggetti Tabella relativi al modulo "corsi"
 '''
 
 
-# Tabella di relazione N:N tra Corso e Tag
+# corso_tags - tabella di relazione N:N tra Corso e Tag
 tags = db.Table(
     "corso_tags",
     db.Column("corso_id", db.Integer, db.ForeignKey("corso.id"), primary_key=True),
     db.Column("tag_id", db.Integer, db.ForeignKey("tag.id"), primary_key=True),
 )
 
-
+# corso - tabella con i corsi
 class Corso(db.Model):
     # Nome della tabella
     __tablename__ = "corso"
@@ -21,7 +21,8 @@ class Corso(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     nome = db.Column(db.String(100), unique=True, nullable=False)
     insegnante = db.Column(db.String(100))
-    lezioni = db.Column(db.Integer())
+    # Il numero delle lezioni è un attributo calcolabile
+    # lezioni = db.Column(db.Integer())
     livello = db.Column(db.String(100))
     descrizione = db.Column(db.String(255))
 
@@ -38,10 +39,10 @@ class Corso(db.Model):
     # Costruttore
 
     # NOTA: Lasciare il costruttore crea problemi nella gestione della form di creazione
-    def __init__(self, nome, insegnante, lezioni, livello, descrizione):
+    def __init__(self, nome, insegnante, livello, descrizione):
         self.nome = nome
         self.insegnante = insegnante
-        self.lezioni = lezioni
+        # self.lezioni = lezioni
         self.livello = livello
         self.descrizione = descrizione
         # self.serate = serate
@@ -88,10 +89,12 @@ class Serata(db.Model):
 
     corso_id = db.Column(db.Integer(), db.ForeignKey("corso.id"))
 
-    def __init__(self, nome, descrizione, data):
+    def __init__(self, nome, descrizione, data, link_partecipazione='', link_registrazione=''):
         self.nome = nome
         self.descrizione = descrizione
         self.data = data
+        self.link_partecipazione = link_partecipazione
+        self.link_registrazione = link_registrazione
 
     def __repr__(self):
-        return "<Descrizione '{}'>".format(self.descrizione)        
+        return "<Descrizione '{}'. Link registrazione>".format(self.descrizione, self.link_registrazione)

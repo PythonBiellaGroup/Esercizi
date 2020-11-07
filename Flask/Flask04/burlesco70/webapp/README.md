@@ -13,8 +13,11 @@
 - Aggiunta pagina dettaglio corso (da lista)
 
 07/11/2020
-- Aggiunta creazione/edit tag
-- Correzioni di bug non bloccanti
+- Aggiunta creazione/edit Tag
+- Correzioni di bug vari non bloccanti
+- Refactoring creazione corso
+- (MODELLO) Eliminato numero_lezioni da Corso; sistemazione view, form e data.py
+- Cancellazione Corso da pagina di dettaglio
 
 # TO DO App
 - Pagina dettaglio corso: aggiunta / cancellazione serata

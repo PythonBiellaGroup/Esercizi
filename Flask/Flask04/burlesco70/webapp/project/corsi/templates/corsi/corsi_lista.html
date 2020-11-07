@@ -1,5 +1,19 @@
 {% extends "base.html" %} {% block content %}
 
+    <!-- Messaggi flash -->        
+    <div class="container">
+      {# Flashed messages #}
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      {# End Flashed messages #}
+  </div>        
+
+
 <div class="container text-center">
     <br>
     <h1>Lista corsi</h1>
@@ -27,7 +41,7 @@
             <h5 class="card-title big-heading">{{ c.nome }}</h5>
             <p class="card-text">{{ c.descrizione }}</p>
             <span class="card-signature">di {{c.insegnante}}</span>
-            <a class="read-more" href="/corsi/corsi/{{ c.id }}">
+            <a class="read-more" href="/corsi/{{ c.id }}">
               <span class="text">Più dettagli...</span>
               <svg class="icon">
                 <!-- Link a dettaglio corso -->
