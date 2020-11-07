@@ -12,13 +12,18 @@
 06/11/2020
 - Aggiunta pagina dettaglio corso (da lista)
 
-# TO DO
-- Pagina dettaglio corso: aggiungere serate
-- Tag: aggiunta e edit
+07/11/2020
+- Aggiunta creazione/edit tag
+- Correzioni di bug non bloccanti
 
-## Modello
-CORSO: aggiungere immagine logo
-SERATA: renderla entità forte (esiste anche se non legata ad uun corso
+# TO DO App
+- Pagina dettaglio corso: aggiunta / cancellazione serata
+- Gestione serate
+- Nella home page fare vedere le 4 "prossime" serate
+
+# TO DO Modello
+- CORSO: aggiungere immagine logo
+- SERATA: renderla entità forte (esiste anche se non legata ad uun corso
 
 # Corso Flask
 ## Progetto di esempio

@@ -15,7 +15,7 @@
     <br>
     <h1>Programma di {{ corso.nome }}</h1>
     <br>
-</div>
+
 
     <!-- CORSO -->    
     <h2>{{ corso.descrizione }}<span class="badge badge-secondary"></span></h2>
@@ -32,11 +32,13 @@
     <h4 class="display-4">Livello <span class="badge badge-warning">{{corso.livello}}</span></h4>
 
     <h2 class="display-2"><span class="badge badge-info">Programma del corso</span></h2>
+  </div>    <!--end center -->
 
-    <div class="it-list-wrapper">
+  <div class="bd-example">
+  <div class="it-list-wrapper">
         <ul class="it-list">
             <!--Element-->
-            {% for s in serate %}
+            {% for s in corso.serate %}
           <li>
             <a href="#">
               <div class="it-right-zone">
@@ -47,13 +49,17 @@
           {% endfor %}
         </ul>
     </div>          
+  </div>
 
     <br>
+    <div class="container text-center">
     <div class="link-list-wrapper">
         <ul class="link-list">
            <li><a class="list-item" href="{{ url_for('corsi.lista') }}"><span>Torna alla lista</span></a></li>
         </ul>
-      </div>
+    </div>
+  </div>
+
 
   
 {% endblock %}

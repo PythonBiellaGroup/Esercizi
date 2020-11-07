@@ -97,10 +97,7 @@ def dettaglio_corso(corso_id):
             db.session.rollback()
     '''
     corso = Corso.query.get_or_404(corso_id)
-    serate = corso.serate
-    #tags = corso.tags
-    #return render_template('corsi_dettaglio.html', form=form, corso=corso, sessioni=serate, title=corso.titolo)
-    return render_template('corsi_dettaglio.html', corso=corso, serate=serate)
+    return render_template('corsi_dettaglio.html', corso=corso)
 
 ##Result route
 @corsi_blueprint.route("/results/<int:course_id>", methods=["GET"])
@@ -147,15 +144,17 @@ def tags():
     '''
     form = TagForm()
     if form.validate_on_submit():
-        n_tag = Tag()
-        form.populate_obj(n_tag)
+        tag_name = form.name.data
+        n_tag = Tag(tag_name)
+        print(n_tag)
+        #form.populate_obj(n_tag)
         db.session.add(n_tag)
-        form.titolo.data = ""
+        form.name.data = ""
         try:
             db.session.commit()
             # User info
             flash('Tag creato correttamente', 'success')
-            return redirect(url_for('tags'))
+            return redirect(url_for('corsi.tags'))
         except Exception as e:
             db.session.rollback()
             flash("Errore durante la creazione del tag: %s" % str(e), 'danger')
@@ -191,11 +190,10 @@ def edit_tag(id):
             form.populate_obj(my_tag)
             db.session.add(my_tag)
             db.session.commit()
-            # User info
-            flash('Aggiornamento avventuo con successo', 'success')
+            flash('Aggiornamento avvenuto con successo', 'success')
         except Exception as e:
             db.session.rollback()
             flash("Errore durante l'aggiornamento del tag: %s" % str(e), 'danger')
     return render_template(
         '/tags_edit.html',
-        form=form)     
+        form=form,tag=my_tag)     

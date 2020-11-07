@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block content %}
 
-    <!-- Messaggi flash -->        
+    <!-- Messaggi flash -->
     <div class="container">
       {# Flashed messages #}
       {% with messages = get_flashed_messages(with_categories=true) %}
@@ -31,6 +31,34 @@
       {% endfor %} 
     </h1>
 
+    <!-- Form per la creazione di nuovi tag -->        
+        <div class="container text-center">
+          <br>
+          <h1>Nuovo tag</h1>
+          <br>
+        </div>
+
+        {% block body %}
+        <div class="container">
+          <div class="row align-items-center justify-content-center">
+            <div class="col-md-4">
+                  <form class="form" method="POST" role="form">
+                      {# This hidden_tag is a CSRF security feature. #}
+                      {{ form.hidden_tag() }}
+                      {#String forms#}
+                      <div class="form-group">
+                          <input type="text" class="form-control" id="name" name="name"
+                                 placeholder="Nome del tag">
+                      </div>
+                      {#Submit button#}
+                      <div class="row align-items-center justify-content-center">
+                        <button type="submit" class="btn btn-success">Crea nuovo tag</button>
+                      </div>
+                  </form>
+            </div>
+          </div>
+        </div>
+        {% endblock %}
 
     {% endblock %}
 
