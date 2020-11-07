@@ -14,10 +14,12 @@
 
 07/11/2020
 - Aggiunta creazione/edit Tag
-- Correzioni di bug vari non bloccanti
-- Refactoring creazione corso
-- (MODELLO) Eliminato numero_lezioni da Corso; sistemazione view, form e data.py
+- Correzioni di imprecisioni varie non bloccanti
+- Refactoring creazione corso, con pieno utilizzo WTform
+- (Modello) CORSO: eliminato numero_lezioni; sistemazione view, form e data.py
 - Cancellazione Corso da pagina di dettaglio
+- Pagina Dettaglio Corso: tags e serate visualizzate solo se presenti
+- Pagina Dettaglio Corso: aggiunta gestione del link alla registrazione Youtube, ove presente
 
 # TO DO App
 - Pagina dettaglio corso: aggiunta / cancellazione serata

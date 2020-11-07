@@ -19,6 +19,8 @@
 
     <!-- CORSO -->    
     <h2>{{ corso.descrizione }}<span class="badge badge-secondary"></span></h2>
+
+    {% if corso.tags %}
     <h3>Tags 
         <!-- Lista tags -->
         {% for t in corso.tags %}
@@ -27,22 +29,39 @@
     </span>        
         {% endfor %} 
     </h3>
+    {% endif %}
 
     <h4 class="display-4">Insegnante <span class="badge badge-success">{{corso.insegnante}}</span></h4>
     <h4 class="display-4">Livello <span class="badge badge-warning">{{corso.livello}}</span></h4>
 
-    <h2 class="display-2"><span class="badge badge-info">Programma del corso</span></h2>
   </div>    <!--end center -->
 
+  {% if corso.serate %}
+  <h2 class="display-2"><span class="badge badge-info">Programma del corso</span></h2>
   <div class="bd-example">
   <div class="it-list-wrapper">
         <ul class="it-list">
             <!--Element-->
             {% for s in corso.serate %}
           <li>
-            <a href="#">
+
+            <!-- Link registrazione -->
+            {% if s.link_registrazione %}
+              <a href="{{ s.link_registrazione }}">
+            {% endif %}
+              
               <div class="it-right-zone">
-                <span class="text">{{ s.data.strftime('%d/%m/%Y') }}<em>{{ s.descrizione }}</em></span>
+                <span class="text">
+                  {{ s.data.strftime('%d/%m/%Y') }}
+                  <em>{{ s.descrizione }}
+                  </em>
+                </span>
+              
+              <!-- Metadata registrazione -->
+              {% if s.link_registrazione %}
+                <span class="metadata">Clicca per la registrazione</span>
+              {% endif %}
+  
               </div>
             </a>
           </li>
@@ -50,7 +69,7 @@
         </ul>
     </div>          
   </div>
-
+  {% endif %}
   
 
     <br>

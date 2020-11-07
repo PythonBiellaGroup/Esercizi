@@ -79,18 +79,29 @@ if CREATE_ALL:
         "1 - Introduzione a Flask e ai web server con Jinja Base",
         datetime.date(2020, 10, 12),
     )
+    s1.link_registrazione = 'https://www.youtube.com/watch?v=FPI5-oGKiVI&t=759s'
     s2 = Serata(
         "Flask serata 2", "2 - Jinja avanzato e Forms", datetime.date(2020, 10, 19)
     )
+    s2.link_registrazione = 'https://www.youtube.com/watch?v=C-iEkd-BpE4'
     s3 = Serata("Flask serata 3", "3 - Flask con Database", datetime.date(2020, 10, 26))
+    s3.link_registrazione = 'https://www.youtube.com/watch?v=rCXhuSiOcZU'
     s4 = Serata(
-        "Flask serata 4", "4 - Large Flask Applications", datetime.date(2020, 11, 2)
+        "Flask serata 4", "4 - Review", datetime.date(2020, 11, 2)
     )
+    s4.link_registrazione = 'https://www.youtube.com/watch?v=izIKXOrbI5U'
+
+    '''TO BE DEFINED
     s5 = Serata(
-        "Flask serata 5",
-        "5 - REST Backend e concetti avanzati",
+        "Flask serata 5", "5 - Large Flask Applications", datetime.date(2020, 11, 2)
+    )
+
+    s6 = Serata(
+        "Flask serata 6",
+        "6 - REST Backend e concetti avanzati",
         datetime.date(2020, 11, 9),
     )
+    '''
 
     si6 = Serata("Da impostare", "Non ancora definita", datetime.date(2020, 11, 10))
     si7 = Serata("Da impostare", "Non ancora definita", datetime.date(2020, 11, 11))
@@ -99,9 +110,9 @@ if CREATE_ALL:
     s2.corso_id = c.id
     s3.corso_id = c.id
     s4.corso_id = c.id
-    s5.corso_id = c.id
+    #s5.corso_id = c.id
 
-    serate = [s1, s2, s3, s4, s5, si6, si7, si8]
+    serate = [s1, s2, s3, s4, si6, si7, si8]
     for s in serate:
         try:
             db.session.add(s)
