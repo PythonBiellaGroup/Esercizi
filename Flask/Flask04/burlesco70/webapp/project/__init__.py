@@ -32,10 +32,13 @@ Migrate(app, db)
 # get errors in your models.py files.
 ## Grab the blueprints from the other views.py files for each "app"
 from project.corsi.views import corsi_blueprint
+from project.tags.views import tags_blueprint
 from project.error_pages.handlers import error_pages
 
 app.register_blueprint(corsi_blueprint, url_prefix="/corsi")
+app.register_blueprint(tags_blueprint, url_prefix="/tags")
+# app.register_blueprint(serate_blueprint, url_prefix="/serate")
 app.register_blueprint(error_pages)
 
-# app.register_blueprint(serate_blueprint, url_prefix="/serate")
+
 

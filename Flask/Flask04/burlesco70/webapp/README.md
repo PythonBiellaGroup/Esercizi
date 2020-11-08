@@ -25,6 +25,7 @@
 - Aggiunto "required" nelle form html ove necessario
 - Pagina Dettaglio Corso: aggiunta in lista visualizzazione serata con registrazione non presente
 - Pagina Dettaglio Corso: possibilità di aggiungere Serata al corso
+- Creato Blueprint "tags" con relativi spostamenti di pagine e metodi
 
 # TO DO App
 - Pagina dettaglio corso: aggiunta / cancellazione serata

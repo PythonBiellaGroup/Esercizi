@@ -1,7 +1,6 @@
 from time import strftime
 from flask_wtf import FlaskForm
 from project.models.corsi import Corso, Serata
-from project import db
 from wtforms import (
     Form,
     validators,
@@ -77,33 +76,6 @@ def write_to_disk(name, surname, email):
     )
     data.close()
 
-
-def write_db(name, teacher, level, description):
-
-    print(f"Writing new data to db: {name}")
-
-    new_course = Corso(name, teacher, level, description)
-
-    # try:
-    db.session.add(new_course)
-    db.session.commit()
-    # get the id of the object
-    # db.session.refresh(new_course)
-    course_inserted = Corso.query.filter_by(nome=name).first()
-    print(f"Course: {name} added to db, with id: {course_inserted.id}")
-
-    return course_inserted.id
-
-    # except Exception as message:
-    #     print(f"Impossibile to write on db the new course: {name}, because: {message}")
-    #     db.session.rollback()
-    #     return 0
-
-'''
-Tag Form
-'''
-class TagForm(FlaskForm):
-    name = StringField(u'Titolo tag', validators=[Length(min=-1, max=255, message='Massimo 255 caratteri')])
 
 '''
 Serata Form

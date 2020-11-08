@@ -25,8 +25,8 @@
       {% for t in lista_tags %}
       <div>
       <span class="badge badge-secondary">{{t.name}}</span>   
-      <a class="btn btn-primary pull-right" href="{{ url_for('corsi.edit_tag', id=t.id) }}">Edit</a>
-      <a class="btn btn-primary pull-right" href="{{ url_for('corsi.tag_delete', id=t.id) }}">Cancella</a>
+      <a class="btn btn-primary pull-right" href="{{ url_for('tags.edit_tag', id=t.id) }}">Edit</a>
+      <a class="btn btn-primary pull-right" href="{{ url_for('tags.tag_delete', id=t.id) }}">Cancella</a>
       </div>
       {% endfor %} 
     </h1>
