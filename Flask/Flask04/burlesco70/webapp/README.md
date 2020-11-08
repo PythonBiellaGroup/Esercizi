@@ -2,10 +2,10 @@
 03/11/2020
 - Spostato oggetto Serate in corsi.py (tutti gli oggetti del modulo insieme)
 - Aggiunto menu corsi (lista/nuovo)
-- Aggiunta pagina lista
+- Aggiunta pagina lista corsi
 
 04/11/2020
-- Aggiunto menu corsi (gestione tags)
+- Aggiunto in menu corsi: gestione tags
 - Lista, cancellazione dei tags
 - (Modello) SERATA: aggiunto link incontro (Zoom o altro)/ aggiunto link registrazione (Youtube o altro)
 
@@ -13,13 +13,18 @@
 - Aggiunta pagina dettaglio corso (da lista)
 
 07/11/2020
-- Aggiunta creazione/edit Tag
+- Aggiunta funzione creazione/edit Tag
 - Correzioni di imprecisioni varie non bloccanti
 - Refactoring creazione corso, con pieno utilizzo WTform
 - (Modello) CORSO: eliminato numero_lezioni; sistemazione view, form e data.py
 - Cancellazione Corso da pagina di dettaglio
 - Pagina Dettaglio Corso: tags e serate visualizzate solo se presenti
 - Pagina Dettaglio Corso: aggiunta gestione del link alla registrazione Youtube, ove presente
+
+08/11/2020
+- Aggiunto "required" nelle form html ove necessario
+- Pagina Dettaglio Corso: aggiunta in lista visualizzazione serata con registrazione non presente
+- Pagina Dettaglio Corso: possibilità di aggiungere Serata al corso
 
 # TO DO App
 - Pagina dettaglio corso: aggiunta / cancellazione serata

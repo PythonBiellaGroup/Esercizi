@@ -83,7 +83,7 @@ class Serata(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     nome = db.Column(db.String(255), nullable=False)
     descrizione = db.Column(db.String(255), nullable=False)
-    data = db.Column(db.DateTime())
+    data = db.Column(db.DateTime(), nullable=False)
     link_partecipazione = db.Column(db.String(255), nullable=True)
     link_registrazione = db.Column(db.String(255), nullable=True)
 

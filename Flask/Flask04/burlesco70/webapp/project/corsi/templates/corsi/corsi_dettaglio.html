@@ -48,18 +48,22 @@
             <!-- Link registrazione -->
             {% if s.link_registrazione %}
               <a href="{{ s.link_registrazione }}">
+            {% else %}    
+              <a href="#">
             {% endif %}
               
               <div class="it-right-zone">
                 <span class="text">
                   {{ s.data.strftime('%d/%m/%Y') }}
-                  <em>{{ s.descrizione }}
+                  <em>{{ s.nome }} - {{ s.descrizione }}
                   </em>
                 </span>
               
               <!-- Metadata registrazione -->
               {% if s.link_registrazione %}
                 <span class="metadata">Clicca per la registrazione</span>
+              {% else %}    
+                <span class="metadata">Registrazione non presente</span>
               {% endif %}
   
               </div>
@@ -70,7 +74,68 @@
     </div>          
   </div>
   {% endif %}
-  
+
+  <!--Aggiungi serate-->
+  <div class="container text-center">
+    <br>
+    <h1>Aggiungi serata per {{ corso.nome }}</h1>
+    <br>
+  </div>
+
+    <!-- Gestione Nuova serata-->
+    <!-- Form -->
+
+    <div class="container">
+      <div class="row align-items-center justify-content-center">
+          <div class="col-md-4">
+              <form class="form" method="POST" role="form">
+                  {# This hidden_tag is a CSRF security feature. #}
+                  {{ form.hidden_tag() }}
+
+                  <div class="it-datepicker-wrapper">
+                    <div class="form-group">
+                      <input class="form-control it-date-datepicker" id="data" name="data" type="text" placeholder="Inserisci la data in formato gg/mm/aaaa" required>
+                      <label for="data">Data della serata</label>
+                    </div>
+                  </div>
+                  <script>
+                    $(document).ready(function() {
+                      $('.it-date-datepicker').datepicker({
+                        inputFormat: ["dd/MM/yyyy"],
+                        outputFormat: 'dd/MM/yyyy',
+                      });
+                  });
+                  </script>                
+
+                  <div class="form-group">
+                      <input type="text" class="form-control" id="nome" name="nome"
+                             placeholder="Titolo della serata" required>
+                  </div>
+
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="descrizione" name="descrizione"
+                           placeholder="Descrizione della serata" required>
+                  </div>
+
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="link_partecipazione" name="link_partecipazione"
+                           placeholder="Link accesso">
+                  </div>
+
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="link_registrazione" name="link_registrazione"
+                           placeholder="Link registrazione">
+                  </div>
+
+
+                  {#Submit button#}
+                  <div class="row align-items-center justify-content-center">
+                      <button type="submit" class="btn btn-success">Aggiungi una serata</button>
+                  </div>
+              </div>
+          </div>
+    </div>
+
 
     <br>
     <div class="container text-center">

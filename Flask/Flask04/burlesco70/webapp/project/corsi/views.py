@@ -8,8 +8,8 @@ from flask import (
     session,
     current_app,
 )
-from project.corsi.forms import CorsiForm, write_to_disk, write_db, TagForm
-from project.models.corsi import Corso, Tag
+from project.corsi.forms import CorsiForm, write_to_disk, write_db, TagForm, SerataForm
+from project.models.corsi import Corso, Tag, Serata
 from project import db
 
 from sqlalchemy import desc,asc
@@ -65,30 +65,39 @@ def create():
 
 
 '''
-Visualizzazione di un corso (con gestione serate e tags)
+Visualizzazione di un corso (con gestione serate e tags (TODO))
 '''
-@corsi_blueprint.route("/<int:corso_id>", methods=["GET"])
+@corsi_blueprint.route("/<int:corso_id>", methods=('GET', 'POST'))
 def dettaglio_corso(corso_id):
-    # Gestione aggiunga serate
-    '''
+    
+    # Gestione aggiunta serate
+
     form = SerataForm()
     if form.validate_on_submit():
-        nuova_serata=Serata()
-        nuova_serata.data = form.data.data 
-        nuova_serata.descrizione = form.descrizione.data
+
+        data = form.data.data
+        nome =  form.nome.data
+        descrizione = form.descrizione.data
+        link_partecipazione = form.link_partecipazione.data
+        link_registrazione = form.link_registrazione.data
+
+        nuova_serata = Serata(nome, descrizione, data, link_partecipazione, link_registrazione)
         nuova_serata.corso_id = corso_id
-        # Reset
+        # Reset dei campi della form
         form.data.data = ""
+        form.nome.data = ""
         form.descrizione.data = ""
+        form.link_partecipazione.data = ""
+        form.link_registrazione.data = ""
         try:
             db.session.add(nuova_serata)
             db.session.commit()
         except Exception as e:
             flash("Errore durante l'inserimento della serata: %s" % str(e), 'error')
             db.session.rollback()
-    '''
+    
     corso = Corso.query.get_or_404(corso_id)
-    return render_template('corsi_dettaglio.html', corso=corso)
+    return render_template('corsi_dettaglio.html', corso=corso, form=form)
 
 
 '''

@@ -11,9 +11,13 @@ from wtforms import (
     BooleanField,
     SelectField,
     TextAreaField,
+    DateField
 )
 from wtforms.validators import DataRequired, Length
 
+'''
+Corso Form
+'''
 class CorsiForm(FlaskForm):
 
     course_level_list = [
@@ -95,5 +99,32 @@ def write_db(name, teacher, level, description):
     #     db.session.rollback()
     #     return 0
 
+'''
+Tag Form
+'''
 class TagForm(FlaskForm):
     name = StringField(u'Titolo tag', validators=[Length(min=-1, max=255, message='Massimo 255 caratteri')])
+
+'''
+Serata Form
+'''
+class SerataForm(FlaskForm):
+    nome = StringField(
+        u'Titolo della serata', 
+        validators=[Length(min=-1, max=100, message='Massimo 100 caratteri')]
+    )
+    descrizione = StringField(
+        u'Descrizione', 
+        validators=[Length(min=-1, max=255, message='Massimo 255 caratteri')]
+    )
+    data = DateField(u'Data', format='%d/%m/%Y',id='datepick')
+    link_partecipazione = StringField(
+        u"Link di partecipazione all'incontro",
+        validators=[Length(min=-1, max=255, message='Massimo 255 caratteri')]
+    )
+    link_registrazione = StringField(
+        u"Link della registrazione dell'incontro",
+        validators=[Length(min=-1, max=255, message='Massimo 255 caratteri')]
+    )
+
+
