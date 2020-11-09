@@ -27,7 +27,7 @@ Lista dei tags con la possibilità di creazione di nuovo tag
 '''
 @tags_blueprint.route("/", methods=('GET', 'POST'))
 def tags():
-    # Ordinamento alfabetico ascendente per titolo
+    # Ordinamento alfabetico ascendente per "name"
     lista_tags = Tag.query.order_by(asc(Tag.name)).all()
     '''
     Crea nuovo tag

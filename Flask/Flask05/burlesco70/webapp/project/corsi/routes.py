@@ -77,7 +77,6 @@ Visualizzazione di un corso (con gestione serate e tags (TODO))
 def dettaglio_corso(corso_id):
     
     # Gestione aggiunta serate
-
     form = SerataForm()
     if form.validate_on_submit():
 

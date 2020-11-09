@@ -22,10 +22,10 @@ class Corso(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     nome = db.Column(db.String(100), unique=True, nullable=False)
     insegnante = db.Column(db.String(100))
-    # Il numero delle lezioni è un attributo calcolabile
-    # lezioni = db.Column(db.Integer())
     livello = db.Column(db.String(100))
     descrizione = db.Column(db.String(255))
+    # Immagine logo da cartella static, se presente
+    logo_img = db.Column(db.String(100))
 
     # Relazione 1:n; ordinamento serate per data
     serate = db.relationship(
@@ -38,23 +38,25 @@ class Corso(db.Model):
     )
 
     # Costruttore
-    def __init__(self, nome, insegnante, livello, descrizione):
+    def __init__(self, nome, insegnante, livello, descrizione, logo_img=""):
         self.nome = nome
         self.insegnante = insegnante
         self.livello = livello
         self.descrizione = descrizione
+        self.logo_img = logo_img
         # self.serate = serate
         # self.tags = tags
 
     # Visualize object corso informations
     def __repr__(self):
-        return "\n{}: {} è tenuto da {}. Livello {}. Id {}. Tags {}".format(
+        return "\n{}: {} è tenuto da {}. Livello {}. Id {}. Tags {}. Logo {}".format(
             self.nome,
             self.descrizione,
             self.insegnante,
             self.livello,
             self.id,
             self.tags,
+            self.logo_img,
         )
 
 

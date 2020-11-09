@@ -9,8 +9,6 @@ import os
 
 CREATE_ALL = True
 
-#db.metadata.clear()
-
 if CREATE_ALL:
     # Create entities
     db.create_all()
@@ -49,6 +47,7 @@ if CREATE_ALL:
         "Andrea Guzzo",
         "Intermedio",
         "Corso in cinque serate del microframework Flask",
+        "immagine_flask"
     )
     corsoFlask.tags = [t1, t2, t4, t5]
 
@@ -146,7 +145,6 @@ list_serate = Serata.query.all()
 print(f"\nSerate create:")
 for serata in list_serate:
     print(f"Serata: {serata.id}, {serata.nome}, in data: {serata.data}")
-
 
 # Get a serate by serate name
 list_impostare = Serata.query.filter(Serata.nome.like("%impostare%")).all()
