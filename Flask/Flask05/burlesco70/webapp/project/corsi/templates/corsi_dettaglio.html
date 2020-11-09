@@ -1,0 +1,152 @@
+{% extends "base.html" %} {% block content %}
+
+    <!-- Messaggi flash -->
+    <div class="alert alert-primary" role="alert">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+      </div>
+  
+<div class="container text-center">
+    <br>
+    <h1>Programma di {{ corso.nome }}</h1>
+    <br>
+
+
+    <!-- CORSO -->    
+    <h2>{{ corso.descrizione }}<span class="badge badge-secondary"></span></h2>
+
+    {% if corso.tags %}
+    <h3>Tags 
+        <!-- Lista tags -->
+        {% for t in corso.tags %}
+    <span class="badge badge-secondary">
+        {{t.name}}
+    </span>        
+        {% endfor %} 
+    </h3>
+    {% endif %}
+
+    <h4 class="display-4">Insegnante <span class="badge badge-success">{{corso.insegnante}}</span></h4>
+    <h4 class="display-4">Livello <span class="badge badge-warning">{{corso.livello}}</span></h4>
+
+  </div>    <!--end center -->
+
+  {% if corso.serate %}
+  <h2 class="display-2"><span class="badge badge-info">Programma del corso</span></h2>
+  <div class="bd-example">
+  <div class="it-list-wrapper">
+        <ul class="it-list">
+            <!--Element-->
+            {% for s in corso.serate %}
+          <li>
+
+            <!-- Link registrazione -->
+            {% if s.link_registrazione %}
+              <a href="{{ s.link_registrazione }}">
+            {% else %}    
+              <a href="#">
+            {% endif %}
+              
+              <div class="it-right-zone">
+                <span class="text">
+                  {{ s.data.strftime('%d/%m/%Y') }}
+                  <em>{{ s.nome }} - {{ s.descrizione }}
+                  </em>
+                </span>
+              
+              <!-- Metadata registrazione -->
+              {% if s.link_registrazione %}
+                <span class="metadata">Clicca per la registrazione</span>
+              {% else %}    
+                <span class="metadata">Registrazione non presente</span>
+              {% endif %}
+  
+              </div>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+    </div>          
+  </div>
+  {% endif %}
+
+  <!--Aggiungi serate-->
+  <div class="container text-center">
+    <br>
+    <h1>Aggiungi serata per {{ corso.nome }}</h1>
+    <br>
+  </div>
+
+    <!-- Gestione Nuova serata-->
+    <!-- Form -->
+
+    <div class="container">
+      <div class="row align-items-center justify-content-center">
+          <div class="col-md-4">
+              <form class="form" method="POST" role="form">
+                  {# This hidden_tag is a CSRF security feature. #}
+                  {{ form.hidden_tag() }}
+
+                  <div class="it-datepicker-wrapper">
+                    <div class="form-group">
+                      <input class="form-control it-date-datepicker" id="data" name="data" type="text" placeholder="Inserisci la data in formato gg/mm/aaaa" required>
+                      <label for="data">Data della serata</label>
+                    </div>
+                  </div>
+                  <script>
+                    $(document).ready(function() {
+                      $('.it-date-datepicker').datepicker({
+                        inputFormat: ["dd/MM/yyyy"],
+                        outputFormat: 'dd/MM/yyyy',
+                      });
+                  });
+                  </script>                
+
+                  <div class="form-group">
+                      <input type="text" class="form-control" id="nome" name="nome"
+                             placeholder="Titolo della serata" required>
+                  </div>
+
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="descrizione" name="descrizione"
+                           placeholder="Descrizione della serata" required>
+                  </div>
+
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="link_partecipazione" name="link_partecipazione"
+                           placeholder="Link accesso">
+                  </div>
+
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="link_registrazione" name="link_registrazione"
+                           placeholder="Link registrazione">
+                  </div>
+
+
+                  {#Submit button#}
+                  <div class="row align-items-center justify-content-center">
+                      <button type="submit" class="btn btn-success">Aggiungi una serata</button>
+                  </div>
+              </div>
+          </div>
+    </div>
+
+
+    <br>
+    <div class="container text-center">
+    <a class="btn btn-danger pull-right" href="{{ url_for('corsi.corso_delete', id=corso.id) }}">Cancella il corso</a>
+    <div class="link-list-wrapper">
+        <ul class="link-list">
+           <li><a class="list-item" href="{{ url_for('corsi.lista') }}"><span>Torna alla lista</span></a></li>
+        </ul>
+    </div>
+  </div>
+
+
+  
+{% endblock %}
