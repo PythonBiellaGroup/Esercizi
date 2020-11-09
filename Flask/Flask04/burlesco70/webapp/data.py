@@ -1,11 +1,15 @@
 ##Script to import data into DB with CRUD Operations
-from project.models.corsi import Corso, Tag, Serata
+from project.serate.models import Serata
+from project.corsi.models import Corso
+from project.tags.models import Tag
+
 from project import db
 import datetime
 import os
 
 CREATE_ALL = True
 
+#db.metadata.clear()
 
 if CREATE_ALL:
     # Create entities

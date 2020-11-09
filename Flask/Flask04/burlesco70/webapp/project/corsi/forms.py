@@ -1,6 +1,7 @@
 from time import strftime
 from flask_wtf import FlaskForm
-from project.models.corsi import Corso, Serata
+# from project.models.corsi import Serata
+# from project.corsi.models import Corso
 from wtforms import (
     Form,
     validators,

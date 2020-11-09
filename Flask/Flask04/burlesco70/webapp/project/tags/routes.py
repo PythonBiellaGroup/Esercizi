@@ -15,7 +15,12 @@ from project import db
 from sqlalchemy import desc,asc
 
 # Define blueprint
-tags_blueprint = Blueprint("tags", __name__, template_folder="templates")
+tags_blueprint = Blueprint(
+    "tags", 
+     __name__, 
+    template_folder="templates", 
+    static_folder='../static'
+)    
 
 '''
 Lista dei tags con la possibilità di creazione di nuovo tag

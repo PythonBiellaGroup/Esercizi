@@ -9,13 +9,19 @@ from flask import (
     current_app,
 )
 from project.corsi.forms import CorsiForm, write_to_disk, SerataForm
-from project.models.corsi import Corso, Serata
+from project.serate.models import Serata
+from project.corsi.models import Corso
 from project import db
 
 from sqlalchemy import desc,asc
 
 # Define blueprint
-corsi_blueprint = Blueprint("corsi", __name__, template_folder="templates")
+corsi_blueprint = Blueprint(
+    "corsi", 
+    __name__, 
+    template_folder="templates", 
+    static_folder='../static'
+)
 
 '''
 Lista dei corsi in ordine alfabetico

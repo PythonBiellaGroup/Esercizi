@@ -28,6 +28,11 @@
 - Creato Blueprint "tags" con relativi spostamenti di pagine e metodi
 - Refactoring; naming (routes invece di views); creato models in blueprint tag
 
+09/11/2020
+- Refactoring dei modelli
+- Creato Blueprint per Serate
+- Sistemata cartella static dai Blueprint
+
 # TO DO App
 - Pagina dettaglio corso: aggiunta / cancellazione serata
 - Gestione serate
