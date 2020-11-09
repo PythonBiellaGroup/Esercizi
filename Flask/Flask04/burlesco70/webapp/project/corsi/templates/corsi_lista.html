@@ -20,47 +20,41 @@
     <br>
 </div>
 
-<div class="row">
-
 <!--Lista corsi in formato CARD -->
-{% for c in lista_corsi %}
-      <!--start card-->
-    <div class="col-12 col-lg-4">
-
+<div class="container align-center">
+<div class="row">
+    {% for c in lista_corsi %}
+    <div class="col-12 col-lg-8">
       <div class="card-wrapper">
-        <div class="card">
-          <div class="card-body">
-            <div class="category-top">
-              <a class="category" href="#">
-                  <!-- Lista tags -->
-                  {% for t in c.tags %}
+      
+      <div class="card card-bg">
+        <div class="card-body">
+          <div class="head-tags">
+            <!-- Lista tags -->
+            {% for t in c.tags %}
+            <a class="card-tag" href="/tags/{{ t.id }}">
                   {{t.name}}
-                  {% endfor %}
-                </a>
-              <span class="data"></span>
-            </div>
-            
-            <h5 class="card-title big-heading">{{ c.nome }}</h5>
-            
-            <p class="card-text">{{ c.descrizione }}</p>
-            
-            <span class="card-signature">di {{c.insegnante}}</span>
-            
-            <a class="read-more" href="/corsi/{{ c.id }}">
-              <span class="text">Più dettagli...</span>
-              <svg class="icon">
-                <!-- Link a dettaglio corso -->
-                <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-arrow-right"></use>
-              </svg>
             </a>
-          
+            {% endfor %}              
+            <span class="data">{{ c.livello }}</span>
+          </div>
+          <h5 class="card-title">{{ c.nome }}</h5>
+          <p class="card-text">{{ c.descrizione }}</p>
+          <div class="it-card-footer">
+            <span class="card-signature">di {{c.insegnante}}</span>
+            <a href="/corsi/{{ c.id }}"><button class="btn btn-outline-primary btn-sm" >Dettagli</button></a>
           </div>
         </div>
       </div>
     </div>
-      <!--end card-->
-  {% endfor %}
-
+  </div>
+  <br>
+   {% endfor %}
 </div>
+</div>
+
+
+
+
 
 {% endblock %}

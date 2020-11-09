@@ -26,6 +26,7 @@
 - Pagina Dettaglio Corso: aggiunta in lista visualizzazione serata con registrazione non presente
 - Pagina Dettaglio Corso: possibilità di aggiungere Serata al corso
 - Creato Blueprint "tags" con relativi spostamenti di pagine e metodi
+- Refactoring; naming (routes invece di views); creato models in blueprint tag
 
 # TO DO App
 - Pagina dettaglio corso: aggiunta / cancellazione serata
@@ -34,7 +35,6 @@
 
 # TO DO Modello
 - CORSO: aggiungere immagine logo
-- SERATA: renderla entità forte (esiste anche se non legata ad uun corso
 
 # Corso Flask
 ## Progetto di esempio
@@ -60,6 +60,7 @@ Elenco di cose da trattare durante il corso:
 6. Costruire la vista dei corsi con form di compilazione + Visualizzazione dei risultati
 7. Agganciare i corsi al DB
 8. Costruire funzionalità di visualizzazione di tutti i corsi esistenti all'interno del database
+(fino qui)
 9. Costruire funzionalità delle serate
 10. Maschera di Login con funzionalità di Login e permessi di visualizzazione
 11. Pagina di Blog

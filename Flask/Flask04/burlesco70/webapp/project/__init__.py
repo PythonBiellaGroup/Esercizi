@@ -31,8 +31,8 @@ Migrate(app, db)
 # NOTE! These imports need to come after you've defined db, otherwise you will
 # get errors in your models.py files.
 ## Grab the blueprints from the other views.py files for each "app"
-from project.corsi.views import corsi_blueprint
-from project.tags.views import tags_blueprint
+from project.corsi.routes import corsi_blueprint
+from project.tags.routes import tags_blueprint
 from project.error_pages.handlers import error_pages
 
 app.register_blueprint(corsi_blueprint, url_prefix="/corsi")

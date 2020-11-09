@@ -9,7 +9,7 @@ from flask import (
     current_app,
 )
 from project.corsi.forms import CorsiForm, write_to_disk, SerataForm
-from project.models.corsi import Corso, Tag, Serata
+from project.models.corsi import Corso, Serata
 from project import db
 
 from sqlalchemy import desc,asc
@@ -18,7 +18,7 @@ from sqlalchemy import desc,asc
 corsi_blueprint = Blueprint("corsi", __name__, template_folder="templates")
 
 '''
-Lista dei corsi
+Lista dei corsi in ordine alfabetico
 '''
 @corsi_blueprint.route("/lista", methods=["GET"])
 def lista():
@@ -106,7 +106,7 @@ Cancellazione di un corso
 @corsi_blueprint.route("/delete/<int:id>", methods=('GET', 'POST'))
 def corso_delete(id):
     '''
-    Delete tag
+    Delete corso
     '''
     try:
         my_course = Corso.query.filter_by(id=id).first()

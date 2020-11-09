@@ -9,7 +9,7 @@ from flask import (
     current_app,
 )
 from project.tags.forms import TagForm
-from project.models.corsi import Corso, Tag, Serata
+from project.tags.models import Tag
 from project import db
 
 from sqlalchemy import desc,asc
@@ -62,7 +62,7 @@ def tag_delete(id):
     return redirect(url_for('tags.tags'))
 
 '''
-Modifica tag
+Modifica tag by id
 '''
 @tags_blueprint.route("/<id>", methods=('GET', 'POST'))
 def edit_tag(id):

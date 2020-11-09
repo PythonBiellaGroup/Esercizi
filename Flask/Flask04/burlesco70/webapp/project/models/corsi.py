@@ -1,4 +1,5 @@
 from project import db
+from project.tags.models import Tag
 
 '''
 Oggetti Tabella relativi al modulo "corsi"
@@ -60,18 +61,6 @@ class Corso(db.Model):
         )
 
 
-class Tag(db.Model):
-
-    __tablename__ = "tag"
-
-    id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(255), unique=True, nullable=False)
-
-    def __init__(self, name):
-        self.name = name
-
-    def __repr__(self):
-        return "<Tag '{}'>".format(self.name)
 
 # Tabella di relazione 1 Corso : N Serate
 class Serata(db.Model):
