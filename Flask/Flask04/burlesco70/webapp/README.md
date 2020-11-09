@@ -1,6 +1,5 @@
 # Devlog
 03/11/2020
-- Spostato oggetto Serate in corsi.py (tutti gli oggetti del modulo insieme)
 - Aggiunto menu corsi (lista/nuovo)
 - Aggiunta pagina lista corsi
 
