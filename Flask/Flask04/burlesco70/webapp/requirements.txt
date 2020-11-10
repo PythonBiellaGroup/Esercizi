@@ -2,7 +2,7 @@ alembic==0.9.9
 appnope==0.1.0
 attrs==19.3.0
 backcall==0.1.0
-bleach==3.1.1
+bleach==3.1.4
 certifi==2018.1.18
 click==6.7
 cycler==0.10.0
