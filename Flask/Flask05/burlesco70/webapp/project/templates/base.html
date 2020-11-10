@@ -16,111 +16,236 @@
   </head>
 </html>
 <body>
-  <div class="it-header-slim-wrapper">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <div class="it-header-slim-wrapper-content">
-            <a
-              class="d-none d-lg-block navbar-brand"
-              href="{{ url_for('index') }}"
-              >Python Biella Group</a
-            >
-            <div class="nav-mobile">
-              <nav>
-                <a
-                  class="it-opener d-lg-none"
-                  data-toggle="collapse"
-                  href="#menu1"
-                  role="button"
-                  aria-expanded="false"
-                  aria-controls="menu1"
-                >
-                  <span>Python Biella Group</span>
-                </a>
-                <div class="link-list-wrapper collapse" id="menu1">
-                  <ul class="link-list">
-                    <li>
-                      <a class="list-item" href="{{ url_for('index') }}"
-                        >Home</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-              </nav>
-            </div>
 
-            <!-- Menu corsi -->
-            <div class="it-header-slim-right-zone">
-              <div class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  data-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <span>Corsi</span>
-                </a>
-                <div class="dropdown-menu">
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="link-list-wrapper">
-                        <ul class="link-list">
-                          <li>
-                            <a class="list-item" href="{{ url_for('corsi.lista') }}"><span>Lista corsi</span></a>
-                          </li>
-                          <li>
-                            <a class="list-item" href="{{ url_for('corsi.create') }}"><span>Nuovo corso</span></a>
-                          </li>
-                          <li>
-                            <a class="list-item" href="{{ url_for('tags.tags') }}"><span>Gestione Tags</span></a>
-                          </li>
-                        </ul>
+  <div class="it-header-wrapper">
+    <div class="it-header-slim-wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="it-header-slim-wrapper-content">
+              <a class="d-none d-lg-block navbar-brand" href="#">Python Biella Group</a>
+              <div class="nav-mobile">
+                <nav>
+                  <a class="it-opener d-lg-none" data-toggle="collapse" href="#menu4" role="button" aria-expanded="false" aria-controls="menu4">
+                    <span>Python Biella Group</span>
+                    <svg class="icon">
+                      <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-expand"></use>
+                    </svg>
+                  </a>
+                  <div class="link-list-wrapper collapse" id="menu4">
+                    <ul class="link-list">
+                      <li><a class="list-item" href="{{ url_for('serate.prossime') }}">Serate</a></li>
+                      <li><a class="list-item active" href="{{ url_for('corsi.lista') }}">Corsi</a></li>
+                    </ul>
+                  </div>
+                </nav>
+              </div>
+              <div class="it-header-slim-right-zone">
+                <div class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                    <span>ITA</span>
+                    <svg class="icon d-none d-lg-block">
+                      <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-expand"></use>
+                    </svg>
+                  </a>
+                  <div class="dropdown-menu">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="link-list-wrapper">
+                          <ul class="link-list">
+                            <li><a class="list-item" href="#"><span>ITA</span></a></li>
+                            <li><a class="list-item" href="#"><span>ENG</span></a></li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-
-
-
-
-
-            <div class="it-header-slim-right-zone">
-              <div class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  data-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <span>Ita</span>
-                </a>
-                <div class="dropdown-menu">
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="link-list-wrapper">
-                        <ul class="link-list">
-                          <li>
-                            <a class="list-item" href="#"><span>ITA</span></a>
-                          </li>
-                          <li>
-                            <a class="list-item" href="#"><span>ENG</span></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
+                <div class="it-access-top-wrapper">
+                  <a class="btn btn-primary btn-sm" href="#">Accedi</a>
                 </div>
-              </div>
-              <div class="it-access-top-wrapper">
-                <a class="btn btn-primary btn-sm" href="#">Logout</a>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <div class="it-nav-wrapper">
+      <div class="it-header-center-wrapper">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="it-header-center-content-wrapper">
+                <div class="it-brand-wrapper">
+                  <a href="#">
+                    <svg class="icon">
+                      <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-code-circle"></use>
+                    </svg>
+                    <div class="it-brand-text">
+                      <h2 class="no_toc">Python Biella Group</h2>
+                      <h3 class="no_toc d-none d-md-block">Il sito della condivisione della conoscenza</h3>
+                    </div>
+                  </a>
+                </div>
+                <div class="it-right-zone">
+                  <div class="it-socials d-none d-md-flex">
+                    <span>Seguici su</span>
+                    <ul>
+                      <li>
+                        <a href="#" aria-label="Facebook" target="_blank">
+                          <svg class="icon">
+                            <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-facebook"></use>
+                          </svg>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" aria-label="Github" target="_blank">
+                          <svg class="icon">
+                            <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-github"></use>
+                          </svg>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" aria-label="Twitter" target="_blank">
+                          <svg class="icon">
+                            <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-twitter"></use>
+                          </svg>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="it-search-wrapper">
+                    <span class="d-none d-md-block">Cerca</span>
+                    <a class="search-link rounded-icon" aria-label="Cerca" href="#">
+                      <svg class="icon">
+                        <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-search"></use>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="it-header-navbar-wrapper">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <!--start nav-->
+              <nav class="navbar navbar-expand-lg has-megamenu">
+                <button class="custom-navbar-toggler" type="button" aria-controls="nav02" aria-expanded="false" aria-label="Toggle navigation" data-target="#nav02">
+                  <svg class="icon">
+                    <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-burger"></use>
+                  </svg>
+                </button>
+                <div class="navbar-collapsable" id="nav02" style="display: none;">
+                  <div class="overlay" style="display: none;"></div>
+                  <div class="close-div sr-only">
+                    <button class="btn close-menu" type="button"><span class="it-close"></span>close</button>
+                  </div>
+                  <div class="menu-wrapper">
+                    <ul class="navbar-nav">
+                      <li class="nav-item active"><a class="nav-link active" href="{{ url_for('serate.prossime') }}"><span>Serate</span><span class="sr-only">current</span></a></li>
+                      <li class="nav-item"><a class="nav-link" href="{{ url_for('corsi.lista') }}"><span>Corsi</span></a></li>
+                      <li class="nav-item"><a class="nav-link" href="{{ url_for('tags.tags') }}"><span>Tags</span></a></li>
+                      <li class="nav-item"><a class="nav-link" href="#"><span>Utenti</span></a></li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                          <span>Scegli...</span>
+                          <svg class="icon icon-xs">
+                            <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-expand"></use>
+                          </svg>
+                        </a>
+                        <div class="dropdown-menu">
+                          <div class="link-list-wrapper">
+                            <ul class="link-list">
+                              <li>
+                                <h3 class="no_toc" id="heading-es-5">Entità</h3>
+                              </li>
+                              <li><a class="list-item" href="{{ url_for('serate.prossime') }}"><span>Serate</span></a></li>
+                              <li><a class="list-item" href="{{ url_for('corsi.lista') }}"><span>Corsi</span></a></li>
+                              <li><a class="list-item" href="{{ url_for('tags.tags') }}"><span>Tags</span></a></li>
+                              <li><span class="divider"></span></li>
+                              <li><a class="list-item" href="#"><span>Utenti</span></a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="nav-item dropdown megamenu">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                          <span>Megamenu!</span>
+                          <svg class="icon icon-xs">
+                            <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-expand"></use>
+                          </svg>
+                        </a>
+                        <div class="dropdown-menu">
+                          <div class="row">
+                            <div class="col-12 col-lg-4">
+                              <div class="link-list-wrapper">
+                                <ul class="link-list">
+                                  <li>
+                                    <h3 class="no_toc">SERATE</h3>
+                                  </li>
+                                  <li><a class="list-item" href="{{ url_for('serate.prossime') }}"><span>Prossime</span></a></li>
+                                  <li><a class="list-item" href="#"><span>Lista completa</span></a></li>
+                                  <li><a class="list-item" href="#"><span>Nuova</span></a></li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                              <div class="link-list-wrapper">
+                                <ul class="link-list">
+                                  <li>
+                                    <h3 class="no_toc">CORSI</h3>
+                                  </li>
+                                  <li><a class="list-item" href="{{ url_for('corsi.lista') }}"><span>Lista</span></a></li>
+                                  <li><a class="list-item" href="{{ url_for('corsi.create') }}"><span>Nuovo</span></a></li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                              <div class="link-list-wrapper">
+                                <ul class="link-list">
+                                  <li>
+                                    <h3 class="no_toc">TAGS</h3>
+                                  </li>
+                                  <li><a class="list-item" href="{{ url_for('tags.tags') }}"><span>Lista</span></a></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   {% block content %} {% endblock %}
 </body>

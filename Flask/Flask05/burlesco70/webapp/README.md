@@ -1,4 +1,13 @@
 # Devlog
+
+# 5a settimana
+
+10/11/2020
+- base.html - Header Completa Boostrap invece che Navigation bar
+- Prossime serate
+
+# 4a settimana
+
 03/11/2020
 - Aggiunto menu corsi (lista/nuovo)
 - Aggiunta pagina lista corsi
@@ -34,6 +43,7 @@
 
 # TO DO App
 - Pagina dettaglio corso: aggiunta / cancellazione serata
+- Immagine statica corso
 - Gestione serate
 - Nella home page fare vedere le 4 "prossime" serate
 

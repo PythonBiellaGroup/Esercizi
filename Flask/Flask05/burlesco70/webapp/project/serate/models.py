@@ -1,12 +1,11 @@
 from project import db
-#from project.corsi.models import Corso
 
 # Tabella di relazione 1 Corso : N Serate
 class Serata(db.Model):
 
     __tablename__ = "serata"
 
-    __table_args__ = (db.UniqueConstraint("id", "data", name="contraint_serata"),)
+    __table_args__ = (db.UniqueConstraint("id", "data", name="constraint_serata"),)
 
     id = db.Column(db.Integer(), primary_key=True)
     nome = db.Column(db.String(255), nullable=False)

@@ -1,4 +1,4 @@
-##Script to import data into DB with CRUD Operations
+## Script to import data into DB with CRUD Operations
 from project.serate.models import Serata
 from project.corsi.models import Corso
 from project.tags.models import Tag
@@ -47,13 +47,13 @@ if CREATE_ALL:
         "Andrea Guzzo",
         "Intermedio",
         "Corso in cinque serate del microframework Flask",
-        "immagine_flask"
+        "flask-icon.png"
     )
     corsoFlask.tags = [t1, t2, t4, t5]
 
     # Relazione n:n TAG - CORSO
     corsoPygame = Corso(
-        "Pygame", "Mario Nardi", "Principiante", "Introduzione a Pygame"
+        "Pygame", "Mario Nardi", "Principiante", "Introduzione a Pygame", "pygame-icon.png"
     )
     corsoPygame.tags = [t1, t3, t6]
 
