@@ -3,8 +3,12 @@
 # 5a settimana
 
 10/11/2020
-- base.html - Header Completa Boostrap invece che Navigation bar
-- Prossime serate
+- base.html - Header Completa Boostrap invece che Navigation bar (Risolto il problema xlink:href per sprite.svg; c'era un 404)
+- Aggiunta pagina "Prossime serate"
+
+11/11/2020
+- Lista completa serate utilizzando lo stesso template delle "prossime serate"
+- Aggiunta bottoni per edit e cancellazione (ancora TO DO)
 
 # 4a settimana
 

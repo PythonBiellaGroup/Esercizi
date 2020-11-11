@@ -36,8 +36,23 @@ def prossime():
     lista_corsi = [ Corso.query.filter_by(id=s.corso_id).first() for s in lista_serate ]
     # Nel template non è possibile iterare su due liste, quindi zippo le due liste e le passo
     zipped_data = zip(lista_serate, lista_corsi)
+    titolo = "Le prossime serate"
     return render_template(
-        'serate_prossime.html', 
-        zipped_data=zipped_data
+        'serate_lista.html', 
+        zipped_data=zipped_data, titolo=titolo
+    )
+
+@serate_blueprint.route("/lista", methods=["GET"])
+def lista():
+    # Filtro data futura, ordinamento per data
+    lista_serate = Serata.query.order_by(asc(Serata.data)).all()
+    # Creo una lista parallela dei corsi collegati alle serate
+    lista_corsi = [ Corso.query.filter_by(id=s.corso_id).first() for s in lista_serate ]
+    # Nel template non è possibile iterare su due liste, quindi zippo le due liste e le passo
+    zipped_data = zip(lista_serate, lista_corsi)
+    titolo = "Lista delle serate"
+    return render_template(
+        'serate_lista.html', 
+        zipped_data=zipped_data, titolo=titolo
     )
 

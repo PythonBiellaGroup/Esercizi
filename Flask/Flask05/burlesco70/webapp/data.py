@@ -76,49 +76,59 @@ if CREATE_ALL:
 
     #################################################
     ##### 3. Create Serate ######
+    # Creo e riutilizzerò l'oggetto data_serata
+    data_serata = datetime.datetime(2020, 10, 12)
+    data_serata = data_serata.replace(hour=20)
+    
     print("Start creating serate")
 
     c = Corso.query.filter_by(nome="Flask").first()  # Ritorna tutti i risultati
     s1 = Serata(
         "Flask 1",
         "Introduzione a Flask e ai web server con Jinja Base",
-        datetime.date(2020, 10, 12),
+        data_serata,
     )
+    data_serata = data_serata.replace(day=19)
     s1.link_registrazione = 'https://www.youtube.com/watch?v=FPI5-oGKiVI&t=759s'
     s2 = Serata(
-        "Flask 2", "Jinja avanzato e Forms", datetime.date(2020, 10, 19)
+        "Flask 2", "Jinja avanzato e Forms", data_serata
     )
+    data_serata = data_serata.replace(day=26)
     s2.link_registrazione = 'https://www.youtube.com/watch?v=C-iEkd-BpE4'
-    s3 = Serata("Flask 3", "Flask con Database", datetime.date(2020, 10, 26))
+    s3 = Serata("Flask 3", "Flask con Database", data_serata)
     s3.link_registrazione = 'https://www.youtube.com/watch?v=rCXhuSiOcZU'
+    data_serata = data_serata.replace(day=2, month=11)
     s4 = Serata(
-        "Flask 4", "Review", datetime.date(2020, 11, 2)
+        "Flask 4", "Review", data_serata
     )
     s4.link_registrazione = 'https://www.youtube.com/watch?v=izIKXOrbI5U'
 
-
+    data_serata = data_serata.replace(day=9, month=11)
     s5 = Serata(
-        "Flask 5", "Review con Mario", datetime.date(2020, 11, 9)
+        "Flask 5", "Review con Mario", data_serata
     )
-    
-    '''TO BE DEFINED
-    s6 = Serata(
-        "Flask 6",
-        "REST Backend e concetti avanzati",
-        datetime.date(2020, 11, 9),
-    )
-    '''
 
-    si6 = Serata("Da impostare", "Non ancora definita", datetime.date(2020, 11, 10))
-    si7 = Serata("Da impostare", "Non ancora definita", datetime.date(2020, 11, 11))
-    si8 = Serata("Da impostare", "Non ancora definita", datetime.date(2020, 11, 12))
+    data_serata = data_serata.replace(day=16)
+    s6 = Serata(
+        "Flask 6", "Review con altri esercizi", data_serata
+    )
+
+    data_serata = data_serata.replace(day=23)
+    s7 = Serata(
+        "Flask 7", "REST Backend e concetti avanzati", data_serata
+    )
     s1.corso_id = c.id
     s2.corso_id = c.id
     s3.corso_id = c.id
     s4.corso_id = c.id
     s5.corso_id = c.id
+    s6.corso_id = c.id
+    s7.corso_id = c.id
 
-    serate = [s1, s2, s3, s4, s5, si6, si7, si8]
+    data_serata = data_serata.replace(day=30)
+    si6 = Serata("Da impostare", "Non ancora definita", data_serata)
+
+    serate = [s1, s2, s3, s4, s5, s6, s7, si6]
     for s in serate:
         try:
             db.session.add(s)
