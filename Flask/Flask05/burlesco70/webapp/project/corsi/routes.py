@@ -94,9 +94,11 @@ def dettaglio_corso(corso_id):
         form.descrizione.data = ""
         form.link_partecipazione.data = ""
         form.link_registrazione.data = ""
+
+        db.session.add(nuova_serata)
         try:
-            db.session.add(nuova_serata)
             db.session.commit()
+            flash('Inserimento avvenuto con successo.', 'success')
         except Exception as e:
             flash("Errore durante l'inserimento della serata: %s" % str(e), 'error')
             db.session.rollback()
@@ -113,9 +115,9 @@ def corso_delete(id):
     '''
     Delete corso
     '''
+    my_course = Corso.query.filter_by(id=id).first()
+    db.session.delete(my_course)
     try:
-        my_course = Corso.query.filter_by(id=id).first()
-        db.session.delete(my_course)
         db.session.commit()
         flash('Cancellazione avvenuta con successo.', 'success')
     except Exception as e:

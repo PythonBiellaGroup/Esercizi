@@ -42,6 +42,9 @@ def prossime():
         zipped_data=zipped_data, titolo=titolo
     )
 
+'''
+Lista di tutte le serate in ordine di data
+'''
 @serate_blueprint.route("/lista", methods=["GET"])
 def lista():
     # Filtro data futura, ordinamento per data
@@ -56,3 +59,18 @@ def lista():
         zipped_data=zipped_data, titolo=titolo
     )
 
+'''
+Cancellazione serata
+'''
+@serate_blueprint.route("/delete/<int:id>", methods=('GET', 'POST'))
+def serata_delete(id):
+    my_serata = Serata.query.filter_by(id=id).first()
+    try:        
+        #TODO Capire errore "sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped"
+        db.session.delete(my_serata)
+        db.session.commit()
+        flash('Cancellazione avvenuta con successo.', 'success')
+    except Exception as e:
+        db.session.rollback()
+        flash("Errore durante la cancellazione della serata: %s" % str(e), 'danger')
+    return redirect(url_for('serate.lista'))

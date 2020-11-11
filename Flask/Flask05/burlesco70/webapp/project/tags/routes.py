@@ -56,9 +56,9 @@ def tag_delete(id):
     '''
     Delete tag
     '''
+    my_tag = Tag.query.filter_by(id=id).first()
+    db.session.delete(my_tag)
     try:
-        my_tag = Tag.query.filter_by(id=id).first()
-        db.session.delete(my_tag)
         db.session.commit()
         flash('Cancellazione avvenuta con successo.', 'success')
     except Exception as e:
@@ -78,10 +78,9 @@ def edit_tag(id):
     my_tag = Tag.query.filter_by(id=id).first()
     form = TagForm(obj=my_tag)
     if form.validate_on_submit():
+        form.populate_obj(my_tag)
+        db.session.add(my_tag)
         try:
-            # Update tag
-            form.populate_obj(my_tag)
-            db.session.add(my_tag)
             db.session.commit()
             flash('Aggiornamento avvenuto con successo', 'success')
         except Exception as e:
