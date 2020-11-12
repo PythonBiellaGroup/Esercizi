@@ -10,6 +10,10 @@
 - Lista completa serate utilizzando lo stesso template delle "prossime serate"
 - Aggiunta bottoni per edit e cancellazione (ancora TO DO)
 
+12/11/2020
+- Separazione html tra lista serate e prossime serate
+- Revisione file configurazione e application factory (propedeutico per test)
+
 # 4a settimana
 
 03/11/2020

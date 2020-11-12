@@ -1,45 +1,36 @@
-import os
-from pathlib import Path
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
-from project.utilities.utility import get_folder_path, define_path, read_yaml_file
-
-app = Flask(__name__, static_folder="static")
+from config import config
 
 # Use bootstrap with the app
-Bootstrap(app)
+bootstrap = Bootstrap()
+db = SQLAlchemy()
 
-# Base directory with yaml configurations to app
-basedir = os.path.abspath(os.path.dirname(__file__))
-basedir_path = Path(basedir)  # basedir with pathlib (much more usefull)
-yml_configurations = read_yaml_file(basedir_path.parent, "keys.yml")
+def create_app(config_name):
+    app = Flask(__name__, static_folder="static")
+    app.config.from_object(config[config_name])
+    config[config_name].init_app(app)
 
-# Define configs for the app
-app.config["SECRET_KEY"] = yml_configurations["secret_key"]
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
-    basedir, "data.sqlite"
-)
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    bootstrap.init_app(app)
+    db.init_app(app)
 
-# Create db and migrations
-db = SQLAlchemy(app)
-Migrate(app, db)
+    # NOTE! These imports need to come after you've defined db, otherwise you will
+    # get errors in your models.py files.
+    ## Grab the blueprints from the other views.py files for each "app"
+    from project.corsi.routes import corsi_blueprint
+    app.register_blueprint(corsi_blueprint, url_prefix="/corsi")
 
-
-# NOTE! These imports need to come after you've defined db, otherwise you will
-# get errors in your models.py files.
-## Grab the blueprints from the other views.py files for each "app"
-from project.corsi.routes import corsi_blueprint
-from project.tags.routes import tags_blueprint
-from project.serate.routes import serate_blueprint
-from project.error_pages.handlers import error_pages
-
-app.register_blueprint(corsi_blueprint, url_prefix="/corsi")
-app.register_blueprint(tags_blueprint, url_prefix="/tags")
-app.register_blueprint(serate_blueprint, url_prefix="/serate")
-app.register_blueprint(error_pages)
+    from project.tags.routes import tags_blueprint
+    app.register_blueprint(tags_blueprint, url_prefix="/tags")
+    
+    from project.serate.routes import serate_blueprint
+    app.register_blueprint(serate_blueprint, url_prefix="/serate")
+    
+    from project.error_pages.handlers import error_pages
+    app.register_blueprint(error_pages)
+    
+    return app
 
 
 
