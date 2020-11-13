@@ -3,39 +3,26 @@ from project.serate.models import Serata
 from project.corsi.models import Corso
 from project.tags.models import Tag
 
-from project import db
+from project import db,create_app
 import datetime
 import os
 
 CREATE_ALL = True
 
 if CREATE_ALL:
-    # Create entities
+    # Utilizzo dell'application factory
+    app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+    app_context = app.app_context()
+    app_context.push()
+    
     db.create_all()
-    print("Start creating structure")
 
+    print("Start creating structure")
+    # Create entities
     #################################################
     ####### 1. Create tags #######
     print("Start creating tags")
-
-    t1 = Tag("Python")
-    t2 = Tag("Flask")
-    t3 = Tag("Pygame")
-    t4 = Tag("SqlAlchemy")
-    t5 = Tag("Web Development")
-    t6 = Tag("Graphics")
-    t7 = Tag("NumPy")
-    t8 = Tag("Pandas")
-
-    tags = [t1, t2, t3, t4, t5, t6, t7, t8]
-
-    for t in tags:
-        try:
-            db.session.add(t)
-            db.session.commit()
-        except Exception as e:
-            print(f"Eccezione: {e}")
-            db.session.rollback()
+    Tag.insert_default_tags()
 
     #################################################
     ##### 2. Create courses ######
@@ -49,13 +36,21 @@ if CREATE_ALL:
         "Corso in cinque serate del microframework Flask",
         "flask-icon.png"
     )
-    corsoFlask.tags = [t1, t2, t4, t5]
+    corsoFlask.tags = [
+        Tag.query.filter_by(name="Python").first(), 
+        Tag.query.filter_by(name="Flask").first(), 
+        Tag.query.filter_by(name="Web Development").first(), 
+        Tag.query.filter_by(name="SqlAlchemy").first()
+        ]
 
     # Relazione n:n TAG - CORSO
     corsoPygame = Corso(
         "Pygame", "Mario Nardi", "Principiante", "Introduzione a Pygame", "pygame-icon.png"
     )
-    corsoPygame.tags = [t1, t3, t6]
+    corsoPygame.tags = [
+        Tag.query.filter_by(name="Python").first(), 
+        Tag.query.filter_by(name="Pygame").first(), 
+        Tag.query.filter_by(name="Graphics").first()]
 
     corso_pandas = Corso(
         "Pandas",
@@ -63,7 +58,10 @@ if CREATE_ALL:
         "Intermedio",
         "Corso base per manipolare i dataframes",
     )
-    corso_pandas.tags = [t1, t7, t8]
+    corso_pandas.tags = [
+        Tag.query.filter_by(name="Python").first(), 
+        Tag.query.filter_by(name="Pandas").first(), 
+        Tag.query.filter_by(name="NumPy").first()]
     corsi = [corsoFlask, corsoPygame, corso_pandas]
 
     for c in corsi:
@@ -162,3 +160,4 @@ print(f"\nSerate da impostare:")
 for i in list_impostare:
     print(f"Serate ancora da impostare: {i.id}, {i.nome}, in data: {i.data}")
 
+db.session.remove()

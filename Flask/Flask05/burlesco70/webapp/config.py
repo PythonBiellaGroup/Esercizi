@@ -1,7 +1,6 @@
 import os
 from pathlib import Path
 
-
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config(object):    
@@ -19,10 +18,12 @@ class DevConfig(Config):
     SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(basedir, "data.sqlite")
 
 class TestConfig(Config):
-    debug = True  
+    debug = True
     SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(basedir, "testdata.sqlite")
+    # To test configuration usage in unit test
+    TESTING = True 
+    #  disabling CSRF protection in the testing conguration
     WTF_CSRF_ENABLED = False
-
 
 config = {
     'development': DevConfig,
