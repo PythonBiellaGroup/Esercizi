@@ -1,7 +1,5 @@
 from time import strftime
 from flask_wtf import FlaskForm
-# from project.models.corsi import Serata
-# from project.corsi.models import Corso
 from wtforms import (
     Form,
     validators,
@@ -90,7 +88,16 @@ class SerataForm(FlaskForm):
         u'Descrizione', 
         validators=[Length(min=-1, max=255, message='Massimo 255 caratteri')]
     )
-    data = DateField(u'Data', format='%d/%m/%Y',id='datepick')
+    '''
+    Nella form data DD/MM/YYYY e ora HH:MM sono due input field separati
+    Nella tabella c'è un solo campo
+    La logica di combinazione tra i due campi è nel controller (routes.py)
+    '''
+    data = DateField(u'Data', format='%d/%m/%Y')
+    txt_time = StringField(
+        u'Ore minuti',
+        validators=[Length(min=-1, max=5, message='Formato HH:MM')]
+    )
     link_partecipazione = StringField(
         u"Link di partecipazione all'incontro",
         validators=[Length(min=-1, max=255, message='Massimo 255 caratteri')]
@@ -99,5 +106,3 @@ class SerataForm(FlaskForm):
         u"Link della registrazione dell'incontro",
         validators=[Length(min=-1, max=255, message='Massimo 255 caratteri')]
     )
-
-

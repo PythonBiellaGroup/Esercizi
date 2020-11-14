@@ -14,6 +14,13 @@
 - Separazione html tra lista serate e prossime serate
 - Revisione file configurazione e application factory (propedeutico per test)
 
+13/12/2020
+- Creazione del package di test
+
+14/12/2020
+- Creazione del blue print "main"
+- Aggiunta ore-minuti nella "data" della serata
+
 # 4a settimana
 
 03/11/2020

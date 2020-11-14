@@ -15,6 +15,8 @@ from project import db
 
 from sqlalchemy import desc,asc
 
+import datetime
+
 # Define blueprint
 corsi_blueprint = Blueprint(
     "corsi", 
@@ -80,16 +82,28 @@ def dettaglio_corso(corso_id):
     form = SerataForm()
     if form.validate_on_submit():
 
-        data = form.data.data
+        data = form.data.data #date (not datetime!) object
+        txt_time = form.txt_time.data #string formato HH:MM
+        if not txt_time:
+            txt_time = "00:00"
+        # Converto in oggetto datetime.time per combinarlo con la data
+        # in fase di creazione oggetto Serata
+        data_time = datetime.datetime.strptime(txt_time, '%H:%M').time()
         nome =  form.nome.data
         descrizione = form.descrizione.data
         link_partecipazione = form.link_partecipazione.data
         link_registrazione = form.link_registrazione.data
 
-        nuova_serata = Serata(nome, descrizione, data, link_partecipazione, link_registrazione)
+        nuova_serata = Serata(
+            nome, 
+            descrizione, 
+            datetime.datetime.combine(data,data_time), # Combino data con ore-minuti
+            link_partecipazione, 
+            link_registrazione)
         nuova_serata.corso_id = corso_id
         # Reset dei campi della form
         form.data.data = ""
+        form.txt_time.data = ""
         form.nome.data = ""
         form.descrizione.data = ""
         form.link_partecipazione.data = ""

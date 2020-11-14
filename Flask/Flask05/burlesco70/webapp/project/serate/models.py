@@ -1,4 +1,5 @@
 from project import db
+from datetime import datetime
 
 # Tabella di relazione 1 Corso : N Serate
 class Serata(db.Model):
@@ -16,7 +17,7 @@ class Serata(db.Model):
 
     corso_id = db.Column(db.Integer(), db.ForeignKey("corso.id"))
 
-    def __init__(self, nome, descrizione, data, link_partecipazione='', link_registrazione=''):
+    def __init__(self, nome, descrizione, data, link_partecipazione='', link_registrazione=''):        
         self.nome = nome
         self.descrizione = descrizione
         self.data = data
