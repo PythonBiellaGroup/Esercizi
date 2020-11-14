@@ -12,6 +12,8 @@ class FlaskClientTestCase(unittest.TestCase):
         self.app_context.push()
         db.create_all()
         Tag.insert_default_tags()
+        self.client = self.app.test_client()
+        #self.client = self.app.test_client(use_cookies=True)
         '''
         self.client instance variable is the Flask test client object. 
         This object exposes methods that issue requests into the application
@@ -20,23 +22,21 @@ class FlaskClientTestCase(unittest.TestCase):
         it will accept and send cookies in the same way browsers do, so functionality
         that relies on cookies to recall context between requests can be used
         '''
-        self.client = self.app.test_client(use_cookies=True)
 
-    def test_check_tag(self):
-        t = Tag.query.filter_by(name="Python").first()
-        #print(t)
-        self.assertTrue(t.name == "Python")
 
     def tearDown(self):
         db.session.remove()
         db.drop_all()
         self.app_context.pop()
 
-# TODO Capire perchè non funziona
-'''
-    def test_home_page(self):
-        response = self.client.get('/')
-        print(response)
+    def test_lista_serate(self):
+        response = self.client.get('/serate/lista')
         self.assertEqual(response.status_code, 200)
-        self.assertTrue('Python Group Biella' in response.get_data(as_text=True))
-'''
+        self.assertTrue('Python Biella Group' in response.get_data(as_text=True))
+
+    def test_lista_tags(self):
+        response = self.client.get('/tags/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('Django' in response.get_data(as_text=True))
+
+

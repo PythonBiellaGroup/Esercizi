@@ -2,6 +2,7 @@
 Per eseguire:
 
 set FLASK_APP=app.py
+set FLASK_DEBUG=true
 flask run
 
 oppure
@@ -23,18 +24,21 @@ app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 # Create db and migrations
 Migrate(app, db)
 
+'''
+Per "navigare" in modalità shell
+Use shell_context_processor() to add other automatic imports.
+'''
 @app.shell_context_processor
 def make_shell_context():
- return dict(db=db)
+ return dict(db=db, Tag=Tag, Corso=Corso, Serata=Serata)
 
 '''
-Per i test di unità automatici
-The app.cli.command decorator makes it simple to implement custom commands.
-The name of the decorated function is used as the command name, and the function’s
-docstring is displayed in the help messages. The implementation of the test() func‐
-tion invokes the test runner from the unittest package.
+Per i test di unità automatici, il decorator
+app.cli.command permette di creare comandi "custom".
+Il nome della funzione "decorata", in questo caso "test" sarà il comando per richiamarla.
+In questo caso l'implementazione di test() invoca il test runner del package unittest.
 
-Per testare:
+Quindi per lanciare i test automatici:
 
 set FLASK_APP=app.py
 flask test
@@ -44,12 +48,13 @@ flask test
 def test():
  """Run the unit tests."""
  import unittest
+ # tests è il modulo
  tests = unittest.TestLoader().discover('tests')
  unittest.TextTestRunner(verbosity=2).run(tests)
 
-@app.route("/")
+@app.route("/", methods=['GET'])
 def index():
     return render_template("index.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

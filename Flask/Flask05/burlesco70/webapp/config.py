@@ -14,11 +14,10 @@ class ProdConfig(Config):
     pass
 
 class DevConfig(Config):
-    debug = True  
+    DEBUG = True
     SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(basedir, "data.sqlite")
 
 class TestConfig(Config):
-    debug = True
     SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(basedir, "testdata.sqlite")
     # To test configuration usage in unit test
     TESTING = True 
