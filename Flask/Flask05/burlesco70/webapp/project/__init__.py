@@ -27,8 +27,12 @@ def create_app(config_name):
     from project.serate.routes import serate_blueprint
     app.register_blueprint(serate_blueprint, url_prefix="/serate")
     
-    from project.error_pages.handlers import error_pages
-    app.register_blueprint(error_pages)
+    from project.error_pages.routes import error_pages_blueprint
+    app.register_blueprint(error_pages_blueprint)
+
+    from project.main.routes import main_blueprint
+    app.register_blueprint(main_blueprint)
+
     
     return app
 

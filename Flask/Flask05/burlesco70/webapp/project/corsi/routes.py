@@ -19,7 +19,7 @@ from sqlalchemy import desc,asc
 corsi_blueprint = Blueprint(
     "corsi", 
     __name__, 
-    template_folder="templates", 
+    template_folder="templates",
     static_folder='../static'
 )
 
