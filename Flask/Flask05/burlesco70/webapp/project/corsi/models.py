@@ -1,6 +1,5 @@
 from project import db
 from project.tags.models import Tag
-from project.serate.models import Serata
 
 '''
 Oggetti Tabella relativi al modulo "corsi"
@@ -59,4 +58,43 @@ class Corso(db.Model):
             self.logo_img,
         )
 
+    '''
+    Utile per i test (sempre)
+    e come dati iniziali prima della messa in effettivo del progetto
+    '''
+    @staticmethod
+    def insert_test_corsi():
 
+        corsi = [ 
+            ( "Flask", "Andrea Guzzo", "Intermedio", "Corso in cinque serate del microframework Flask", "flask-icon.png" ),
+            ( "Pygame", "Mario Nardi", "Principiante", "Introduzione a Pygame", "pygame-icon.png" ),
+            ( "Pandas", "Maria Teresa Panunzio", "Intermedio", "Corso base per manipolare i dataframes" )
+        ]
+        
+        # Prende i tags dal db
+        python_tag = Tag.query.filter_by(name="Python").first()
+        flask_tag = Tag.query.filter_by(name="Flask").first()
+        wd_tag = Tag.query.filter_by(name="Web Development").first()
+        sa_tag = Tag.query.filter_by(name="SqlAlchemy").first()
+        pg_tag = Tag.query.filter_by(name="Pygame").first()
+        g_tag = Tag.query.filter_by(name="Graphics").first()
+        pandas_tag = Tag.query.filter_by(name="Pandas").first()
+        numpy_tag = Tag.query.filter_by(name="NumPy").first()
+        
+        # Associa i tag al nome corso
+        tag_dict = {}
+        tag_dict["Flask"] = [ python_tag, flask_tag, wd_tag, sa_tag ]
+        tag_dict["Pygame"] = [ python_tag, pg_tag, g_tag ]
+        tag_dict["Pandas"] = [ python_tag, pandas_tag, numpy_tag ]
+
+        for cor in corsi:
+            # Check se già presente
+            corso = Corso.query.filter_by(nome=cor[0]).first()
+            if corso is None:
+                # *tupla permette di usare la tupla come lista di parametri del costruttore
+                # The * operator simply unpacks the tuple and passes them as the positional arguments to the function
+                corso = Corso(*cor)
+                # Aggiunta tag
+                corso.tags = tag_dict[corso.nome]
+            db.session.add(corso)
+        db.session.commit()

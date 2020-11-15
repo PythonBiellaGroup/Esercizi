@@ -11,7 +11,9 @@ class FlaskModelTestCase(unittest.TestCase):
         self.app_context = self.app.app_context()
         self.app_context.push()
         db.create_all()
-        Tag.insert_default_tags()
+        Tag.insert_test_tags()
+        Corso.insert_test_corsi()
+        Serata.insert_test_serate()
         self.client = self.app.test_client()
 
     def tearDown(self):
@@ -23,3 +25,14 @@ class FlaskModelTestCase(unittest.TestCase):
         t = Tag.query.filter_by(name="Python").first()
         #print(t)
         self.assertTrue(t.name == "Python")
+
+    def test_check_corso(self):
+        c = Corso.query.filter_by(nome="Flask").first()
+        #print(c)
+        self.assertTrue(c.nome == "Flask")
+
+    def test_check_serata(self):
+        s = Serata.query.filter_by(nome="Flask 1").first()
+        self.assertTrue(s.nome == "Flask 1")
+
+        

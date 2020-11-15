@@ -17,7 +17,7 @@ class Tag(db.Model):
     Utile per il popolamento dei dati e per i test
     '''
     @staticmethod
-    def insert_default_tags():
+    def insert_test_tags():
         tags = [ 
             "Python", "Flask", "Pygame",
             "SqlAlchemy", "Web Development", "Graphics",

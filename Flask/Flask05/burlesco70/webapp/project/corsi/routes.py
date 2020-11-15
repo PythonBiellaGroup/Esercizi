@@ -8,7 +8,8 @@ from flask import (
     session,
     current_app,
 )
-from project.corsi.forms import CorsiForm, write_to_disk, SerataForm
+from project.corsi.forms import CorsiForm, write_to_disk
+from project.serate.forms import SerataForm
 from project.serate.models import Serata
 from project.corsi.models import Corso
 from project import db

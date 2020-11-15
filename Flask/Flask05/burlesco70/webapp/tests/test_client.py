@@ -11,7 +11,7 @@ class FlaskClientTestCase(unittest.TestCase):
         self.app_context = self.app.app_context()
         self.app_context.push()
         db.create_all()
-        Tag.insert_default_tags()
+        Tag.insert_test_tags()
         self.client = self.app.test_client()
         #self.client = self.app.test_client(use_cookies=True)
         '''
