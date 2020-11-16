@@ -21,6 +21,10 @@
 - Creazione del blue print "main"
 - Aggiunta ore-minuti nella "data" della serata
 
+15/12/2020
+- Preparazione slides
+- Aggiunte live serata
+
 # 4a settimana
 
 03/11/2020
@@ -57,13 +61,11 @@
 - Sistemata cartella static dai Blueprint
 
 # TO DO App
-- Pagina dettaglio corso: aggiunta / cancellazione serata
+- Pagina dettaglio serata : edit  serata
 - Immagine statica corso
-- Gestione serate
-- Nella home page fare vedere le 4 "prossime" serate
+- Finestre modali (https://italia.github.io/bootstrap-italia/docs/componenti/modale/#demo)
 
 # TO DO Modello
-- CORSO: aggiungere immagine logo
 
 # Corso Flask
 ## Progetto di esempio
@@ -89,8 +91,8 @@ Elenco di cose da trattare durante il corso:
 6. Costruire la vista dei corsi con form di compilazione + Visualizzazione dei risultati
 7. Agganciare i corsi al DB
 8. Costruire funzionalità di visualizzazione di tutti i corsi esistenti all'interno del database
-(fino qui)
 9. Costruire funzionalità delle serate
+(fino qui)
 10. Maschera di Login con funzionalità di Login e permessi di visualizzazione
 11. Pagina di Blog
 12. Finalizzazione e test sulla pagina

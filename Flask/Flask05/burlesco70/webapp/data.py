@@ -11,7 +11,7 @@ CREATE_ALL = True
 
 if CREATE_ALL:
     # Utilizzo dell'application factory
-    app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+    app = create_app('development')
     app_context = app.app_context()
     app_context.push()
     

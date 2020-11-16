@@ -14,14 +14,14 @@ class ProdConfig(Config):
     pass
 
 class DevConfig(Config):
-    DEBUG = True
     SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(basedir, "data.sqlite")
+    DEBUG = True
 
 class TestConfig(Config):
     SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(basedir, "testdata.sqlite")
     # To test configuration usage in unit test
     TESTING = True 
-    #  disabling CSRF protection in the testing conguration
+    # disabling CSRF protection in the testing conguration
     WTF_CSRF_ENABLED = False
 
 config = {

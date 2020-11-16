@@ -99,7 +99,7 @@ def dettaglio_corso(corso_id):
             nome, 
             descrizione, 
             datetime.datetime.combine(data,data_time), # Combino data con ore-minuti
-            link_partecipazione, 
+            link_partecipazione,
             link_registrazione)
         nuova_serata.corso_id = corso_id
         # Reset dei campi della form

@@ -30,6 +30,8 @@ class FlaskModelTestCase(unittest.TestCase):
         c = Corso.query.filter_by(nome="Flask").first()
         #print(c)
         self.assertTrue(c.nome == "Flask")
+        self.assertTrue(c.insegnante == "Andrea Guzzo")
+        self.assertFalse(c.insegnante == "Mario Nardi")
 
     def test_check_serata(self):
         s = Serata.query.filter_by(nome="Flask 1").first()
