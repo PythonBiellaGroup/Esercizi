@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<!-- Messaggi flash -->
+<div class="container">
+    {# Flashed messages #}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    {# End Flashed messages #}
+  </div>
+
+<div class="page-header">
+    <h1>
+        Ciao {{ current_user.username }}!
+    </h1>
+    <h3>Non hai ancora confermato il tuo account.</h3>
+    <p>
+        Before you can access this site you need to confirm your account.
+        Check your inbox, you should have received an email with a confirmation link.
+    </p>
+    <p>
+        Need another confirmation email?
+        <a href="{{ url_for('utenti.resend_confirmation') }}">Click here</a>
+    </p>
+</div>
+{% endblock %}

@@ -5,6 +5,7 @@ from project.serate.models import Serata
 from project.corsi.models import Corso
 from project.tags.models import Tag
 from project.utenti.models import Utente
+from project.ruoli.models import Ruolo
 
 class FlaskModelTestCase(unittest.TestCase):
     def setUp(self):
@@ -15,6 +16,7 @@ class FlaskModelTestCase(unittest.TestCase):
         Tag.insert_test_tags()
         Corso.insert_test_corsi()
         Serata.insert_test_serate()
+        Ruolo.insert_roles()
         Utente.insert_test_users()
         self.client = self.app.test_client()
 
@@ -41,5 +43,7 @@ class FlaskModelTestCase(unittest.TestCase):
 
     def test_check_utente(self):
         u = Utente.query.filter_by(email="test1@test.it").first()
-        self.assertTrue(u.username == "marionardi")
+        self.assertTrue(u.username == "burlesco70")
+        self.assertTrue(u.password_hash is not None)
+        self.assertTrue(u.verify_password('pwd1'))
         

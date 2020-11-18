@@ -62,7 +62,11 @@
                   </div>
                 </div>
                 <div class="it-access-top-wrapper">
-                  <a class="btn btn-primary btn-sm" href="#">Accedi</a>
+                  {% if current_user.is_authenticated %}
+                  <a class="btn btn-primary btn-sm" href="{{url_for('utenti.logout')}}">{{ current_user.username }}, esci</a>
+                  {% else %}
+                  <a class="btn btn-primary btn-sm" href="{{url_for('utenti.login')}}">Accedi</a>
+                  {% endif %}
                 </div>
               </div>
             </div>
@@ -130,6 +134,10 @@
           </div>
         </div>
       </div>
+      
+      <!-- Menu sotto visibile solo agli utenti loggati -->
+      {% if current_user.is_authenticated %}
+
       <div class="it-header-navbar-wrapper">
         <div class="container">
           <div class="row">
@@ -227,27 +235,10 @@
           </div>
         </div>
       </div>
+      {% endif %}
+
     </div>
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   {% block content %} {% endblock %}
 </body>

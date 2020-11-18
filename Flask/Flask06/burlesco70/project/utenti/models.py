@@ -1,8 +1,8 @@
-from project import db
 from datetime import datetime
 import hashlib
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, AnonymousUserMixin
+from project import db, login_manager
 
 from project.ruoli.models import Ruolo
 
@@ -52,13 +52,13 @@ class Utente(UserMixin, db.Model):
     def insert_test_users():
         admin_role = Ruolo.query.filter_by(name='Administrator').first()
         utenti = [ 
-            ("test1@test.it", "marionardi" ),
-            ("test2@test.it", "davcom" ),
+            ("test1@test.it", "burlesco70", "pwd1" ),
+            ("test2@test.it", "davcom", "pwd2" ),
         ]
         for ut in utenti:
             ut_db = Utente.query.filter_by(email=ut[0]).first()
             if ut_db is None:
-                ut_db = Utente(email=ut[0], username=ut[1], role_id=admin_role.id)
+                ut_db = Utente(email=ut[0], username=ut[1], password=ut[2], role_id=admin_role.id, confirmed=True)
             db.session.add(ut_db)
         db.session.commit()    
 
@@ -223,3 +223,16 @@ class Utente(UserMixin, db.Model):
 
     def __repr__(self):
         return '<Utente %r>' % self.username
+
+class AnonymousUser(AnonymousUserMixin):
+    def can(self, permissions):
+        return False
+
+    def is_administrator(self):
+        return False
+
+login_manager.anonymous_user = AnonymousUser
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Utente.query.get(int(user_id))
