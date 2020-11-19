@@ -8,15 +8,16 @@ from flask import (
     session,
     current_app,
 )
+from flask_login import login_required
+from sqlalchemy import desc,asc
+import datetime
+
 from project.corsi.forms import CorsiForm, write_to_disk
 from project.serate.forms import SerataForm
 from project.serate.models import Serata
 from project.corsi.models import Corso
 from project import db
 
-from sqlalchemy import desc,asc
-
-import datetime
 
 # Define blueprint
 corsi_blueprint = Blueprint(
@@ -43,6 +44,7 @@ def lista():
 Creazione di un corso (senza serate e senza tags)
 '''
 @corsi_blueprint.route("/create", methods=["GET", "POST"])
+@login_required
 def create():
 
     form = CorsiForm()
@@ -126,6 +128,7 @@ def dettaglio_corso(corso_id):
 Cancellazione di un corso
 '''
 @corsi_blueprint.route("/delete/<int:id>", methods=('GET', 'POST'))
+@login_required
 def corso_delete(id):
     '''
     Delete corso
@@ -139,4 +142,3 @@ def corso_delete(id):
         db.session.rollback()
         flash("Errore durante la cancellazione del corso: %s" % str(e), 'danger')
     return redirect(url_for('corsi.lista'))
-

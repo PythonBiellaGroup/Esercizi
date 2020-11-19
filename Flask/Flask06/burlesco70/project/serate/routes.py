@@ -8,7 +8,8 @@ from flask import (
     session,
     current_app,
 )
-#from project.serate.forms import SerataForm
+from flask_login import login_required
+
 from project.serate.models import Serata
 from project.corsi.models import Corso
 from project import db
@@ -45,6 +46,7 @@ def prossime():
 Lista di tutte le serate in ordine di data
 '''
 @serate_blueprint.route("/lista", methods=["GET"])
+@login_required
 def lista():
     # Filtro data futura, ordinamento per data
     lista_serate = Serata.query.order_by(desc(Serata.data)).all()
@@ -61,6 +63,7 @@ def lista():
 Cancellazione serata
 '''
 @serate_blueprint.route("/delete/<int:id>", methods=('GET', 'POST'))
+@login_required
 def serata_delete(id):
     my_serata = Serata.query.filter_by(id=id).first()
     try:        

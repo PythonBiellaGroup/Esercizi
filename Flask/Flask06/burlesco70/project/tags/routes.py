@@ -8,6 +8,8 @@ from flask import (
     session,
     current_app,
 )
+from flask_login import login_required
+
 from project.tags.forms import TagForm
 from project.tags.models import Tag
 from project import db
@@ -26,6 +28,7 @@ tags_blueprint = Blueprint(
 Lista dei tags con la possibilità di creazione di nuovo tag
 '''
 @tags_blueprint.route("/", methods=('GET', 'POST'))
+@login_required
 def tags():
     # Ordinamento alfabetico ascendente per "name"
     lista_tags = Tag.query.order_by(asc(Tag.name)).all()
@@ -52,6 +55,7 @@ def tags():
 Cancellazione tag
 '''
 @tags_blueprint.route("/delete/<int:id>", methods=('GET', 'POST'))
+@login_required
 def tag_delete(id):
     '''
     Delete tag
@@ -70,6 +74,7 @@ def tag_delete(id):
 Modifica tag by id
 '''
 @tags_blueprint.route("/<id>", methods=('GET', 'POST'))
+@login_required
 def edit_tag(id):
     '''
     Edit tag

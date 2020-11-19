@@ -19,10 +19,9 @@ class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[
         DataRequired(), Length(1, 64),
         Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
-               'Nome utente deve essere composto solo da lettere, numeri, punti o '
-               'underscores')])
+               'Nome utente deve essere composto solo da lettere, numeri, punti o underscores')])
     password = PasswordField('Password', validators=[
-        DataRequired(), EqualTo('password2', message='Passwords must match.')])
+        DataRequired(), EqualTo('password2', message='Le due password devono combaciare')])
     password2 = PasswordField('Conferma password', validators=[DataRequired()])
     submit = SubmitField('Registrati')
 

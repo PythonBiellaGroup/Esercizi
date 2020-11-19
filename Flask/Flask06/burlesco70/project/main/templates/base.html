@@ -62,6 +62,7 @@
                   </div>
                 </div>
                 <div class="it-access-top-wrapper">
+                  <!--Gestione LOGIN / LOGOUT -->
                   {% if current_user.is_authenticated %}
                   <a class="btn btn-primary btn-sm" href="{{url_for('utenti.logout')}}">{{ current_user.username }}, esci</a>
                   {% else %}

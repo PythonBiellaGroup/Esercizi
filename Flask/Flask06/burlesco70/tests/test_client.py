@@ -30,13 +30,12 @@ class FlaskClientTestCase(unittest.TestCase):
         self.app_context.pop()
 
     def test_lista_serate(self):
-        response = self.client.get('/serate/lista')
+        response = self.client.get('/serate/prossime')
         self.assertEqual(response.status_code, 200)
         self.assertTrue('Python Biella Group' in response.get_data(as_text=True))
 
     def test_lista_tags(self):
         response = self.client.get('/tags/')
-        self.assertEqual(response.status_code, 200)
-        self.assertTrue('Django' in response.get_data(as_text=True))
-
+        # Funzione visibile solo da utenti autenticati
+        self.assertEqual(response.status_code, 302)
 
