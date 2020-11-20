@@ -57,7 +57,7 @@ Prova "flask pippo" :-)
 '''
 @app.cli.command()
 def pippo():
-    print("Prova cli flask")
+    print("Bravo! Hai capito come funziona il decorator cli di flask")
 
 if __name__ == "__main__":
     app.run()

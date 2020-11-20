@@ -75,6 +75,7 @@
   </div>
   {% endif %}
 
+  {% if current_user.is_authenticated %}
   <!--Aggiungi serate-->
   <div class="container text-center">
     <br>
@@ -192,7 +193,7 @@
         </ul>
     </div>
   </div>
-
+  {% endif %}
 
   
 {% endblock %}
