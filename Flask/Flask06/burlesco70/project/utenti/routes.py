@@ -14,13 +14,15 @@ from flask_login import (
     login_required,
     current_user,
 )
+#Per le email
+from project.email import send_email
+
 #from project.utenti.forms import TagForm
 from project.utenti.models import Utente
 from project import db
 
 from sqlalchemy import desc,asc
 
-#from ..email import send_email
 from project.utenti.forms import (
     LoginForm, 
     RegistrationForm, 
@@ -29,6 +31,8 @@ from project.utenti.forms import (
     PasswordResetForm, 
     ChangeEmailForm,
 )
+
+
 
 # Define blueprint
 utenti_blueprint = Blueprint(
@@ -93,12 +97,11 @@ def register():
                     password=form.password.data)
         db.session.add(user)
         db.session.commit()
-        '''
+        #Token e mail
         token = user.generate_confirmation_token()
         send_email(user.email, 'Confirm Your Account',
-                   'auth/email/confirm', user=user, token=token)
+                   '/email/confirm', user=user, token=token)
         flash('Una mail di conferma è stata inviata', 'success')
-        '''
         return redirect(url_for('utenti.login'))
     return render_template('register.html', form=form)
 
@@ -119,12 +122,12 @@ def confirm(token):
 @utenti_blueprint.route('/confirm')
 @login_required
 def resend_confirmation():
-    '''
+    #Token e mail
     token = current_user.generate_confirmation_token()
 
     send_email(current_user.email, 'Confirm Your Account',
-               'auth/email/confirm', user=current_user, token=token)
-    '''
+               '/email/confirm', user=current_user, token=token)
+
     flash('Una nuova mail di conferma è stata inviata', 'success')
     return redirect(url_for('main.index'))
 
@@ -153,14 +156,14 @@ def password_reset_request():
     if form.validate_on_submit():
         user = Utente.query.filter_by(email=form.email.data.lower()).first()
         if user:
-            '''            
+            #Token e mail
             token = user.generate_reset_token()
 
             send_email(user.email, 'Reset Your Password',
-                       'auth/email/reset_password',
+                       '/email/reset_password',
                        user=user, token=token)
             flash('Una email con istruzioni è stata inviata', 'success')
-            '''
+            
         return redirect(url_for('utenti.login'))
     return render_template('reset_password.html', form=form)
 
@@ -188,11 +191,11 @@ def change_email_request():
         if current_user.verify_password(form.password.data):
             new_email = form.email.data.lower()
             token = current_user.generate_email_change_token(new_email)
-            '''
+            #Token e mail
             send_email(new_email, 'Confirm your email address',
-                       'auth/email/change_email',
+                       '/email/change_email',
                        user=current_user, token=token)
-            '''
+            
             flash('Email inviata al tuo nuovo indirizzo email', 'success')
             return redirect(url_for('main.index'))
         else:

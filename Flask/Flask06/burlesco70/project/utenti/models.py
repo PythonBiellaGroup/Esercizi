@@ -1,8 +1,13 @@
 from datetime import datetime
+# Per la gestione delle password
 import hashlib
 from werkzeug.security import generate_password_hash, check_password_hash
+# Per flask_login
 from flask_login import UserMixin, AnonymousUserMixin
 from project import db, login_manager
+# Per token (conferma mail)
+from flask import current_app, request, url_for
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 from project.ruoli.models import Ruolo
 
@@ -51,14 +56,15 @@ class Utente(UserMixin, db.Model):
     @staticmethod
     def insert_test_users():
         admin_role = Ruolo.query.filter_by(name='Administrator').first()
+        std_role = Ruolo.query.filter_by(name='User').first()
         utenti = [ 
-            ("test1@test.it", "burlesco70", "pwd1" ),
-            ("test2@test.it", "davcom", "pwd2" ),
+            ("test1@test.it", "burlesco70", "pwd1", admin_role.id ),
+            ("test2@test.it", "davcom", "pwd2", std_role.id ),
         ]
         for ut in utenti:
             ut_db = Utente.query.filter_by(email=ut[0]).first()
             if ut_db is None:
-                ut_db = Utente(email=ut[0], username=ut[1], password=ut[2], role_id=admin_role.id, confirmed=True)
+                ut_db = Utente(email=ut[0], username=ut[1], password=ut[2], role_id=ut[3], confirmed=True)
             db.session.add(ut_db)
         db.session.commit()    
 
@@ -89,14 +95,17 @@ class Utente(UserMixin, db.Model):
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    # Per conferma mail
     def generate_confirmation_token(self, expiration=3600):
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
         return s.dumps({'confirm': self.id}).decode('utf-8')
-
+    
+    # Per conferma mail
     def confirm(self, token):
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
             data = s.loads(token.encode('utf-8'))
+            print(data)
         except:
             return False
         if data.get('confirm') != self.id:
@@ -104,11 +113,13 @@ class Utente(UserMixin, db.Model):
         self.confirmed = True
         db.session.add(self)
         return True
-
+    
+    # Per conferma mail (generazione token)
     def generate_reset_token(self, expiration=3600):
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
         return s.dumps({'reset': self.id}).decode('utf-8')
-
+    
+    # Per conferma mail
     @staticmethod
     def reset_password(token, new_password):
         s = Serializer(current_app.config['SECRET_KEY'])
@@ -122,12 +133,14 @@ class Utente(UserMixin, db.Model):
         user.password = new_password
         db.session.add(user)
         return True
-
+    
+    # Per conferma mail
     def generate_email_change_token(self, new_email, expiration=3600):
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
         return s.dumps(
             {'change_email': self.id, 'new_email': new_email}).decode('utf-8')
 
+    # Per cambio mail
     def change_email(self, token):
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
@@ -146,6 +159,7 @@ class Utente(UserMixin, db.Model):
         db.session.add(self)
         return True
 
+    # Ruoli
     def can(self, perm):
         return self.ruolo is not None and self.ruolo.has_permission(perm)
 
@@ -156,6 +170,7 @@ class Utente(UserMixin, db.Model):
         self.last_seen = datetime.utcnow()
         db.session.add(self)
 
+    # Avatar
     def gravatar_hash(self):
         return hashlib.md5(self.email.lower().encode('utf-8')).hexdigest()
 
@@ -192,21 +207,22 @@ class Utente(UserMixin, db.Model):
     def followed_posts(self):
         return Post.query.join(Follow, Follow.followed_id == Post.author_id)\
             .filter(Follow.follower_id == self.id)
-    '''
+
 
     def to_json(self):
         json_user = {
             'url': url_for('api.get_user', id=self.id),
             'username': self.username,
             'member_since': self.member_since,
-            'last_seen': self.last_seen,
+            'last_seen': self.last_seen
             'posts_url': url_for('api.get_user_posts', id=self.id),
             'followed_posts_url': url_for('api.get_user_followed_posts',
                                           id=self.id),
             'post_count': self.posts.count()
         }
         return json_user
-
+    '''
+    
     def generate_auth_token(self, expiration):
         s = Serializer(current_app.config['SECRET_KEY'],
                        expires_in=expiration)

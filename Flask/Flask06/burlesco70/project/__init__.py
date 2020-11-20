@@ -4,10 +4,12 @@ from flask_bootstrap import Bootstrap
 from config import config
 # Per modulo autenticazione Utente
 from flask_login import LoginManager
-#from project.utenti.models import Utente
+# Per email
+from flask_mail import Mail
 
 # Use bootstrap with the app
 bootstrap = Bootstrap()
+mail = Mail()
 db = SQLAlchemy()
 
 # Per modulo autenticazione Utente
@@ -20,6 +22,7 @@ def create_app(config_name):
     config[config_name].init_app(app)
 
     bootstrap.init_app(app)
+    mail.init_app(app)
     db.init_app(app)
 
     # Per modulo autenticazione Utente
