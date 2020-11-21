@@ -15,14 +15,22 @@
   {# End Flashed messages #}
 </div> 
 
-<div class="page-header">
-    <h1>Login</h1>
+<div class="container text-center">
+  <br>
+  <h1>Accedi all'area riservata</h1>
+  <br>
 </div>
 
-<div class="col-md-4">
-    {{ wtf.quick_form(form) }}
+<div class="container">
+  <div class="row align-items-center justify-content-center">
+
+    <div class="col-md-4">
+    {{ wtf.quick_form(form, novalidate=True, button_map={'submit':'success'}) }}
     <br>
-    <p>Forgot your password? <a href="{{ url_for('utenti.password_reset_request') }}">Click here to reset it</a>.</p>
-    <p>New user? <a href="{{ url_for('utenti.register') }}">Click here to register</a>.</p>
+    <p>Password dimenticata? <a class="btn btn-primary" href="{{ url_for('utenti.password_reset_request') }}">Reset password</a>.</p>
+    <p>Nuovo utente? <a class="btn btn-secondary" href="{{ url_for('utenti.register') }}">Registrati</a></p>
+  </div>
+
+  </div>
 </div>
 {% endblock %}

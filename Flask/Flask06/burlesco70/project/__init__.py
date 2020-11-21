@@ -15,6 +15,9 @@ db = SQLAlchemy()
 # Per modulo autenticazione Utente
 login_manager = LoginManager()
 login_manager.login_view = 'utenti.login'
+# Personalizzazione del messaggio di errore su pagina che richiede autenticazione
+login_manager.login_message = u"Autenticati per vedere questa pagina"
+login_manager.login_message_category = "info"
 
 def create_app(config_name):
     app = Flask(__name__, static_folder="static")
@@ -49,7 +52,6 @@ def create_app(config_name):
     from project.main.routes import main_blueprint
     app.register_blueprint(main_blueprint)
 
-    
     return app
 
 

@@ -1,4 +1,4 @@
-Dear {{ user.username }},
+Ciao {{ user.username }},
 
 Welcome to Python Biella Group!
 

@@ -1,8 +1,10 @@
-<p>Dear {{ user.username }},</p>
+<p>Ciao {{ user.username }},</p>
 <p>Welcome to <b>Python Biella Group</b>!</p>
 <p>To confirm your account please <a href="{{ url_for('utenti.confirm', token=token, _external=True) }}">click here</a>.</p>
 <p>Alternatively, you can paste the following link in your browser's address bar:</p>
 <p>{{ url_for('utenti.confirm', token=token, _external=True) }}</p>
 <p>Sincerely,</p>
 <p>Python Biella Group</p>
-<p><small>Note: replies to this email address are not monitored.</small></p>
+<img src="{{ url_for('static', filename='pgb_logo.jpg', _external=True) }}" alt="Python Biella Group" class="rounded mx-auto d-block">
+<p><small>Non rispondere a questa mail, nessuno risponderà</small></p>
+

@@ -10,6 +10,7 @@ from flask import current_app, request, url_for
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 from project.ruoli.models import Ruolo
+from project.ruoli.models import Permission
 
 class Utente(UserMixin, db.Model):
     __tablename__ = 'utenti'
