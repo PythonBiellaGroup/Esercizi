@@ -42,6 +42,7 @@ utenti_blueprint = Blueprint(
     static_folder='../static'
 )
 
+#Funzione di controllo (su conferma utenti) che viene eseguita prima di ogni request
 @utenti_blueprint.before_app_request
 def before_request():
     if current_user.is_authenticated:
@@ -52,7 +53,7 @@ def before_request():
                 and request.endpoint != 'static':
             return redirect(url_for('utenti.unconfirmed'))
 
-
+#Route alla pagina di richiesta mail conferma
 @utenti_blueprint.route('/unconfirmed')
 def unconfirmed():
     if current_user.is_anonymous or current_user.confirmed:
@@ -60,7 +61,7 @@ def unconfirmed():
         return redirect(url_for('main.index'))
     return render_template('unconfirmed.html')
 
-
+#Gestione login
 @utenti_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -79,7 +80,7 @@ def login():
         flash('Mail o password non validi','danger')
     return render_template('login.html', form=form)
 
-
+#Gestione logout
 @utenti_blueprint.route('/logout')
 @login_required
 def logout():
@@ -87,7 +88,7 @@ def logout():
     flash('Utente disconnesso.','success')
     return redirect(url_for('main.index'))
 
-
+#Gestione registrazione
 @utenti_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -105,7 +106,7 @@ def register():
         return redirect(url_for('utenti.login'))
     return render_template('register.html', form=form)
 
-
+#Gestione conferma utente tramite token da mail di conferma
 @utenti_blueprint.route('/confirm/<token>')
 @login_required
 def confirm(token):
@@ -118,20 +119,20 @@ def confirm(token):
         flash('Link di conferma non valido o scaduto.', 'danger')
     return redirect(url_for('main.index'))
 
-
+#Nuovo invio email di conferma
 @utenti_blueprint.route('/confirm')
 @login_required
 def resend_confirmation():
     #Token e mail
     token = current_user.generate_confirmation_token()
 
-    send_email(current_user.email, 'Confirm Your Account',
+    send_email(current_user.email, 'Conferma il tuo account',
                '/email/confirm', user=current_user, token=token)
 
     flash('Una nuova mail di conferma è stata inviata', 'success')
     return redirect(url_for('main.index'))
 
-
+#Gestione cambio password
 @utenti_blueprint.route('/change-password', methods=['GET', 'POST'])
 @login_required
 def change_password():
@@ -148,6 +149,7 @@ def change_password():
     return render_template("change_password.html", form=form)
 
 
+#Gestione reset password
 @utenti_blueprint.route('/reset', methods=['GET', 'POST'])
 def password_reset_request():
     if not current_user.is_anonymous:
@@ -159,7 +161,7 @@ def password_reset_request():
             #Token e mail
             token = user.generate_reset_token()
 
-            send_email(user.email, 'Reset Your Password',
+            send_email(user.email, 'Ripristino password dimenticata',
                        '/email/reset_password',
                        user=user, token=token)
             flash('Una email con istruzioni è stata inviata', 'success')
@@ -182,7 +184,7 @@ def password_reset(token):
             return redirect(url_for('main.index'))
     return render_template('reset_password.html', form=form)
 
-
+#Gestione cambio email
 @utenti_blueprint.route('/change_email', methods=['GET', 'POST'])
 @login_required
 def change_email_request():
@@ -192,7 +194,7 @@ def change_email_request():
             new_email = form.email.data.lower()
             token = current_user.generate_email_change_token(new_email)
             #Token e mail
-            send_email(new_email, 'Confirm your email address',
+            send_email(new_email, 'Conferma nuovo indirizzo email',
                        '/email/change_email',
                        user=current_user, token=token)
             

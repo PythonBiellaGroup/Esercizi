@@ -17,27 +17,18 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config(object):    
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.environ.get('SECRET_KEY') or "supersupersupersecretkey"
-    #Mail
+    # Mail
     MAIL_SERVER = os.environ.get('MAIL_SERVER', 'smtp.googlemail.com')
     MAIL_PORT = int(os.environ.get('MAIL_PORT', '587'))
     MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS', 'true').lower() in \
         ['true', 'on', '1']
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-
+    # Costanti usati nelle mail registrazione utenti
     PBG_MAIL_SUBJECT_PREFIX = '[Python Biella Group]'
     PBG_MAIL_SENDER = 'Python Biella Group Admin <pbg@pbg.com>'
-    # Users
+    # Definizione dell'utente ADMIN iniziale
     PBG_ADMIN = os.environ.get('PBG_ADMIN')
-
-    # Settings to use https://mailtrap.io/
-    MAIL_SERVER = 'smtp.mailtrap.io'
-    MAIL_USERNAME = '9a973adb59007f'
-    MAIL_PASSWORD = '4f5fd306232d45'
-    MAIL_PORT = 2525
-    MAIL_USE_TLS = True
-    MAIL_USE_SSL = False
-
 
     @staticmethod
     def init_app(app):
@@ -49,6 +40,14 @@ class ProdConfig(Config):
 class DevConfig(Config):
     SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(basedir, "data.sqlite")
     DEBUG = True
+    # Settings per usare https://mailtrap.io/ - Registrati e cambia con i tuoi dati
+    MAIL_SERVER = 'smtp.mailtrap.io'
+    MAIL_USERNAME = '9a973adb59007f'
+    MAIL_PASSWORD = '4f5fd306232d45'
+    MAIL_PORT = 2525
+    MAIL_USE_TLS = True
+    MAIL_USE_SSL = False
+
 
 class TestConfig(Config):
     SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(basedir, "testdata.sqlite")

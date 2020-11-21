@@ -15,18 +15,19 @@
   {# End Flashed messages #}
 </div>
 
-<div class="page-header">
+<div class="container text-center">
     <h1>
         Ciao {{ current_user.username }}!
     </h1>
     <h3>Non hai ancora confermato il tuo account.</h3>
     <p>
-        Before you can access this site you need to confirm your account.
-        Check your inbox, you should have received an email with a confirmation link.
+        Prima di accedere al sito devi confermare la tua registrazione.
+        Controlla la posta in arrivo, dovresti aver ricevuto una email con il link di conferma.
     </p>
     <p>
-        Need another confirmation email?
-        <a href="{{ url_for('utenti.resend_confirmation') }}">Click here</a>
+        Serve una nuova email?
+        <a class="btn btn-primary" href="{{ url_for('utenti.resend_confirmation') }}">Manda nuova mail</a>
     </p>
 </div>
+
 {% endblock %}
