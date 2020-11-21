@@ -1,7 +1,17 @@
 from project import db
-#from flask_sqlalchemy import SQLAlchemy
-#db = SQLAlchemy()
 
+
+'''
+The list of tasks for which permissions are needed is obviously application specific
+The benefit of using powers of two for permission values is that it allows permissions 
+to be combined, giving each possible combination of permissions a unique value to store 
+in the role’s permissions field. 
+
+For example, for a user role that gives users permission to follow 
+other users and comment on posts, 
+the permission value is FOLLOW + COMMENT = 3. 
+This is a very efficient way to store the list of permissions assigned to each role.
+'''
 class Permission:
     FOLLOW = 1
     COMMENT = 2
@@ -20,6 +30,9 @@ class Ruolo(db.Model):
 
     def __init__(self, **kwargs):
         super(Ruolo, self).__init__(**kwargs)
+        # Since SQLAlchemy will set this field to None by default, 
+        # a class constructor is added that sets it to 0 
+        # if an initial value isn’t provided in the constructor arguments. 
         if self.permissions is None:
             self.permissions = 0
 
