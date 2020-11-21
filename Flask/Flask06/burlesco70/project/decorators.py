@@ -3,6 +3,7 @@ from flask import g
 from .errors import forbidden
 from project.ruoli.models import Permission
 
+# These decorators are built with the help of the functools package from the Python standard library 
 
 def permission_required(permission):
     def decorator(f):

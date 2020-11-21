@@ -1,9 +1,9 @@
 <p>Ciao {{ user.username }},</p>
-<p>Welcome to <b>Python Biella Group</b>!</p>
-<p>To confirm your account please <a href="{{ url_for('utenti.confirm', token=token, _external=True) }}">click here</a>.</p>
-<p>Alternatively, you can paste the following link in your browser's address bar:</p>
+<p>Benvenuto nel <b>Python Biella Group</b>!</p>
+<p>Per confermare la tua registrazione, clicca sul seguente <a href="{{ url_for('utenti.confirm', token=token, _external=True) }}">link</a>.</p>
+<p>In alternativa puoi copiare sul browser il seguente indirizzo:</p>
 <p>{{ url_for('utenti.confirm', token=token, _external=True) }}</p>
-<p>Sincerely,</p>
+<p>Cordialmente,</p>
 <p>Python Biella Group</p>
 <img src="{{ url_for('static', filename='pgb_logo.jpg', _external=True) }}" alt="Python Biella Group" class="rounded mx-auto d-block">
 <p><small>Non rispondere a questa mail, nessuno risponderà</small></p>

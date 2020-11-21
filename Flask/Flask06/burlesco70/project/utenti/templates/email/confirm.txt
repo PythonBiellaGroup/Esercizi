@@ -1,13 +1,13 @@
 Ciao {{ user.username }},
 
-Welcome to Python Biella Group!
+Benvenuto nel Python Biella Group!
 
-To confirm your account please click on the following link:
+Per confermare la tua registrazione, clicca sul seguente link:
 
 {{ url_for('utenti.confirm', token=token, _external=True) }}
 
-Sincerely,
+Cordialmente,
 
 Python Biella Group
 
-Note: replies to this email address are not monitored.
+(Non rispondere a questa mail, nessuno controlla)

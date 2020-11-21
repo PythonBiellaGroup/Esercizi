@@ -4,8 +4,8 @@ Valorizzare:
 FLASK_APP=app.py
 FLASK_CONFIG=production
 SECRET_KEY=...tbd...
-MAIL_USERNAME=mario.nardi.70@gmail.com
-MAIL_PASSWORD=Nov_2020
+MAIL_USERNAME=
+MAIL_PASSWORD=
 MAIL_USE_TLS=true
 PBG_ADMIN=
 '''
