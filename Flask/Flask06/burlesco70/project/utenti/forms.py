@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, Regexp, EqualTo
 from wtforms import ValidationError
 from project.utenti.models import Utente
@@ -7,6 +7,10 @@ from project.utenti.models import Utente
 '''
 Tutti i messaggi sono stati personalizzati in italiano
 Tolta la validazione standard nella form
+'''
+
+'''
+GESTIONE LOGIN E AUTENTICAZIONE
 '''
 
 class LoginForm(FlaskForm):
@@ -69,3 +73,13 @@ class ChangeEmailForm(FlaskForm):
     def validate_email(self, field):
         if Utente.query.filter_by(email=field.data.lower()).first():
             raise ValidationError(u'Email già registrata.')
+
+'''
+GESTIONE PROFILI
+'''
+
+class EditProfileForm(FlaskForm):    
+    name = StringField('Real name', validators=[Length(0, 64)])    
+    location = StringField('Location', validators=[Length(0, 64)])    
+    about_me = TextAreaField('About me')    
+    submit = SubmitField('Conferma') 

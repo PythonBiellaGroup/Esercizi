@@ -22,7 +22,13 @@ class Utente(UserMixin, db.Model):
     name = db.Column(db.String(64))
     location = db.Column(db.String(64))
     about_me = db.Column(db.Text())
+    '''
+    The two timestamps are given a default value of the current time. 
+    Note that the datetime.utcnow is missing the () at the end. 
+    This is because the default argument in db.Column() can take a function as a value
+    '''
     member_since = db.Column(db.DateTime(), default=datetime.utcnow)
+    # last_seen è aggiornato dalla funzione ping, chiamata da before_request ad ogni request
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
     avatar_hash = db.Column(db.String(32))
     # FK - Ruolo dell'utente

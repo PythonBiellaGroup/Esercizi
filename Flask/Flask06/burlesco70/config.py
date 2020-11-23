@@ -7,7 +7,7 @@ SECRET_KEY=...tbd...
 MAIL_USERNAME=
 MAIL_PASSWORD=
 MAIL_USE_TLS=true
-PBG_ADMIN=
+PBG_ADMIN=...email for the administrator...
 '''
 import os
 from pathlib import Path

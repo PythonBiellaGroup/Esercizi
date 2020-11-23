@@ -30,6 +30,7 @@ from project.utenti.forms import (
     PasswordResetRequestForm, 
     PasswordResetForm, 
     ChangeEmailForm,
+    EditProfileForm,
 )
 
 
@@ -214,3 +215,29 @@ def change_email(token):
     else:
         flash('Richiesta non valida', 'danger')
     return redirect(url_for('main.index'))
+
+'''
+Gestione profili
+'''
+@utenti_blueprint.route('/<username>') 
+def user(username):    
+    u = Utente.query.filter_by(username=username).first_or_404()
+    return render_template('user.html', user=u)
+
+@utenti_blueprint.route('/edit-profile', methods=['GET', 'POST']) 
+@login_required 
+def edit_profile():    
+    form = EditProfileForm()
+    if form.validate_on_submit():
+        current_user.name = form.name.data
+        current_user.location = form.location.data
+        current_user.about_me = form.about_me.data
+        db.session.add(current_user._get_current_object())
+        db.session.commit()
+        flash('Your profile has been updated.','success')
+        return redirect(url_for('utenti.user', username=current_user.username))
+    form.name.data = current_user.name
+    form.location.data = current_user.location    
+    form.about_me.data = current_user.about_me
+    return render_template('edit_profile.html', form=form) 
+

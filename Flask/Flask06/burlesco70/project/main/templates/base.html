@@ -121,14 +121,22 @@
                       </li>
                     </ul>
                   </div>
+                  {% if current_user.is_authenticated %} 
                   <div class="it-search-wrapper">
-                    <span class="d-none d-md-block">Cerca</span>
-                    <a class="search-link rounded-icon" aria-label="Cerca" href="#">
-                      <svg class="icon">
-                        <use xlink:href="/static/bootstrap-italia/svg/sprite.svg#it-search"></use>
-                      </svg>
-                    </a>
+                    <span class="d-none d-md-block">Profilo</span>
+                    <a class="search-link rounded-icon" 
+                      aria-label="Cerca" 
+                      href="{{ url_for('utenti.user', username=current_user.username) }}"
+                    >
                   </div>
+                  {% else %}
+                  <div class="it-search-wrapper">
+                    <span class="d-none d-md-block">-</span>
+                    <a class="search-link rounded-icon" 
+                      aria-label="Cerca" 
+                      href="#"
+                    >
+                  {% endif %}
                 </div>
               </div>
             </div>

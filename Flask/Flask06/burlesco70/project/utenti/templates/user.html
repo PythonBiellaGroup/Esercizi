@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block page_content %}
+
+<!-- Messaggi flash -->
+<div class="container">
+  {# Flashed messages #}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  {# End Flashed messages #}
+</div>
+
+<div class="container text-center">
+    <h1>
+        Ciao {{ user.username }}!
+    </h1>
+</div>
+{% if user == current_user %} 
+    <a class="btn btn-default" href="{{ url_for('utenti.edit_profile') }}"> Aggiorna profilo</a> 
+{% endif %} 
+
+{% endblock %}
