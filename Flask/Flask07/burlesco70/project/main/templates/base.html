@@ -15,6 +15,7 @@
     <title>PythonBiellaGroup App</title>
   </head>
 </html>
+
 <body>
   <div class="it-header-wrapper">
     <div class="it-header-slim-wrapper">
@@ -22,12 +23,7 @@
         <div class="row">
           <div class="col-12">
             <div class="it-header-slim-wrapper-content">
-              <!--Gestione link PROFILO -->
-              {% if current_user.is_authenticated %}
-              <a class="d-none d-lg-block navbar-brand" href="{{ url_for('utenti.user', username=current_user.username) }}">Il tuo profilo</a>
-              {% else %}
               <a class="d-none d-lg-block navbar-brand" href="#">Python Biella Group</a>
-              {% endif %}
               <div class="nav-mobile">
                 <nav>
                   <a class="it-opener d-lg-none" data-toggle="collapse" href="#menu4" role="button" aria-expanded="false" aria-controls="menu4">
@@ -44,41 +40,60 @@
                   </div>
                 </nav>
               </div>
+
+
+              <!--Drop down menu - Gestione profilo-->
               <div class="it-header-slim-right-zone">
+              {% if current_user.is_authenticated %}
+              
                 <div class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                    <span>ITA</span>
+                    <span>{{ current_user.username }}</span>
                     <svg class="icon d-none d-lg-block">
                       <use xlink:href="/static/bootstrap-italia/svg/sprite.svg#it-expand"></use>
                     </svg>
                   </a>
-                  <div class="dropdown-menu">
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="link-list-wrapper">
-                          <ul class="link-list">
-                            <li><a class="list-item" href="#"><span>ITA</span></a></li>
-                            <li><a class="list-item" href="#"><span>ENG</span></a></li>
-                          </ul>
-                        </div>
+                <div class="dropdown-menu">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="link-list-wrapper">
+                        <ul class="link-list">
+                            <li><a class="list-item large" href="{{ url_for('utenti.user', username=current_user.username) }}"><span>Profilo</span></a></li>
+                            <li><a class="list-item large" href="{{url_for('utenti.change_email_request')}}"><span>Cambia mail</span></a></li>
+                            <li><a class="list-item large" href="{{url_for('utenti.change_password')}}"><span>Cambia password</span></a></li>
+                            <li>
+                              <span class="divider"></span>
+                            </li>                            
+                            <li><a class="list-item large" href="{{url_for('utenti.logout')}}"><span>Esci</span></a></li>
+                        </ul>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="it-access-top-wrapper">
-                  <!--Gestione LOGIN / LOGOUT -->
-                  {% if current_user.is_authenticated %}
-                  <a class="btn btn-primary btn-sm" href="{{url_for('utenti.logout')}}">{{ current_user.username }}, esci</a>
-                  {% else %}
-                  <a class="btn btn-primary btn-sm" href="{{url_for('utenti.login')}}">Accedi</a>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
+
+              {% else %}
+              <!--Login -->>
+              <a href="{{url_for('utenti.login')}}" class="btn btn-primary btn-icon btn-full">
+                <span class="rounded-icon">
+                  <svg class="icon icon-primary">
+                    <use
+                      xlink:href="/static/bootstrap-italia/svg/sprite.svg#it-user"
+                    ></use>
+                  </svg>
+                </span>
+                <span class="d-none d-lg-block">Accedi all'area personale</span>
+              </a>              
+              {% endif %}
+            </div>              
+            
+          
           </div>
+            </div>
         </div>
       </div>
     </div>
+  </div>
+    
     <div class="it-nav-wrapper">
       <div class="it-header-center-wrapper">
         <div class="container">
