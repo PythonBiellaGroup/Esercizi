@@ -261,6 +261,7 @@ def edit_profile_admin(id):
         user.about_me = form.about_me.data
         db.session.add(user)
         db.session.commit()
+        print(user.role)
         flash('Profilo aggiornato','success')
         return redirect(url_for('utenti.user', username=user.username))
     form.email.data = user.email
@@ -271,4 +272,34 @@ def edit_profile_admin(id):
     form.location.data = user.location
     form.about_me.data = user.about_me
     return render_template('edit_profile.html', form=form, user=user)
+
+'''
+Lista utenti
+'''
+@utenti_blueprint.route('/lista', methods=['GET', 'POST'])
+@login_required
+def lista():
+    # Lista utenti in ordine alfabetico
+    lista_utenti = Utente.query.order_by(asc(Utente.username)).all()
+    return render_template(
+        'utenti_lista.html', 
+        lista_utenti=lista_utenti
+    )
+
+'''
+Cancellazione utenti
+'''
+@utenti_blueprint.route("/delete/<int:id>", methods=('GET', 'POST'))
+@login_required
+@admin_required
+def utente_delete(id):
+    my_user = Utente.query.filter_by(id=id).first()
+    try:        
+        db.session.delete(my_user)
+        db.session.commit()
+        flash('Cancellazione avvenuta con successo.', 'success')
+    except Exception as e:
+        db.session.rollback()
+        flash("Errore durante la cancellazione utente: %s" % str(e), 'danger')
+    return redirect(url_for('utenti.lista'))
 

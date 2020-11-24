@@ -60,7 +60,7 @@
                         <ul class="link-list">
                             <li><a class="list-item large" href="{{ url_for('utenti.user', username=current_user.username) }}"><span>Profilo</span></a></li>
                             <li><a class="list-item large" href="{{url_for('utenti.change_email_request')}}"><span>Cambia mail</span></a></li>
-                            <li><a class="list-item large" href="{{url_for('utenti.change_password')}}"><span>Cambia password</span></a></li>
+                            <li><a class="list-item large" href="{{url_for('utenti.change_password')}}"><span>Cambia pwd</span></a></li>
                             <li>
                               <span class="divider"></span>
                             </li>                            
@@ -179,7 +179,7 @@
                       <li class="nav-item active"><a class="nav-link active" href="{{ url_for('serate.lista') }}"><span>Serate</span><span class="sr-only">current</span></a></li>
                       <li class="nav-item"><a class="nav-link" href="{{ url_for('corsi.lista') }}"><span>Corsi</span></a></li>
                       <li class="nav-item"><a class="nav-link" href="{{ url_for('tags.tags') }}"><span>Tags</span></a></li>
-                      <li class="nav-item"><a class="nav-link" href="#"><span>Utenti</span></a></li>
+                      <li class="nav-item"><a class="nav-link" href="{{ url_for('utenti.lista') }}"><span>Utenti</span></a></li>
                       <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
                           <span>Scegli...</span>
