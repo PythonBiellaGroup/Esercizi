@@ -8,9 +8,12 @@ from flask_login import LoginManager
 from flask_mail import Mail
 # Per gestire profilo / now
 from flask_moment import Moment
+# Per blog
+from flask_pagedown import PageDown
 
 # Use bootstrap with the app
 bootstrap = Bootstrap()
+pagedown = PageDown()
 mail = Mail()
 moment = Moment()
 db = SQLAlchemy()
@@ -28,9 +31,11 @@ def create_app(config_name):
     config[config_name].init_app(app)
 
     bootstrap.init_app(app)
+    pagedown.init_app(app)
     mail.init_app(app)
     moment.init_app(app)
     db.init_app(app)
+    
 
     # Per modulo autenticazione Utente
     login_manager.init_app(app)
@@ -49,6 +54,10 @@ def create_app(config_name):
     
     from project.serate.routes import serate_blueprint
     app.register_blueprint(serate_blueprint, url_prefix="/serate", url_static="../static")
+
+    from project.blog.routes import blog_blueprint
+    app.register_blueprint(blog_blueprint, url_prefix="/blog", url_static="../static")
+
     
     from project.error_pages.routes import error_pages_blueprint
     app.register_blueprint(error_pages_blueprint)

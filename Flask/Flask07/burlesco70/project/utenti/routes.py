@@ -20,6 +20,7 @@ from project.email import send_email
 #from project.utenti.forms import TagForm
 from project.utenti.models import Utente
 from project.ruoli.models import Ruolo
+from project.blog.models import Post
 from project import db
 from project.decorators import admin_required
 
@@ -226,7 +227,13 @@ ROUTES per la gestione dei PROFILI
 @utenti_blueprint.route('/<username>') 
 def user(username):    
     u = Utente.query.filter_by(username=username).first_or_404()
-    return render_template('user.html', user=u)
+    page = request.args.get('page', 1, type=int)
+    pagination = u.posts.order_by(Post.timestamp.desc()).paginate(
+        page, per_page=current_app.config['PBG_POSTS_PER_PAGE'],
+        error_out=False)
+    posts = pagination.items
+    return render_template('user.html', user=u, posts=posts,
+                           pagination=pagination)
 
 @utenti_blueprint.route('/edit-profile', methods=['GET', 'POST']) 
 @login_required 

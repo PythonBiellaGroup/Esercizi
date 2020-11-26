@@ -34,7 +34,10 @@ class Utente(UserMixin, db.Model):
     # FK - Ruolo dell'utente
     role_id = db.Column(db.Integer, db.ForeignKey('ruoli.id'))
     '''
+    Per Blog
+    '''
     posts = db.relationship('Post', backref='author', lazy='dynamic')
+    '''
     followed = db.relationship('Follow',
                                foreign_keys=[Follow.follower_id],
                                backref=db.backref('follower', lazy='joined'),

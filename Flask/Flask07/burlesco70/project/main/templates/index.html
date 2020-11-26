@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
 
 <!-- Messaggi flash -->
 <div class="container">
@@ -17,10 +19,46 @@
   <div class="row align-items-center justify-content-center">
     <div class="col-md-10">
       <div class="row align-items-center justify-content-center">
-        <h1>Sito del Python Biella Group</h1>
+        <h2>Sito del Python Biella Group</h2>
+
       </div>
     </div>
   </div>
 </div>
-<img src="../static/pgb_logo.jpg" alt="Python Biella Group" class="rounded mx-auto d-block">
+
+<div class="container">
+  <div class="row align-items-center justify-content-center">
+    <div>
+      {% if current_user.can(Permission.WRITE) %}      
+      <h3>Inserisci un articolo...</h3>
+      <p>Puoi usare la sintassi <a href="https://en.wikipedia.org/wiki/Markdown">markdown</a></p>
+
+      {{ wtf.quick_form(form, novalidate=True, button_map={'submit':'success'}) }}
+      {% else %}
+      <p>Accedi o registrati per inserire nuovi articoli, eventualmente commentarli e vedere tutte le serate.<br>
+      In alternativa puoi vedere le prossime serate in programma o i corsi (passati e futuri).</p>
+      <p>Qui di seguito gli ultimi articoli scritti.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="post-tabs">
+  {% include '_posts.html' %}
+</div>
+
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.index') }}
+</div>
+{% endif %}
+
+{% endblock %}
+
+<br>
+<img src="../static/pgb_logo_small.jpg" alt="Python Biella Group" class="rounded mx-auto d-block">
+
+{% block scripts %}
+{{ super() }}
+{{ pagedown.include_pagedown() }}
 {% endblock %}

@@ -1,6 +1,12 @@
 
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect, url_for
+from flask_login import current_user
+
 from project.ruoli.models import Permission
+from project.blog.forms import PostForm
+from project.blog.models import Post
+
+from project import db
 
 main_blueprint = Blueprint(
     "main",
@@ -22,4 +28,12 @@ def inject_permissions():
 
 @main_blueprint.route("/", methods=['GET', 'POST'])
 def index():
-    return render_template("index.html")
+    form = PostForm()
+    if current_user.can(Permission.WRITE) and form.validate_on_submit():
+        post = Post(body=form.body.data,
+                    author=current_user._get_current_object())
+        db.session.add(post)
+        db.session.commit()
+        return redirect(url_for('main.index'))
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
+    return render_template('index.html', form=form, posts=posts)

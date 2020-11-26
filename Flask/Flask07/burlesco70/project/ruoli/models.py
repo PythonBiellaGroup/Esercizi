@@ -70,6 +70,9 @@ class Ruolo(db.Model):
     def reset_permissions(self):
         self.permissions = 0
 
+    # The has_permission() method is the most complex of the set, as it relies on the bitwise
+    # and operator & to check if a combined permission value includes the given basic per‐
+    # mission
     def has_permission(self, perm):
         return self.permissions & perm == perm
 
