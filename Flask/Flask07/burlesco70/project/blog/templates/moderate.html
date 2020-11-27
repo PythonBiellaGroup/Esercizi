@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
 {% import "_macros.html" as macros %}
 {% block content %}
 
@@ -14,32 +13,17 @@
         {% endwith %}
       </div>
 
-{% include '_posts.html' %}
-
-{% if current_user.can(Permission.COMMENT) %}
-
-<div class="container text-center">
-  <br>
-  <h3>Commenti</h3>
-  <br>
-</div>
-
-<div class="container">
-  <div class="row align-items-center justify-content-center">
-    <div class="comment-form">
-        {{ wtf.quick_form(form, novalidate=True, button_map={'submit':'success'}) }}
+      <div class="container text-center">
+        <br>
+        <h1>Moderazione commento</h1>
+        <br>
     </div>
-  </div>
-</div>
 
-{% endif %}
-
+{% set moderate = True %}
 {% include '_comments.html' %}
-
 {% if pagination %}
 <div class="pagination">
-    {{ macros.pagination_widget(pagination, 'blog.view_post', fragment='#comments', id=posts[0].id) }}
+    {{ macros.pagination_widget(pagination, 'blog.moderate') }}
 </div>
 {% endif %}
-
 {% endblock %}

@@ -23,13 +23,13 @@
         <div class="row">
           <div class="col-12">
             <div class="it-header-slim-wrapper-content">
-              <a class="d-none d-lg-block navbar-brand" href="#">Python Biella Group</a>
+              <a class="d-none d-lg-block navbar-brand" href="{{ url_for('main.index') }}">Python Biella Group</a>
               <div class="nav-mobile">
                 <nav>
                   <a class="it-opener d-lg-none" data-toggle="collapse" href="#menu4" role="button" aria-expanded="false" aria-controls="menu4">
                     <span>Python Biella Group</span>
                     <svg class="icon">
-                      <use xlink:href="/static/bootstrap-italia/svg/sprite.svg#it-expand"></use>
+                      <use xlink:href="{{ url_for('static',filename='bootstrap-italia/svg/sprite.svg#it-expand')}}"></use>
                     </svg>
                   </a>
                   <div class="link-list-wrapper collapse" id="menu4">
@@ -61,9 +61,15 @@
                             <li><a class="list-item large" href="{{ url_for('utenti.user', username=current_user.username) }}"><span>Profilo</span></a></li>
                             <li><a class="list-item large" href="{{url_for('utenti.change_email_request')}}"><span>Cambia mail</span></a></li>
                             <li><a class="list-item large" href="{{url_for('utenti.change_password')}}"><span>Cambia pwd</span></a></li>
-                            <li>
-                              <span class="divider"></span>
-                            </li>                            
+                            <li> <span class="divider"></span></li>                            
+
+                            {% if current_user.can(Permission.MODERATE) %}
+                            <li><a class="list-item large" href="{{ url_for('blog.moderate') }}"><span>Commenti</span></a></li>
+                            <li> <span class="divider"></span></li>                            
+                            {% endif %}
+            
+
+
                             <li><a class="list-item large" href="{{url_for('utenti.logout')}}"><span>Esci</span></a></li>
                         </ul>
                       </div>
@@ -139,14 +145,6 @@
                         </a>
                       </li>
                     </ul>
-                  </div>
-                  <div class="it-search-wrapper">
-                    <span class="d-none d-md-block">Cerca</span>
-                    <a class="search-link rounded-icon" aria-label="Cerca" href="#">
-                      <svg class="icon">
-                        <use xlink:href="/static/bootstrap-italia/svg/sprite.svg#it-search"></use>
-                      </svg>
-                    </a>
                   </div>
                 </div>
               </div>

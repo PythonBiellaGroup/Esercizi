@@ -26,7 +26,7 @@ login_manager.login_message = u"Autenticati per vedere questa pagina"
 login_manager.login_message_category = "info"
 
 def create_app(config_name):
-    app = Flask(__name__, static_folder="static")
+    app = Flask(__name__, static_folder="/static")
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
 

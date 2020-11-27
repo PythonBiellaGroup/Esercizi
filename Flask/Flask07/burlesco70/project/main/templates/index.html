@@ -36,8 +36,8 @@
 
       {{ wtf.quick_form(form, novalidate=True, button_map={'submit':'success'}) }}
       {% else %}
-      <p>Accedi o registrati per inserire nuovi articoli, eventualmente commentarli e vedere tutte le serate.<br>
-      In alternativa puoi vedere le prossime serate in programma o i corsi (passati e futuri).</p>
+      <p><a href="{{url_for('utenti.login')}}">Accedi</a> o <a href="{{ url_for('utenti.register') }}">registrati</a> per inserire nuovi articoli, eventualmente commentarli e vedere tutte le serate.<br>
+      In alternativa puoi vedere le <a href="{{ url_for('serate.prossime') }}">prossime serate</a> in programma o i <a href="{{ url_for('corsi.lista') }}">corsi</a> (passati e futuri).</p>
       <p>Qui di seguito gli ultimi articoli scritti.</p>
       {% endif %}
     </div>

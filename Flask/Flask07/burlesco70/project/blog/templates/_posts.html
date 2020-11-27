@@ -21,15 +21,15 @@
         <div class="post-footer">
             {% if current_user == post.author %}
             <a href="{{ url_for('blog.edit_post', id=post.id) }}">
-                <span class="label label-primary">Modifica</span>
+                <span class="label label-primary">Modifica </span>
             </a>
             {% elif current_user.is_administrator() %}
             <a href="{{ url_for('blog.edit_post', id=post.id) }}">
-                <span class="label label-danger">Modifica [Admin]</span>
+                <span class="label label-danger">Modifica [Admin] </span>
             </a>
             {% endif %}
             <a href="{{ url_for('blog.view_post', id=post.id) }}">
-                <span class="label label-default">Permalink</span>
+                <span class="label label-default">Permalink </span>
             </a>
             <a href="{{ url_for('blog.view_post', id=post.id) }}#comments">
                 <span class="label label-primary">{{ post.comments.count() }} commenti</span>

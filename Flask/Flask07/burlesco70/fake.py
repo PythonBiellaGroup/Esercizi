@@ -14,7 +14,7 @@ from random import randint
 from  faker import Faker
 
 def users(count=100):
-    fake = Faker()
+    fake = Faker('it_IT')
     i = 0
     while i < count:
         u = Utente(email=fake.email(),
@@ -33,7 +33,7 @@ def users(count=100):
             db.session.rollback()
 
 def posts(count=100):
-    fake = Faker()
+    fake = Faker('it_IT')
     user_count = Utente.query.count()
     for i in range(count):
         u = Utente.query.offset(randint(0, user_count - 1)).first()

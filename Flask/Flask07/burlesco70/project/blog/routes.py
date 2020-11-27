@@ -19,6 +19,9 @@ blog_blueprint = Blueprint(
     static_folder='/static'
 )
 
+'''
+Visualizzazione post e inserimento commento
+'''
 @blog_blueprint.route('/post/<int:id>', methods=['GET', 'POST'])
 def view_post(id):
     p = Post.query.get_or_404(id)
@@ -42,6 +45,9 @@ def view_post(id):
     return render_template('post.html', posts=[p], form=form,
                            comments=comments, pagination=pagination)
 
+'''
+Modifica post
+'''
 @blog_blueprint.route('/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit_post(id):
@@ -59,6 +65,9 @@ def edit_post(id):
     form.body.data = post.body
     return render_template('edit_post.html', form=form)
 
+'''
+Gestione commenti da moderare
+'''
 @blog_blueprint.route('/moderate')
 @login_required
 @permission_required(Permission.MODERATE)
@@ -72,6 +81,9 @@ def moderate():
                            pagination=pagination, page=page)
 
 
+'''
+Ri-abilita commento
+'''
 @blog_blueprint.route('/moderate/enable/<int:id>')
 @login_required
 @permission_required(Permission.MODERATE)
@@ -83,7 +95,9 @@ def moderate_enable(id):
     return redirect(url_for('.moderate',
                             page=request.args.get('page', 1, type=int)))
 
-
+'''
+Disabilita commento
+'''
 @blog_blueprint.route('/moderate/disable/<int:id>')
 @login_required
 @permission_required(Permission.MODERATE)
@@ -94,5 +108,4 @@ def moderate_disable(id):
     db.session.commit()
     return redirect(url_for('.moderate',
                             page=request.args.get('page', 1, type=int)))
-
 

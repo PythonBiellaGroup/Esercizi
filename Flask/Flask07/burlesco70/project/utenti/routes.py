@@ -37,14 +37,12 @@ from project.utenti.forms import (
     EditProfileAdminForm,
 )
 
-
-
 # Define blueprint
 utenti_blueprint = Blueprint(
     "utenti", 
      __name__, 
     template_folder="templates", 
-    static_folder='../static'
+    static_folder='/static'
 )
 
 #Funzione di controllo (su conferma utenti) che viene eseguita prima di ogni request
