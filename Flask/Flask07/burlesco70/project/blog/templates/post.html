@@ -16,16 +16,31 @@
 
 {% include '_posts.html' %}
 
-<h4 id="comments">Commenti</h4>
+
 {% if current_user.can(Permission.COMMENT) %}
-<div class="comment-form">
-    {{ wtf.quick_form(form) }}
+
+<div class="container text-center">
+  <br>
+  <h3>Commenti</h3>
+  <br>
 </div>
+
+<div class="container">
+  <div class="row align-items-center justify-content-center">
+    <div class="comment-form">
+        {{ wtf.quick_form(form, novalidate=True, button_map={'submit':'success'}) }}
+    </div>
+  </div>
+</div>
+
 {% endif %}
+
 {% include '_comments.html' %}
+
 {% if pagination %}
 <div class="pagination">
-    {{ macros.pagination_widget(pagination, '.post', fragment='#comments', id=posts[0].id) }}
+    {{ macros.pagination_widget(pagination, 'blog.view_post', fragment='#comments', id=posts[0].id) }}
 </div>
 {% endif %}
+
 {% endblock %}

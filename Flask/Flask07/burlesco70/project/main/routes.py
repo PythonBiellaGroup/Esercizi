@@ -1,5 +1,5 @@
 
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, request, current_app
 from flask_login import current_user
 
 from project.ruoli.models import Permission
@@ -12,7 +12,7 @@ main_blueprint = Blueprint(
     "main",
     __name__, 
     template_folder="templates",
-    static_folder='../static'
+    static_folder='/static'
 )
 
 '''
@@ -35,5 +35,14 @@ def index():
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('main.index'))
-    posts = Post.query.order_by(Post.timestamp.desc()).all()
-    return render_template('index.html', form=form, posts=posts)
+    #posts = Post.query.order_by(Post.timestamp.desc()).all()
+    #return render_template('index.html', form=form, posts=posts)
+    page = request.args.get('page', 1, type=int)
+    show_followed = False
+    query = Post.query
+    pagination = query.order_by(Post.timestamp.desc()).paginate(
+        page, per_page=current_app.config['PBG_POSTS_PER_PAGE'],
+        error_out=False)
+    posts = pagination.items
+    return render_template('index.html', form=form, posts=posts,
+                           pagination=pagination)

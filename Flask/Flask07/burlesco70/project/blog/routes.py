@@ -1,42 +1,45 @@
 from flask import Blueprint, render_template, redirect, url_for, abort, flash, request,\
     current_app, make_response
 from flask_login import login_required, current_user
-from project.blog.forms import PostForm,CommentForm
+
 from project import db
-from project.blog.models import Post, Comment
-#from project.utenti.models import Utente
-from project.ruoli.models import Permission
 from project.decorators import permission_required
+
+from project.blog.forms import PostForm,CommentForm
+
+from project.blog.models import Post, Comment
+from project.ruoli.models import Permission
+
 
 # Define blueprint
 blog_blueprint = Blueprint(
     "blog", 
      __name__, 
     template_folder="templates", 
-    static_folder='../static'
+    static_folder='/static'
 )
 
 @blog_blueprint.route('/post/<int:id>', methods=['GET', 'POST'])
 def view_post(id):
-    post = Post.query.get_or_404(id)
+    p = Post.query.get_or_404(id)
     form = CommentForm()
     if form.validate_on_submit():
         comment = Comment(body=form.body.data,
-                          post=post,
+                          post=p,
                           author=current_user._get_current_object())
         db.session.add(comment)
         db.session.commit()
         flash('Commento pubblicato','success')
-        return redirect(url_for('blog.view_post', id=post.id, page=-1))
+        return redirect(url_for('blog.view_post', id=p.id, page=-1))
     page = request.args.get('page', 1, type=int)
     if page == -1:
-        page = (post.comments.count() - 1) // \
+        page = (p.comments.count() - 1) // \
             current_app.config['PBG_COMMENTS_PER_PAGE'] + 1
-    pagination = post.comments.order_by(Comment.timestamp.asc()).paginate(
+    pagination = p.comments.order_by(Comment.timestamp.asc()).paginate(
         page, per_page=current_app.config['PBG_COMMENTS_PER_PAGE'],
         error_out=False)
     comments = pagination.items
-    return render_template('post.html', posts=[post], form=form,
+    return render_template('post.html', posts=[p], form=form,
                            comments=comments, pagination=pagination)
 
 @blog_blueprint.route('/edit/<int:id>', methods=['GET', 'POST'])

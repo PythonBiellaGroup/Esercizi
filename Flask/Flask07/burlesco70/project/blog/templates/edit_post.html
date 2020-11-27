@@ -19,9 +19,17 @@
         <br>
     </div>
 
-<div>
-    {{ wtf.quick_form(form) }}
-</div>
+    <div class="container">
+      <div class="row align-items-center justify-content-center">
+    
+
+        <div>
+            {{ wtf.quick_form(form, novalidate=True, button_map={'submit':'success'}) }}
+        </div>
+
+      </div>
+    </div>
+    
 {% endblock %}
 
 {% block scripts %}

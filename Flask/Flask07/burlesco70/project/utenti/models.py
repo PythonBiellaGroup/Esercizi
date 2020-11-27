@@ -37,6 +37,7 @@ class Utente(UserMixin, db.Model):
     Per Blog
     '''
     posts = db.relationship('Post', backref='author', lazy='dynamic')
+    comments = db.relationship('Comment', backref='author', lazy='dynamic')
     '''
     followed = db.relationship('Follow',
                                foreign_keys=[Follow.follower_id],
@@ -48,7 +49,7 @@ class Utente(UserMixin, db.Model):
                                 backref=db.backref('followed', lazy='joined'),
                                 lazy='dynamic',
                                 cascade='all, delete-orphan')
-    comments = db.relationship('Comment', backref='author', lazy='dynamic')
+    
 
 
     @staticmethod
