@@ -27,8 +27,8 @@
     <div class="col-md-4">
     {{ wtf.quick_form(form, novalidate=True, button_map={'submit':'success'}) }}
     <br>
-    <p>Password dimenticata? <a class="btn btn-primary" href="{{ url_for('utenti.password_reset_request') }}">Reset password</a>.</p>
-    <p>Nuovo utente? <a class="btn btn-secondary" href="{{ url_for('utenti.register') }}">Registrati</a></p>
+    <p>Password dimenticata? <a class="btn btn-primary" href="{{ url_for('auth.password_reset_request') }}">Reset password</a>.</p>
+    <p>Nuovo utente? <a class="btn btn-secondary" href="{{ url_for('auth.register') }}">Registrati</a></p>
   </div>
 
   </div>

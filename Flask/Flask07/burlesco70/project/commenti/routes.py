@@ -30,6 +30,7 @@ Gestione commenti da moderare
 @permission_required(Permission.MODERATE)
 def moderate():
     page = request.args.get('page', 1, type=int)
+    # Paginazione sui commenti
     pagination = Comment.query.order_by(Comment.timestamp.desc()).paginate(
         page, per_page=current_app.config['PBG_COMMENTS_PER_PAGE'],
         error_out=False)

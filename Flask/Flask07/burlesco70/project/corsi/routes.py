@@ -56,15 +56,19 @@ def create():
         name = form.name.data
         teacher = form.teacher.data
         level = form.level.data
+        stato_corso = form.stato_corso.data
         description = form.description.data
+        link_materiale = form.link_materiale.data
 
-        n_course = Corso(name, teacher, level, description)
+        n_course = Corso(name, teacher, level, description, "", stato_corso, link_materiale)
         db.session.add(n_course)
 
         form.name.data = ""
+        form.description.data = ""
         form.teacher.data = ""
         form.level.data = ""
-        form.description.data = ""
+        form.stato_corso.data = ""
+        form.link_materiale = ""
         
         try:
             db.session.commit()
@@ -145,3 +149,32 @@ def corso_delete(id):
         db.session.rollback()
         flash("Errore durante la cancellazione del corso: %s" % str(e), 'danger')
     return redirect(url_for('corsi.lista'))
+
+@corsi_blueprint.route('/edit/<int:id>', methods=['GET', 'POST']) 
+@login_required
+@admin_required
+def corso_edit(id):
+    my_course = Corso.query.filter_by(id=id).first()
+    form = CorsiForm()
+    if form.validate_on_submit():
+
+        my_course.nome = form.name.data
+        my_course.insegnante = form.teacher.data
+        my_course.livello = form.level.data
+        my_course.stato_corso = form.stato_corso.data
+        my_course.descrizione = form.description.data
+        my_course.link_materiale = form.link_materiale.data
+
+        db.session.add(my_course)
+        db.session.commit()
+        flash('Corso aggiornato con successo','success')
+        return redirect(url_for('corsi.dettaglio_corso', corso_id=my_course.id))
+
+    form.name.data = my_course.nome
+    form.description.data = my_course.descrizione
+    form.teacher.data = my_course.insegnante
+    form.level.data = my_course.livello
+    form.stato_corso.data = my_course.stato_corso
+    form.link_materiale.data = my_course.link_materiale
+
+    return render_template('corso_edit.html', form=form, corso=my_course)    

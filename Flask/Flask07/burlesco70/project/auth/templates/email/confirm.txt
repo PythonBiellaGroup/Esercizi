@@ -4,7 +4,7 @@ Benvenuto nel Python Biella Group!
 
 Per confermare la tua registrazione, clicca sul seguente link:
 
-{{ url_for('utenti.confirm', token=token, _external=True) }}
+{{ url_for('auth.confirm', token=token, _external=True) }}
 
 Cordialmente,
 

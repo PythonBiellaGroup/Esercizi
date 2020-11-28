@@ -59,8 +59,8 @@
                       <div class="link-list-wrapper">
                         <ul class="link-list">
                             <li><a class="list-item large" href="{{ url_for('utenti.user', username=current_user.username) }}"><span>Profilo</span></a></li>
-                            <li><a class="list-item large" href="{{url_for('utenti.change_email_request')}}"><span>Cambia mail</span></a></li>
-                            <li><a class="list-item large" href="{{url_for('utenti.change_password')}}"><span>Cambia pwd</span></a></li>
+                            <li><a class="list-item large" href="{{url_for('auth.change_email_request')}}"><span>Cambia mail</span></a></li>
+                            <li><a class="list-item large" href="{{url_for('auth.change_password')}}"><span>Cambia pwd</span></a></li>
                             <li> <span class="divider"></span></li>                            
 
                             {% if current_user.can(Permission.MODERATE) %}
@@ -70,7 +70,7 @@
             
 
 
-                            <li><a class="list-item large" href="{{url_for('utenti.logout')}}"><span>Esci</span></a></li>
+                            <li><a class="list-item large" href="{{url_for('auth.logout')}}"><span>Esci</span></a></li>
                         </ul>
                       </div>
                     </div>
@@ -78,8 +78,8 @@
                 </div>
 
               {% else %}
-              <!--Login -->>
-              <a href="{{url_for('utenti.login')}}" class="btn btn-primary btn-icon btn-full">
+              <!--Login -->
+              <a href="{{url_for('auth.login')}}" class="btn btn-primary btn-icon btn-full">
                 <span class="rounded-icon">
                   <svg class="icon icon-primary">
                     <use

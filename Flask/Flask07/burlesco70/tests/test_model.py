@@ -2,7 +2,7 @@ import re
 import unittest
 from project import create_app, db
 from project.serate.models import Serata
-from project.corsi.models import Corso
+from project.corsi.models import Corso, StatoCorso
 from project.tags.models import Tag
 from project.utenti.models import Utente
 from project.ruoli.models import Ruolo

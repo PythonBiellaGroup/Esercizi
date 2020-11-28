@@ -29,31 +29,34 @@
 
 <div class="container">
   <div class="row align-items-center justify-content-center">
+
     <div>
       {% if current_user.can(Permission.WRITE) %}      
-      <h3>Inserisci un articolo...</h3>
-      <p>Puoi usare la sintassi <a href="https://en.wikipedia.org/wiki/Markdown">markdown</a></p>
+      <h3>Inserisci un articolo, una richiesta o un tuo pensiero "pythonesco"</h3>
+      <p>Puoi usare la sintassi <a href="https://en.wikipedia.org/wiki/Markdown">markdown</a>. Vedrai la preview.</p>
 
       {{ wtf.quick_form(form, novalidate=True, button_map={'submit':'success'}) }}
       {% else %}
-      <p><a href="{{url_for('utenti.login')}}">Accedi</a> o <a href="{{ url_for('utenti.register') }}">registrati</a> per inserire nuovi articoli, eventualmente commentarli e vedere tutte le serate.<br>
+      <p><a href="{{url_for('auth.login')}}">Accedi</a> o <a href="{{ url_for('auth.register') }}">registrati</a> per inserire nuovi articoli, eventualmente commentarli e vedere tutte le serate.<br>
       In alternativa puoi vedere le <a href="{{ url_for('serate.prossime') }}">prossime serate</a> in programma o i <a href="{{ url_for('corsi.lista') }}">corsi</a> (passati e futuri).</p>
       <p>Qui di seguito gli ultimi articoli scritti.</p>
       {% endif %}
     </div>
   </div>
-</div>
 
-<div class="post-tabs">
-  {% include '_posts.html' %}
-</div>
 
-{% if pagination %}
-<div class="pagination">
-    {{ macros.pagination_widget(pagination, 'main.index') }}
-</div>
-{% endif %}
+    <div class="post-tabs">
+      {% include '_posts.html' %}
+    </div>
 
+    {% if pagination %}
+    <div class="pagination">
+        {{ macros.pagination_widget(pagination, 'main.index') }}
+    </div>
+    {% endif %}
+    
+
+</div>
 {% endblock %}
 
 <br>

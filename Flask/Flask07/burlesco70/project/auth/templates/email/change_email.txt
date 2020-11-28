@@ -2,7 +2,7 @@ Ciao {{ user.username }},
 
 per confermare la tua nuova email, clicca sul seguente link:
 
-{{ url_for('utenti.change_email', token=token, _external=True) }}
+{{ url_for('auth.change_email', token=token, _external=True) }}
 
 Cordialmente,
 

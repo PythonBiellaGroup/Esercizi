@@ -38,28 +38,6 @@ class Utente(UserMixin, db.Model):
     '''
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     comments = db.relationship('Comment', backref='author', lazy='dynamic')
-    '''
-    followed = db.relationship('Follow',
-                               foreign_keys=[Follow.follower_id],
-                               backref=db.backref('follower', lazy='joined'),
-                               lazy='dynamic',
-                               cascade='all, delete-orphan')
-    followers = db.relationship('Follow',
-                                foreign_keys=[Follow.followed_id],
-                                backref=db.backref('followed', lazy='joined'),
-                                lazy='dynamic',
-                                cascade='all, delete-orphan')
-    
-
-
-    @staticmethod
-    def add_self_follows():
-        for user in Utente.query.all():
-            if not user.is_following(user):
-                user.follow(user)
-                db.session.add(user)
-                db.session.commit()
-    '''
 
     '''
     Utile per il popolamento dei dati e per i test
@@ -89,9 +67,6 @@ class Utente(UserMixin, db.Model):
                 self.ruolo = Ruolo.query.filter_by(default=True).first()
         if self.email is not None and self.avatar_hash is None:
             self.avatar_hash = self.gravatar_hash()
-        '''
-        self.follow(self)
-        '''
 
     @property
     def password(self):

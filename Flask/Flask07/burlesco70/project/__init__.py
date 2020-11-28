@@ -20,7 +20,7 @@ db = SQLAlchemy()
 
 # Per modulo autenticazione Utente
 login_manager = LoginManager()
-login_manager.login_view = 'utenti.login'
+login_manager.login_view = 'auth.login'
 # Personalizzazione del messaggio di errore su pagina che richiede autenticazione
 login_manager.login_message = u"Autenticati per vedere questa pagina"
 login_manager.login_message_category = "info"
@@ -60,11 +60,14 @@ def create_app(config_name):
     from project.commenti.routes import commenti_blueprint
     app.register_blueprint(commenti_blueprint, url_prefix="/commenti", url_static="../static")
     
-    from project.error_pages.routes import error_pages_blueprint
-    app.register_blueprint(error_pages_blueprint)
-
     from project.main.routes import main_blueprint
     app.register_blueprint(main_blueprint, url_prefix="/main", url_static="../static")
+
+    from project.auth.routes import auth_blueprint
+    app.register_blueprint(auth_blueprint, url_prefix="/auth", url_static="../static")
+
+    from project.error_pages.routes import error_pages_blueprint
+    app.register_blueprint(error_pages_blueprint)
     
     @app.route('/')
     def index():
