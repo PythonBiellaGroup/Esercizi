@@ -8,7 +8,3 @@ class PostForm(FlaskForm):
     #body = PageDownField("Cosa vuoi condividere?", render_kw={'placeholder':'content'}, validators=[DataRequired(message='Inserisci un testo')])
     body = PageDownField("", validators=[DataRequired(message='Inserisci un testo')])
     submit = SubmitField('Conferma')
-
-class CommentForm(FlaskForm):
-    body = StringField('Inserisci qui il tuo commento', validators=[DataRequired(message='Inserisci un testo')])
-    submit = SubmitField('Conferma')

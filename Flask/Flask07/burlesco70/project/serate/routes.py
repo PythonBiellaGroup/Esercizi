@@ -23,10 +23,6 @@ from project.serate.forms import SerataForm
 from project import db
 from project.decorators import admin_required
 
-
-
-
-
 # Define blueprint
 serate_blueprint = Blueprint(
     "serate", 

@@ -1,5 +1,16 @@
 # Devlog
 
+# 7a settimana
+
+Gestione Profilo
+
+Navigation bar
+
+Post
+
+Commenti
+
+
 # 6a settimana
 
 Autenticazione
@@ -71,10 +82,20 @@ Autorizzazioni alle operazioni
 - Creato Blueprint per Serate
 - Sistemata cartella static dai Blueprint
 
+# TO DO Modello
+
+Corso
+- Aggiunta stato (completo, in corso, organizzato, da organizzare)
+- Aggiunta link github/documentazione
+
+Ruolo
+- Aggiungere "moderatore" ?
+
 # TO DO App
-- Pagina dettaglio serata : edit serata
+- CSS utenti e blog
+
 - Immagine statica corso
-- Finestre modali, per ora applicate solo a Tag
+
 
 # Corso Flask
 ## Progetto di esempio

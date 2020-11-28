@@ -42,12 +42,12 @@ class Ruolo(db.Model):
     @staticmethod
     def insert_roles():
         roles = {
-            'User': [Permission.FOLLOW, Permission.COMMENT, Permission.WRITE],
-            'Administrator': [Permission.FOLLOW, Permission.COMMENT,
+            'Utente': [Permission.FOLLOW, Permission.COMMENT, Permission.WRITE],
+            'Admin': [Permission.FOLLOW, Permission.COMMENT,
                               Permission.WRITE, Permission.MODERATE,
                               Permission.ADMIN],
         }
-        default_role = 'User'
+        default_role = 'Utente'
         for r in roles:
             role = Ruolo.query.filter_by(name=r).first()
             if role is None:
@@ -77,4 +77,4 @@ class Ruolo(db.Model):
         return self.permissions & perm == perm
 
     def __repr__(self):
-        return '<Ruolo %r>' % self.name
+        return self.name

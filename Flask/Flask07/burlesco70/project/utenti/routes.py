@@ -42,7 +42,7 @@ utenti_blueprint = Blueprint(
     "utenti", 
      __name__, 
     template_folder="templates", 
-    static_folder='/static'
+    static_folder='../static'
 )
 
 #Funzione di controllo (su conferma utenti) che viene eseguita prima di ogni request
@@ -260,13 +260,12 @@ def edit_profile_admin(id):
         user.email = form.email.data
         user.username = form.username.data
         user.confirmed = form.confirmed.data
-        user.role = Ruolo.query.get(form.role.data)
+        user.ruolo = Ruolo.query.get(form.role.data)
         user.name = form.name.data
         user.location = form.location.data
         user.about_me = form.about_me.data
         db.session.add(user)
         db.session.commit()
-        print(user.role)
         flash('Profilo aggiornato','success')
         return redirect(url_for('utenti.user', username=user.username))
     form.email.data = user.email
