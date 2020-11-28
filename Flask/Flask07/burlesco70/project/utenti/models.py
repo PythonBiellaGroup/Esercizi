@@ -84,7 +84,7 @@ class Utente(UserMixin, db.Model):
         # Gestione dell'amministratore: email da variabile di ambiente
         if self.ruolo is None:
             if self.email == current_app.config['PBG_ADMIN']:
-                self.ruolo = Ruolo.query.filter_by(name='Administrator').first()
+                self.ruolo = Ruolo.query.filter_by(name='Admin').first()
             if self.ruolo is None:
                 self.ruolo = Ruolo.query.filter_by(default=True).first()
         if self.email is not None and self.avatar_hash is None:
