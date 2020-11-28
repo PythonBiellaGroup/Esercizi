@@ -5,7 +5,7 @@ from project.tags.models import Tag
 from project.ruoli.models import Ruolo
 from project.utenti.models import Utente
 from project.blog.models import Post
-from project.blog.models import Comment
+from project.commenti.models import Comment
 
 from project import db,create_app
 import datetime
