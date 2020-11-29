@@ -1,4 +1,5 @@
 from project import db
+
 from project.tags.models import Tag
 
 '''

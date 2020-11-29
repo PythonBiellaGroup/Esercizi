@@ -10,6 +10,11 @@ Post
 
 Commenti
 
+Corso
+- Aggiunta stato (completo, in corso, organizzato, da organizzare)
+- Aggiunta link github/documentazione
+- Aggiunta gestione tag in Edit Corso (relazione N:N)
+
 
 # 6a settimana
 
@@ -82,18 +87,20 @@ Autorizzazioni alle operazioni
 - Creato Blueprint per Serate
 - Sistemata cartella static dai Blueprint
 
-# TO DO Modello
+# Applicazioni semplici Flask da cui imparare
 
-Corso
-- Aggiunta stato (completo, in corso, organizzato, da organizzare)
-- Aggiunta link github/documentazione
+Riferimento per il libro:
+https://github.com/miguelgrinberg/flasky
+
+https://github.com/OmkarPathak/A-Simple-Note-Taking-Web-App
+
+# TO DO Modello
 
 Ruolo
 - Aggiungere "moderatore" ?
 
 # TO DO App
 - CSS utenti e blog
-
 - Immagine statica corso
 
 

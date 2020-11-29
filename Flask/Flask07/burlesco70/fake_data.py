@@ -41,7 +41,21 @@ def posts(count=100):
                 timestamp=fake.past_date(),
                 author=u)
         db.session.add(p)
-        db.session.commit()    
+        db.session.commit()
+
+def comments(count=100):
+    fake = Faker('it_IT')
+    user_count = Utente.query.count()
+    post_count = Post.query.count()
+    for i in range(count):
+        u = Utente.query.offset(randint(0, user_count - 1)).first()
+        p = Post.query.offset(randint(0, post_count - 1)).first()
+        c = Comment(body=fake.text(),
+                 timestamp=fake.past_date(),
+                 post=p,
+                 author=u)
+        db.session.add(c)
+        db.session.commit()          
             
 CREATE_ALL = True
 
@@ -59,6 +73,8 @@ if CREATE_ALL:
     
     print("Creating fake users")
     users(10)
+    print("Creating test users")
+    Utente.insert_test_users()
 
     print("Creating tags")
     Tag.insert_test_tags()
@@ -69,8 +85,11 @@ if CREATE_ALL:
     print("Creating serate")
     Serata.insert_test_serate()
 
-    print("Creating fake posts")
+    print("Creating posts fake")
     posts()
+
+    print("Creating commenti fake")    
+    comments()
 
 ###DEBUGS
 print("\n#### DATA DEBUG ####\n")

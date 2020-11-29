@@ -11,6 +11,8 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 from project.ruoli.models import Ruolo
 from project.ruoli.models import Permission
+from project.blog.models import Post
+from project.commenti.models import Comment
 
 class Utente(UserMixin, db.Model):
     __tablename__ = 'utenti'
@@ -48,6 +50,7 @@ class Utente(UserMixin, db.Model):
         utenti = [ 
             ("test1@test.it", "maurici", "pwd1" ),
             ("test2@test.it", "davcom", "pwd2" ),
+            ("burlesco70@test.it", "burlesco70", "burlesco70" ),
         ]
         for ut in utenti:
             ut_db = Utente.query.filter_by(email=ut[0]).first()

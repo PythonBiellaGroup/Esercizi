@@ -178,28 +178,7 @@
                       <li class="nav-item"><a class="nav-link" href="{{ url_for('corsi.lista') }}"><span>Corsi</span></a></li>
                       <li class="nav-item"><a class="nav-link" href="{{ url_for('tags.tags') }}"><span>Tags</span></a></li>
                       <li class="nav-item"><a class="nav-link" href="{{ url_for('utenti.lista') }}"><span>Utenti</span></a></li>
-                      <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                          <span>Scegli...</span>
-                          <svg class="icon icon-xs">
-                            <use xlink:href="/static/bootstrap-italia/svg/sprite.svg#it-expand"></use>
-                          </svg>
-                        </a>
-                        <div class="dropdown-menu">
-                          <div class="link-list-wrapper">
-                            <ul class="link-list">
-                              <li>
-                                <h3 class="no_toc" id="heading-es-5">Entità</h3>
-                              </li>
-                              <li><a class="list-item" href="{{ url_for('serate.prossime') }}"><span>Serate</span></a></li>
-                              <li><a class="list-item" href="{{ url_for('corsi.lista') }}"><span>Corsi</span></a></li>
-                              <li><a class="list-item" href="{{ url_for('tags.tags') }}"><span>Tags</span></a></li>
-                              <li><span class="divider"></span></li>
-                              <li><a class="list-item" href="#"><span>Utenti</span></a></li>
-                            </ul>
-                          </div>
-                        </div>
-                      </li>
+                      {% if current_user.is_administrator() %}
                       <li class="nav-item dropdown megamenu">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
                           <span>Megamenu!</span>
@@ -245,6 +224,7 @@
                           </div>
                         </div>
                       </li>
+                      {% endif %}
                     </ul>
                   </div>
                 </div>

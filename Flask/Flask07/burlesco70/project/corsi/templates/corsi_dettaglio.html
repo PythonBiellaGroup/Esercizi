@@ -33,7 +33,9 @@
 
     <h4 class="display-4">Insegnante/i <span class="badge badge-success">{{corso.insegnante}}</span></h4>
     <h4 class="display-4">Livello <span class="badge badge-warning">{{corso.livello}}</span></h4>
+    {% if corso.link_materiale %}
     <h4 class="display-4"><a href="{{corso.link_materiale}}">Materiale e documentazione</a></h4>
+    {% endif %}
 
   </div>    <!--end center -->
 

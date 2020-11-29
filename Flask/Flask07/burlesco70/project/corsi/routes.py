@@ -16,6 +16,7 @@ from project.corsi.forms import CorsiForm, write_to_disk
 from project.serate.forms import SerataForm
 from project.serate.models import Serata
 from project.corsi.models import Corso
+from project.tags.models import Tag
 from project.decorators import admin_required
 from project import db
 
@@ -164,7 +165,12 @@ def corso_edit(id):
         my_course.stato_corso = form.stato_corso.data
         my_course.descrizione = form.description.data
         my_course.link_materiale = form.link_materiale.data
-
+        # Multiselect ritorna una lista di id, ma per "tags" servono gli oggetti
+        selected_tags_ids = form.multiselect_tags.data
+        selected_tags = []
+        for st in selected_tags_ids:
+            selected_tags.append(Tag.query.filter_by(id=st).first())
+        my_course.tags = selected_tags        
         db.session.add(my_course)
         db.session.commit()
         flash('Corso aggiornato con successo','success')
@@ -176,5 +182,11 @@ def corso_edit(id):
     form.level.data = my_course.livello
     form.stato_corso.data = my_course.stato_corso
     form.link_materiale.data = my_course.link_materiale
-
+    # Gestione tag id
+    selected_tags_ids = []
+    if my_course.tags:
+        for t in my_course.tags:
+            selected_tags_ids.append(Tag.query.filter_by(name=t.name).first().id)
+    # process_data: per dare i valori di default al multiselect
+    form.multiselect_tags.process_data(selected_tags_ids)
     return render_template('corso_edit.html', form=form, corso=my_course)    

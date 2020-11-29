@@ -32,7 +32,7 @@
 
     <div>
       {% if current_user.can(Permission.WRITE) %}      
-      <h3>Inserisci un approfondimento, una domanda o un tuo pensiero "pythonesco"</h3>
+      <h3>Inserisci un approfondimento, una richiesta o un tuo pensiero "pythonesco"</h3>
       <p>Puoi usare la sintassi <a href="https://en.wikipedia.org/wiki/Markdown">markdown</a>. Vedrai sotto la preview.</p>
 
       {{ wtf.quick_form(form, novalidate=True, button_map={'submit':'success'}) }}

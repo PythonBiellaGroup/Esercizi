@@ -9,11 +9,14 @@ from wtforms import (
     BooleanField,
     SelectField,
     TextAreaField,
-    DateField
+    DateField,
+    SelectMultipleField
 )
+from sqlalchemy import desc,asc
 from wtforms.validators import DataRequired, Length
 
 from project.corsi.models import StatoCorso
+from project.tags.models import Tag
 
 '''
 Corso Form
@@ -78,9 +81,15 @@ class CorsiForm(FlaskForm):
         u"Collegamento al materiale disponibile",
         validators=[Length(min=-1, max=255, message='Massimo 255 caratteri')])
 
+    # Tags - Scelta multipla, valorizzata nell'init
+    multiselect_tags = SelectMultipleField('', coerce=int)
+
     # Submit button
     submit = SubmitField("Conferma")
 
+    def __init__(self, *args, **kwargs):
+        super(CorsiForm, self).__init__(*args, **kwargs)
+        self.multiselect_tags.choices = [(t.id, t.name) for t in (Tag.query.order_by(asc(Tag.name)).all())]
 
 # Utilities functions
 def get_time():
