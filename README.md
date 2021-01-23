@@ -6,9 +6,10 @@ Elenco degli esercizi proposti e svolti, all'interno di ogni cartella per ogni e
 
 All'interno della repository trovate una cartella per ogni macro-argomento:
 
-- Python base
-- Flask
+- Python base: esercizi legati a Python con librerie standard
+- Flask: contenente esempi di applicazioni web realizzate con Flask
 - Corso CS50
+- Analisi Dati: contenente files ed esercizi su Pandas, Numpy, e analisi dati con Python
 
 
 
